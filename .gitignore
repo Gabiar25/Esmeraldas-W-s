@@ -1,0 +1,13 @@
+# Fotos originales sin comprimir (varios cientos de MB) - el sitio usa las
+# copias optimizadas en backend/public/assets/images, no estas.
+Joyeria-Willi/
+
+# Dependencias de Node (se reinstalan con "npm install")
+backend/node_modules/
+
+# Secretos - nunca subir llaves reales a un repositorio
+backend/.env
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db

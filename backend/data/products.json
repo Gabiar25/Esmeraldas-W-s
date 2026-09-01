@@ -1,0 +1,253 @@
+[
+  {
+    "id": "collar-1",
+    "name": "Collar Nº1",
+    "category": "collares",
+    "price": 279900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Un acabado delicado que combina con looks de día y de noche.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-2",
+    "name": "Collar Nº2",
+    "category": "collares",
+    "price": 299900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Diseño de líneas suaves y brillo cálido.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-3",
+    "name": "Collar Nº3",
+    "category": "collares",
+    "price": 349900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Un diseño statement para destacar en cualquier ocasión.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-4",
+    "name": "Collar Nº4",
+    "category": "collares",
+    "price": 279900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Ligero, versátil y de uso diario.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-5",
+    "name": "Collar Nº5",
+    "category": "collares",
+    "price": 349900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Detalle escultórico inspirado en formas orgánicas.",
+    "images": [
+      "1",
+      "2",
+      "3"
+    ]
+  },
+  {
+    "id": "collar-6",
+    "name": "Collar Nº6",
+    "category": "collares",
+    "price": 349900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Acabado brillante con caída elegante.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-7",
+    "name": "Collar Nº7",
+    "category": "collares",
+    "price": 249900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Minimalista y fácil de combinar.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-8",
+    "name": "Collar Nº8",
+    "category": "collares",
+    "price": 349900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Un diseño con carácter para looks especiales.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-9",
+    "name": "Collar Nº9",
+    "category": "collares",
+    "price": 299900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Equilibrio entre lo clásico y lo contemporáneo.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-10",
+    "name": "Collar Nº10",
+    "category": "collares",
+    "price": 249900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Sutil, perfecto para el día a día.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "collar-11",
+    "name": "Collar Nº11",
+    "category": "collares",
+    "price": 299900,
+    "stock": 1,
+    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Textura y brillo en un diseño atemporal.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "aretes-talla-5",
+    "name": "Aretes Talla 5",
+    "category": "aretes",
+    "price": 599900,
+    "stock": 1,
+    "description": "Aretes artesanales en baño de oro, pieza única hecha a mano. Un diseño elaborado de alto impacto.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ]
+  },
+  {
+    "id": "set-1",
+    "name": "Set Nº1",
+    "category": "sets",
+    "price": 499900,
+    "stock": 1,
+    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Ideal para regalar o para lucir el conjunto completo.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ]
+  },
+  {
+    "id": "set-2",
+    "name": "Set Nº2",
+    "category": "sets",
+    "price": 599900,
+    "stock": 1,
+    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Diseño armonioso pensado en conjunto.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ]
+  },
+  {
+    "id": "set-3",
+    "name": "Set Nº3",
+    "category": "sets",
+    "price": 699900,
+    "stock": 1,
+    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Un conjunto elegante y detallado.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ]
+  },
+  {
+    "id": "set-4",
+    "name": "Set Nº4",
+    "category": "sets",
+    "price": 899900,
+    "stock": 1,
+    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Nuestra pieza más elaborada, para ocasiones especiales.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ]
+  },
+  {
+    "id": "set-5",
+    "name": "Set Nº5",
+    "category": "sets",
+    "price": 299900,
+    "stock": 1,
+    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Sencillo, liviano y muy versátil.",
+    "images": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ]
+  }
+]

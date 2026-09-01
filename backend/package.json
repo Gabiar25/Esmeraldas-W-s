@@ -1,0 +1,18 @@
+{
+  "name": "esmeraldas-ws-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend de la tienda en línea Esmeraldas W&S (catálogo, carrito, pedidos y pagos con Wompi)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0"
+  }
+}

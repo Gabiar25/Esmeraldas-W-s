@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizar compra — Esmeraldas W&S</title>
+<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+<script src="https://checkout.wompi.co/widget.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__bar">
+    <div></div>
+    <a href="/index.html" class="brand">Esmeraldas W&S</a>
+    <div class="header-actions">
+      <button class="icon-btn" data-open-cart aria-label="Abrir carrito">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="cart-count" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="page-header" style="padding-block:2rem 0;">
+    <p class="eyebrow">Paso final</p>
+    <h1>Finalizar compra</h1>
+  </div>
+
+  <div class="checkout-grid">
+    <div>
+      <form id="checkoutForm" novalidate>
+        <div class="form-section">
+          <h2>Datos de contacto</h2>
+          <div class="field">
+            <label for="name">Nombre completo</label>
+            <input type="text" id="name" name="name" autocomplete="name" required>
+            <div class="field-error" data-error-for="name"></div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+              <div class="field-error" data-error-for="email"></div>
+            </div>
+            <div class="field">
+              <label for="phone">Teléfono (WhatsApp)</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="3001234567" required>
+              <div class="field-error" data-error-for="phone"></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="docType">Tipo de documento</label>
+              <select id="docType" name="docType" required>
+                <option value="CC">Cédula de ciudadanía</option>
+                <option value="CE">Cédula de extranjería</option>
+                <option value="TI">Tarjeta de identidad</option>
+                <option value="PP">Pasaporte</option>
+                <option value="NIT">NIT</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="docNumber">Número de documento</label>
+              <input type="text" id="docNumber" name="docNumber" required>
+              <div class="field-error" data-error-for="docNumber"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Dirección de envío</h2>
+          <div class="field">
+            <label for="address">Dirección</label>
+            <input type="text" id="address" name="address" autocomplete="street-address" required>
+            <div class="field-error" data-error-for="address"></div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="city">Ciudad</label>
+              <input type="text" id="city" name="city" autocomplete="address-level2" required>
+              <div class="field-error" data-error-for="city"></div>
+            </div>
+            <div class="field">
+              <label for="department">Departamento</label>
+              <input type="text" id="department" name="department" autocomplete="address-level1" required>
+              <div class="field-error" data-error-for="department"></div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-block" id="payBtn">Pagar con tarjeta</button>
+        <p class="payment-note">🔒 El pago se procesa de forma segura a través de Wompi. No almacenamos los datos de tu tarjeta.</p>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+
+    <aside class="order-summary">
+      <h2>Resumen del pedido</h2>
+      <div id="summaryItems"></div>
+      <div class="summary-line"><span>Subtotal</span><span id="summarySubtotal">$0</span></div>
+      <div class="summary-line"><span>Envío</span><span id="summaryShipping">$0</span></div>
+      <div class="summary-total"><span>Total</span><span id="summaryTotal">$0</span></div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">Esmeraldas W&S</div>
+      <p>Joyería artesanal en baño de oro, piezas únicas hechas a mano en Colombia.</p>
+    </div>
+    <div>
+      <h3>Contacto</h3>
+      <a href="https://wa.me/573006911778" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:contacto@joyeriaws.com">contacto@joyeriaws.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Esmeraldas W&S. Todos los derechos reservados.</div>
+</footer>
+
+<div class="cart-overlay" data-close-cart></div>
+<aside class="cart-drawer" aria-label="Carrito de compras">
+  <div class="cart-drawer__header">
+    <h2>Tu carrito</h2>
+    <button class="icon-btn" data-close-cart aria-label="Cerrar carrito">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div id="cartItems" class="cart-drawer__items"></div>
+  <div id="cartFooter" class="cart-drawer__footer" hidden>
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0</span></div>
+    <a href="/checkout.html" class="btn btn-block">Finalizar compra</a>
+  </div>
+</aside>
+
+<script src="/js/utils.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/checkout.js"></script>
+</body>
+</html>

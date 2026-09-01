@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedido — Esmeraldas W&S</title>
+<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__bar">
+    <div></div>
+    <a href="/index.html" class="brand">Esmeraldas W&S</a>
+    <div class="header-actions">
+      <button class="icon-btn" data-open-cart aria-label="Abrir carrito">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="cart-count" hidden>0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div id="confirmRoot" class="confirm-box">
+    <p class="loading-state">Confirmando tu pedido…</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">Esmeraldas W&S</div>
+      <p>Joyería artesanal en baño de oro, piezas únicas hechas a mano en Colombia.</p>
+    </div>
+    <div>
+      <h3>Contacto</h3>
+      <a href="https://wa.me/573006911778" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:contacto@joyeriaws.com">contacto@joyeriaws.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Esmeraldas W&S. Todos los derechos reservados.</div>
+</footer>
+
+<div class="cart-overlay" data-close-cart></div>
+<aside class="cart-drawer" aria-label="Carrito de compras">
+  <div class="cart-drawer__header">
+    <h2>Tu carrito</h2>
+    <button class="icon-btn" data-close-cart aria-label="Cerrar carrito">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div id="cartItems" class="cart-drawer__items"></div>
+  <div id="cartFooter" class="cart-drawer__footer" hidden>
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">$0</span></div>
+    <a href="/checkout.html" class="btn btn-block">Finalizar compra</a>
+  </div>
+</aside>
+
+<script src="/js/utils.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/confirmacion.js"></script>
+</body>
+</html>
