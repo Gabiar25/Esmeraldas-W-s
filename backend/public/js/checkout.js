@@ -104,7 +104,7 @@ async function initCheckout() {
         qs("#formMsg").textContent = data.error || "No se pudo crear el pedido";
         qs("#formMsg").className = "form-msg error";
         payBtn.disabled = false;
-        payBtn.textContent = "Pagar con tarjeta";
+        payBtn.textContent = "Pagar ahora";
         return;
       }
 
@@ -112,7 +112,7 @@ async function initCheckout() {
         qs("#formMsg").innerHTML = `Tu pedido <strong>${data.order.id}</strong> quedó registrado. Los pagos en línea aún no están activados: escríbenos por <a href="https://wa.me/573006911778?text=${encodeURIComponent("Hola, quiero completar mi pedido " + data.order.id)}" target="_blank" rel="noopener">WhatsApp</a> para coordinar el pago.`;
         qs("#formMsg").className = "form-msg";
         payBtn.disabled = false;
-        payBtn.textContent = "Pagar con tarjeta";
+        payBtn.textContent = "Pagar ahora";
         return;
       }
 
@@ -135,13 +135,13 @@ async function initCheckout() {
       });
 
       payBtn.disabled = false;
-      payBtn.textContent = "Pagar con tarjeta";
+      payBtn.textContent = "Pagar ahora";
     } catch (err) {
       console.error(err);
       qs("#formMsg").textContent = "Ocurrió un error de conexión. Intenta de nuevo.";
       qs("#formMsg").className = "form-msg error";
       payBtn.disabled = false;
-      payBtn.textContent = "Pagar con tarjeta";
+      payBtn.textContent = "Pagar ahora";
     }
   });
 }

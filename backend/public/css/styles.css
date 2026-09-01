@@ -1039,6 +1039,137 @@ h1, h2, h3, h4 {
   gap: 0.4rem;
 }
 
+/* ---------- Seccion "Pago" del checkout ---------- */
+.payment-security-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--color-ink-soft);
+  margin-bottom: 1rem;
+}
+
+.payment-security-note svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--color-success);
+}
+
+.payment-method-card {
+  border: 1.5px solid var(--color-ink);
+  background: var(--color-surface);
+}
+
+.payment-method-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  flex-wrap: wrap;
+}
+
+.payment-method-card__radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 5px solid var(--color-ink);
+  flex-shrink: 0;
+}
+
+.payment-method-card__label {
+  font-size: 0.92rem;
+  flex: 1;
+}
+
+.payment-method-card__badges {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.card-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 22px;
+  border-radius: 3px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.card-badge--visa {
+  background: #1a1f71;
+  font-style: italic;
+}
+
+.card-badge--amex {
+  background: #2e77bc;
+}
+
+.card-badge--mc {
+  background: #eee;
+  position: relative;
+  gap: 0;
+}
+
+.card-badge--mc em {
+  display: block;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  font-style: normal;
+}
+
+.card-badge--mc em:first-child {
+  background: #eb001b;
+  margin-right: -5px;
+}
+
+.card-badge--mc em:last-child {
+  background: #f79e1b;
+  mix-blend-mode: multiply;
+}
+
+.payment-method-card__body {
+  border-top: 1px solid var(--color-line);
+  padding: 0.9rem 1rem;
+  background: var(--color-bg);
+}
+
+.payment-method-card__body p {
+  font-size: 0.82rem;
+  color: var(--color-ink-soft);
+  margin: 0;
+}
+
+.payment-alt-methods {
+  margin-top: 1rem;
+}
+
+.payment-alt-methods__label {
+  font-size: 0.78rem;
+  color: var(--color-ink-soft);
+  margin-bottom: 0.5rem;
+}
+
+.payment-alt-methods__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.75rem;
+  color: var(--color-ink-soft);
+  background: var(--color-surface);
+}
+
 /* ---------- Confirmacion ---------- */
 .confirm-box {
   max-width: 560px;
