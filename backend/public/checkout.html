@@ -247,8 +247,14 @@
       <h2>Resumen del pedido</h2>
       <div id="summaryItems"></div>
       <div class="summary-line"><span>Subtotal</span><span id="summarySubtotal">$0</span></div>
-      <div class="summary-line"><span>Envío</span><span id="summaryShipping">$0</span></div>
-      <div class="summary-total"><span>Total</span><span id="summaryTotal">$0</span></div>
+      <div class="summary-line">
+        <span class="summary-line__label">Envío <span class="tooltip-icon" title="Se calcula según tu departamento de entrega">?</span></span>
+        <span id="summaryShipping">$0</span>
+      </div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span class="summary-total__amount"><small>COP</small><span id="summaryTotal">$0</span></span>
+      </div>
     </aside>
   </div>
 </main>

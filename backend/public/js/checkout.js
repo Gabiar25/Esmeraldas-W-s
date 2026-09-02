@@ -120,13 +120,13 @@ async function renderSummary() {
   itemsEl.innerHTML = detailed
     .map(
       ({ product, qty }) => `
-    <div class="cart-line" style="grid-template-columns:56px 1fr auto;">
-      <img src="${productImage(product, 1)}" alt="${product.name}">
-      <div>
-        <div class="cart-line__name">${product.name}</div>
-        <div class="cart-line__price">Cantidad: ${qty}</div>
-      </div>
-      <span class="cart-line__price">${formatPrice(product.price * qty)}</span>
+    <div class="summary-item">
+      <span class="summary-item__thumb">
+        <img src="${productImage(product, 1)}" alt="${product.name}">
+        <span class="summary-item__qty">${qty}</span>
+      </span>
+      <span class="summary-item__name">${product.name}</span>
+      <span class="summary-item__price">${formatPrice(product.price * qty)}</span>
     </div>`
     )
     .join("");
