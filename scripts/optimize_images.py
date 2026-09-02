@@ -12,7 +12,7 @@ DEST_ROOT = os.path.join(ROOT, "backend", "public", "assets", "images")
 
 # slug -> lista de archivos fuente en el orden deseado (portada primero)
 PRODUCTS = {
-    "collar-1": ("Collar #1", ["DSC00832.JPEG", "DSC00836.JPEG", "DSC00837.JPEG", "DSC00840.JPEG"]),
+    "collar-1": ("Collar #1", ["imginicio.png", "DSC00832.JPEG", "DSC00836.JPEG", "DSC00837.JPEG", "DSC00840.JPEG"]),
     "collar-2": ("Collar #2", ["DSC00860.JPEG", "DSC00863.JPEG", "DSC00864.JPEG", "DSC00866.JPEG"]),
     "collar-3": ("Collar #3", ["DSC00898.JPEG", "DSC00899.JPEG", "DSC00901.JPEG", "DSC00905.JPEG"]),
     "collar-4": ("Collar #4", ["DSC00869.JPEG", "DSC00872.JPEG", "DSC00874.JPEG", "DSC00876.JPEG"]),
