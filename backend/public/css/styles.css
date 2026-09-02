@@ -191,17 +191,23 @@ h1, h2, h3, h4 {
 }
 
 .site-header__bar {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  position: relative;
+  display: flex;
   align-items: center;
   gap: 1rem;
   padding-block: 1rem;
+  min-height: 48px;
 }
 
+/* Centrado real (independiente de lo que haya a los lados) en vez de
+   depender de que las dos columnas laterales pesen lo mismo — con el
+   ícono de acceso nuevo al lado del carrito, un lado siempre pesaba
+   más que el otro y el logo quedaba descuadrado. */
 .brand {
-  display: flex;
-  justify-content: center;
-  grid-column: 2;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .brand-logo {
@@ -214,8 +220,7 @@ h1, h2, h3, h4 {
   display: flex;
   align-items: center;
   gap: 1rem;
-  justify-self: end;
-  grid-column: 3;
+  margin-left: auto;
 }
 
 .icon-btn {
@@ -251,8 +256,6 @@ h1, h2, h3, h4 {
 }
 
 .nav-toggle {
-  grid-column: 1;
-  justify-self: start;
   background: none;
   border: none;
   display: none;
@@ -334,9 +337,6 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 780px) {
-  .site-header__bar {
-    grid-template-columns: auto 1fr auto;
-  }
   .brand-logo {
     height: 36px;
   }
@@ -1251,7 +1251,7 @@ h1, h2, h3, h4 {
    sube y se encoge con una transicion suave. */
 .field {
   position: relative;
-  margin-bottom: 1.1rem;
+  margin-bottom: 0.7rem;
 }
 
 .field input,
@@ -1345,7 +1345,12 @@ h1, h2, h3, h4 {
   color: var(--color-danger);
   font-size: 0.75rem;
   margin-top: 0.3rem;
-  min-height: 1em;
+}
+
+/* Sin esto, cada campo reservaba el alto de una línea para el mensaje
+   de error aunque estuviera vacío, separando los campos de más. */
+.field-error:empty {
+  display: none;
 }
 
 .field-checkbox {
