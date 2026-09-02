@@ -345,16 +345,19 @@ async function initCheckout() {
       // WhatsApp) el widget de Wompi se posiciona relativo a la parte
       // superior del documento, no del área visible. Si el usuario venía
       // desplazado hacia abajo, el widget "aparece arriba" fuera de vista.
-      // Subimos la página antes de abrirlo para evitar eso.
-      window.scrollTo(0, 0);
-      setTimeout(() => {
+      // Subimos la página antes de abrirlo, sin animación (el sitio tiene
+      // scroll suave activado, y una animación aquí choca con el widget
+      // abriéndose a mitad de camino y se siente "trabado").
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      requestAnimationFrame(() => {
         checkout.open((result) => {
           const transaction = result?.transaction;
           clearCart();
           const idParam = transaction?.id ? `&id=${encodeURIComponent(transaction.id)}` : "";
           window.location.href = `/pedido-confirmado.html?order=${data.order.id}${idParam}`;
         });
-      }, 60);
+      });
 
       payBtn.disabled = false;
       payBtn.textContent = currentPayBtnLabel();
