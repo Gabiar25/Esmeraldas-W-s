@@ -1794,6 +1794,68 @@ h1, h2, h3, h4 {
   color: #948a78;
 }
 
+/* ---------- Metodos de pago + mapa en el footer ---------- */
+.footer-extra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-block: 2rem;
+}
+
+.footer-extra__label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 0.85rem;
+}
+
+.footer-payments .payment-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-extra__secure {
+  font-size: 0.78rem;
+  color: #948a78;
+  margin: 0.85rem 0 0;
+}
+
+.footer-map {
+  width: 100%;
+  max-width: 320px;
+}
+
+.footer-map iframe {
+  display: block;
+  width: 100%;
+  height: 170px;
+  border: 0;
+  border-radius: 8px;
+}
+
+.footer-extra__address {
+  font-size: 0.78rem;
+  color: #948a78;
+  margin: 0.6rem 0 0;
+}
+
+@media (max-width: 780px) {
+  .footer-extra {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .footer-map {
+    max-width: none;
+  }
+}
+
 .whatsapp-float {
   position: fixed;
   right: 1.25rem;
