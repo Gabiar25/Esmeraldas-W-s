@@ -5,13 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Catálogo — Esmeraldas W&S</title>
 <meta name="description" content="Descubre nuestra colección de collares, aretes y sets artesanales en baño de oro.">
-<link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
+<link rel="icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+
+<div class="page-loader" id="pageLoader" aria-hidden="true">
+  <img src="/assets/logo/loader-icon.png" alt="" width="130">
+</div>
+<script>
+(function () {
+  var shownAt = Date.now();
+  var MIN_MS = 500;
+  var MAX_MS = 4000;
+  function hideLoader() {
+    var el = document.getElementById("pageLoader");
+    if (!el || el.dataset.hidden) return;
+    el.dataset.hidden = "1";
+    el.classList.add("is-hidden");
+    setTimeout(function () { el.remove(); }, 500);
+  }
+  function scheduleHide() {
+    setTimeout(hideLoader, Math.max(0, MIN_MS - (Date.now() - shownAt)));
+  }
+  if (document.readyState === "complete") scheduleHide();
+  else window.addEventListener("load", scheduleHide);
+  setTimeout(hideLoader, MAX_MS);
+})();
+</script>
 
 <div class="announcement">Envíos a toda Colombia · Piezas artesanales hechas a mano</div>
 
