@@ -779,6 +779,14 @@ h1, h2, h3, h4 {
 .gallery {
   display: flex;
   gap: 0.75rem;
+  /* Sin esto, el grid de .product-detail estira .gallery a la altura de
+     .product-info; como .gallery__main tiene aspect-ratio:1/1, esa altura
+     "prestada" termina agrandando también su ancho — y como el ancho de
+     product-info depende de cuánto ancho le quede al lado, entra en un
+     ciclo: al cambiar de pestaña (más texto en Cuidados que en Descripción)
+     la imagen se veía más grande. align-self:start hace que la galería
+     tome su propio alto, sin depender del texto de al lado. */
+  align-self: start;
 }
 
 .gallery__thumbs {
