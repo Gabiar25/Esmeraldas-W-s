@@ -17,11 +17,22 @@
 </div>
 <script>
 (function () {
+  var el = document.getElementById("pageLoader");
+  var alreadyShown = true;
+  try {
+    alreadyShown = sessionStorage.getItem("loaderShown") === "1";
+    sessionStorage.setItem("loaderShown", "1");
+  } catch (e) {
+    alreadyShown = false;
+  }
+  if (alreadyShown) {
+    if (el) el.remove();
+    return;
+  }
   var shownAt = Date.now();
   var MIN_MS = 500;
   var MAX_MS = 4000;
   function hideLoader() {
-    var el = document.getElementById("pageLoader");
     if (!el || el.dataset.hidden) return;
     el.dataset.hidden = "1";
     el.classList.add("is-hidden");
