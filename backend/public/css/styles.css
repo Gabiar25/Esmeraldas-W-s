@@ -1206,22 +1206,24 @@ h1, h2, h3, h4 {
   color: var(--color-accent);
 }
 
-/* Los <select> no soportan :placeholder-shown, asi que su label queda
-   siempre arriba, chico, como en un campo ya "lleno". */
+/* Los <select> no soportan :placeholder-shown, asi que en vez de flotar
+   el label queda fijo chico dentro del recuadro (igual que un campo de
+   texto ya "lleno"), nunca por fuera del borde. */
 .field--select label {
-  position: static;
-  display: block;
+  position: absolute;
+  left: 0.95rem;
+  top: 0.4rem;
   font-size: 0.7rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-ink-soft);
-  margin-bottom: 0.4rem;
-  transform: none;
+  pointer-events: none;
 }
 
 .field--select input,
 .field--select select {
-  padding-top: 0.7rem;
+  padding-top: 1.35rem;
+  padding-bottom: 0.35rem;
 }
 
 .field--phone input {
