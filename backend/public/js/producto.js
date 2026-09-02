@@ -69,7 +69,11 @@ async function initProducto() {
       </p>
       ${
         soldOut
-          ? `<button class="btn btn-block" disabled>Agotado</button>`
+          ? `<button class="btn btn-block" disabled>Agotado</button>
+        <div class="soldout-cta">
+          <p>Esta pieza ya se vendió — al ser hecha a mano, no volvemos a fabricar una idéntica. Pero si te gustó este diseño, podemos elaborarte una similar bajo pedido y cotizarte el precio.</p>
+          <a class="btn btn-outline btn-block" href="https://wa.me/573006911778?text=${encodeURIComponent(`Hola, me gustaría cotizar una pieza similar a "${product.name}" que vi en la página`)}" target="_blank" rel="noopener">Cotizar pieza similar por WhatsApp</a>
+        </div>`
           : `
         <div class="qty-row">
           <div class="qty-control">
@@ -85,7 +89,7 @@ async function initProducto() {
         <li>Plata ley 925 — esmeralda 100% natural, traída de las minas de Muzo</li>
         <li>Incluye certificado de joyería</li>
         <li>Envío asegurado a toda Colombia</li>
-        <li>Pieza única: no se vuelve a fabricar una vez vendida</li>
+        <li>Pieza única: al agotarse, podemos elaborar una similar bajo pedido (cotización aparte)</li>
       </ul>
     </div>
   </div>`;
