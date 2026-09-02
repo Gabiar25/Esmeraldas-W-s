@@ -82,7 +82,8 @@ async function initProducto() {
       `
       }
       <ul class="product-info__meta">
-        <li>Hecho a mano — baño de oro</li>
+        <li>Plata ley 925 — esmeralda 100% natural, traída de las minas de Muzo</li>
+        <li>Incluye certificado de joyería</li>
         <li>Envío asegurado a toda Colombia</li>
         <li>Pieza única: no se vuelve a fabricar una vez vendida</li>
       </ul>

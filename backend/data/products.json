@@ -1,11 +1,11 @@
 [
   {
     "id": "collar-1",
-    "name": "Collar Nº1",
+    "name": "Collar Gato I",
     "category": "collares",
     "price": 279900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Un acabado delicado que combina con looks de día y de noche.",
+    "description": "Collar en plata ley 925 con dije de gato y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -16,11 +16,11 @@
   },
   {
     "id": "collar-2",
-    "name": "Collar Nº2",
+    "name": "Collar Tortuga",
     "category": "collares",
     "price": 299900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Diseño de líneas suaves y brillo cálido.",
+    "description": "Collar en plata ley 925 con dije de tortuga y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -30,11 +30,11 @@
   },
   {
     "id": "collar-3",
-    "name": "Collar Nº3",
+    "name": "Collar Esfera",
     "category": "collares",
     "price": 349900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Un diseño statement para destacar en cualquier ocasión.",
+    "description": "Collar en plata ley 925 con dije de esfera y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -44,11 +44,11 @@
   },
   {
     "id": "collar-4",
-    "name": "Collar Nº4",
+    "name": "Collar Gato II",
     "category": "collares",
     "price": 279900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Ligero, versátil y de uso diario.",
+    "description": "Collar en plata ley 925 con dije de gato y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -58,11 +58,11 @@
   },
   {
     "id": "collar-5",
-    "name": "Collar Nº5",
+    "name": "Collar Corazón",
     "category": "collares",
     "price": 349900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Detalle escultórico inspirado en formas orgánicas.",
+    "description": "Collar en plata ley 925 con dije de corazón y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -71,11 +71,11 @@
   },
   {
     "id": "collar-6",
-    "name": "Collar Nº6",
+    "name": "Collar Flor I",
     "category": "collares",
     "price": 349900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Acabado brillante con caída elegante.",
+    "description": "Collar en plata ley 925 con dije de flor y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -85,11 +85,11 @@
   },
   {
     "id": "collar-7",
-    "name": "Collar Nº7",
+    "name": "Collar Corona",
     "category": "collares",
     "price": 249900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Minimalista y fácil de combinar.",
+    "description": "Collar en plata ley 925 con dije de corona y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -99,11 +99,11 @@
   },
   {
     "id": "collar-8",
-    "name": "Collar Nº8",
+    "name": "Collar Gato III",
     "category": "collares",
     "price": 349900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Un diseño con carácter para looks especiales.",
+    "description": "Collar en plata ley 925 con dije de gato y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -113,11 +113,11 @@
   },
   {
     "id": "collar-9",
-    "name": "Collar Nº9",
+    "name": "Collar Trébol",
     "category": "collares",
     "price": 299900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Equilibrio entre lo clásico y lo contemporáneo.",
+    "description": "Collar en plata ley 925 con dije de trébol y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -127,11 +127,11 @@
   },
   {
     "id": "collar-10",
-    "name": "Collar Nº10",
+    "name": "Collar Cerezas",
     "category": "collares",
     "price": 249900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Sutil, perfecto para el día a día.",
+    "description": "Collar en plata ley 925 con dije de cerezas (hojas en circones) y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -141,11 +141,11 @@
   },
   {
     "id": "collar-11",
-    "name": "Collar Nº11",
+    "name": "Collar Flor II",
     "category": "collares",
     "price": 299900,
     "stock": 1,
-    "description": "Collar artesanal en baño de oro, pieza única hecha a mano. Textura y brillo en un diseño atemporal.",
+    "description": "Collar en plata ley 925 con dije de flor y esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -159,7 +159,7 @@
     "category": "aretes",
     "price": 599900,
     "stock": 1,
-    "description": "Aretes artesanales en baño de oro, pieza única hecha a mano. Un diseño elaborado de alto impacto.",
+    "description": "Aretes en plata ley 925 con esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -169,11 +169,11 @@
   },
   {
     "id": "set-1",
-    "name": "Set Nº1",
+    "name": "Set Soles I",
     "category": "sets",
     "price": 499900,
     "stock": 1,
-    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Ideal para regalar o para lucir el conjunto completo.",
+    "description": "Set de collar y aretes en plata ley 925, diseño de soles con esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -186,11 +186,11 @@
   },
   {
     "id": "set-2",
-    "name": "Set Nº2",
+    "name": "Set Soles II",
     "category": "sets",
     "price": 599900,
     "stock": 1,
-    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Diseño armonioso pensado en conjunto.",
+    "description": "Set de collar y aretes en plata ley 925, diseño de soles con esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -203,11 +203,11 @@
   },
   {
     "id": "set-3",
-    "name": "Set Nº3",
+    "name": "Set Flor I",
     "category": "sets",
     "price": 699900,
     "stock": 1,
-    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Un conjunto elegante y detallado.",
+    "description": "Set de collar y aretes en plata ley 925, diseño de flor con esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
@@ -220,11 +220,11 @@
   },
   {
     "id": "set-4",
-    "name": "Set Nº4",
+    "name": "Set Lágrima",
     "category": "sets",
     "price": 899900,
     "stock": 1,
-    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Nuestra pieza más elaborada, para ocasiones especiales.",
+    "description": "Set de collar y aretes en plata ley 925, diseño de lágrima con esmeralda natural traída de las minas de Muzo. Nuestra pieza más elaborada, para ocasiones especiales.",
     "images": [
       "1",
       "2",
@@ -237,11 +237,11 @@
   },
   {
     "id": "set-5",
-    "name": "Set Nº5",
+    "name": "Set Flor II",
     "category": "sets",
     "price": 299900,
     "stock": 1,
-    "description": "Set artesanal en baño de oro compuesto por varias piezas a juego, hecho a mano. Sencillo, liviano y muy versátil.",
+    "description": "Set de collar y aretes en plata ley 925, diseño de flor con esmeralda natural traída de las minas de Muzo. Pieza única hecha a mano.",
     "images": [
       "1",
       "2",
