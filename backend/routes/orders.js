@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
 
     const orderItems = [];
     for (const line of items) {
-      const product = store.getProduct(line.productId);
+      const product = await store.getProduct(line.productId);
       if (!product) return res.status(400).json({ error: `Producto invalido: ${line.productId}` });
       const qty = Number(line.qty) || 0;
       if (qty < 1) return res.status(400).json({ error: `Cantidad invalida para ${product.name}` });
@@ -135,10 +135,15 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:id", (req, res) => {
-  const order = store.getOrder(req.params.id);
-  if (!order) return res.status(404).json({ error: "Pedido no encontrado" });
-  res.json(publicOrder(order));
+router.get("/:id", async (req, res) => {
+  try {
+    const order = await store.getOrder(req.params.id);
+    if (!order) return res.status(404).json({ error: "Pedido no encontrado" });
+    res.json(publicOrder(order));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "No se pudo consultar el pedido" });
+  }
 });
 
 // La pagina de confirmacion llega aqui con el id de transaccion que Wompi
@@ -146,7 +151,7 @@ router.get("/:id", (req, res) => {
 // (no confiamos solo en el parametro de la URL) y actualizamos el pedido.
 router.post("/:id/confirm", async (req, res) => {
   try {
-    const order = store.getOrder(req.params.id);
+    const order = await store.getOrder(req.params.id);
     if (!order) return res.status(404).json({ error: "Pedido no encontrado" });
 
     const { transactionId } = req.body || {};

@@ -4,6 +4,8 @@ const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const wompi = require("./services/wompi");
+const db = require("./services/db");
+const store = require("./services/store");
 
 const productsRouter = require("./routes/products");
 const ordersRouter = require("./routes/orders");
@@ -49,11 +51,22 @@ app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Esmeraldas W&S escuchando en http://localhost:${PORT}`);
-  if (!wompi.isConfigured()) {
+(async () => {
+  if (!db.isConfigured()) {
     console.log(
-      "Aviso: Wompi no esta configurado (.env con llaves de prueba). El sitio funciona, pero el pago con tarjeta se desactiva hasta que completes backend/.env"
+      "Aviso: DATABASE_URL no esta configurada. Los pedidos y el stock no se guardaran de forma permanente."
     );
+  } else {
+    await db.init();
+    await store.seedStockFromCatalog();
   }
-});
+
+  app.listen(PORT, () => {
+    console.log(`Esmeraldas W&S escuchando en http://localhost:${PORT}`);
+    if (!wompi.isConfigured()) {
+      console.log(
+        "Aviso: Wompi no esta configurado (.env con llaves de prueba). El sitio funciona, pero el pago con tarjeta se desactiva hasta que completes backend/.env"
+      );
+    }
+  });
+})();

@@ -19,7 +19,7 @@ router.post("/wompi", async (req, res) => {
     const transaction = payload?.data?.transaction;
     if (!transaction) return res.status(400).json({ error: "Payload sin transaccion" });
 
-    const order = store.getOrderByReference(transaction.reference);
+    const order = await store.getOrderByReference(transaction.reference);
     if (!order) {
       console.warn(`Webhook de Wompi: no existe pedido con referencia ${transaction.reference}`);
       return res.status(200).json({ received: true });

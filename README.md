@@ -15,10 +15,9 @@ PAGINA WEB JOYERIA/
     ├── .env                 Tus llaves reales (NO subir a internet/git)
     ├── .env.example          Plantilla de variables de entorno
     ├── data/
-    │   ├── products.json    Catálogo: nombre, precio, stock, fotos de cada pieza
-    │   └── orders.json      Pedidos guardados (se crea solo)
+    │   └── products.json    Catálogo: nombre, precio, descripción, fotos de cada pieza
     ├── routes/               Endpoints de la API (productos, pedidos, webhook de Wompi)
-    ├── services/             Lógica de Wompi y de guardado de datos
+    ├── services/             Lógica de Wompi y de guardado de datos (db.js, store.js)
     └── public/               Todo lo que ve el cliente
         ├── index.html, catalogo.html, producto.html, checkout.html, pedido-confirmado.html
         ├── css/styles.css
@@ -35,6 +34,22 @@ npm start
 ```
 
 Abre **http://localhost:3000** en el navegador.
+
+## Base de datos (pedidos y stock)
+
+Los pedidos y el stock de cada pieza se guardan en una base de datos **PostgreSQL**, no en un archivo — así no se pierden cada vez que se despliega una actualización del código (el disco del servidor no es permanente).
+
+1. Crea una base gratis en Render: **New +** → **PostgreSQL** → plan **Free**.
+2. Copia la **"Internal Database URL"** que te da Render.
+3. Pégala en `backend/.env` (o en las variables de entorno de Render, para el sitio en vivo):
+   ```
+   DATABASE_URL=postgres://...
+   ```
+4. Al arrancar, el servidor crea las tablas solo (`product_stock`, `orders`) y carga el stock inicial desde `products.json` — no hace falta ningún paso manual más.
+
+Nota: las bases de datos gratis de Render se eliminan a los 90 días si no se pasan a un plan pago (unos pocos dólares al mes). Vale la pena revisarlo antes de esa fecha si la tienda ya está recibiendo pedidos reales.
+
+Sin `DATABASE_URL` configurada, el catálogo se puede seguir viendo (usa el stock que esté escrito en `products.json`), pero **crear o consultar pedidos no funciona** — es obligatoria para el checkout.
 
 ## Activar el pago con tarjeta (Wompi)
 
@@ -54,13 +69,14 @@ El sitio funciona completo sin esto (catálogo, carrito, formulario), pero el bo
    (mientras el sitio esté solo en tu computador, esa URL no es alcanzable desde internet; se configura cuando publiques el sitio en un servidor real, por ejemplo con un dominio propio).
 5. Reinicia el servidor (`npm start`). Cuando Wompi verifique tu negocio, repites el paso 3 con las llaves que empiezan en `pub_prod_` / `prv_prod_` y cambias `WOMPI_API_BASE` a `https://production.wompi.co/v1`.
 
-Mientras Wompi no esté configurado, el cliente puede llenar el formulario y su pedido queda guardado (`backend/data/orders.json`); el sitio le muestra un mensaje para completar el pago por WhatsApp.
+Mientras Wompi no esté configurado, el cliente puede llenar el formulario y su pedido queda guardado en la base de datos igual; el sitio le muestra un mensaje para completar el pago por WhatsApp.
 
 ## Cosas que debes personalizar
 
 - **Número de WhatsApp**: busca `573006911778` en los archivos de `backend/public/*.html` y `checkout.js` y cámbialo por tu número real (con indicativo, sin `+` ni espacios).
 - **Correo de contacto**: `contacto@joyeriaws.com` en los footers.
-- **Precios y descripciones**: edita `backend/data/products.json` — es un archivo de texto simple, cada producto tiene `price`, `description`, `stock`, etc. Los precios que se usaron salieron de la foto "Precios de cada producto.jpeg" asumiendo que el orden de las carpetas (Collar #1, #2…) coincide con el orden de la lista de precios; revísalos y ajústalos si hace falta.
+- **Precios y descripciones**: edita `backend/data/products.json` — es un archivo de texto simple, cada producto tiene `price`, `description`, etc. Los precios que se usaron salieron de la foto "Precios de cada producto.jpeg" asumiendo que el orden de las carpetas (Collar #1, #2…) coincide con el orden de la lista de precios; revísalos y ajústalos si hace falta.
+- **Stock**: el campo `stock` de `products.json` solo se usa para "sembrar" el valor inicial la primera vez que arranca el servidor con la base de datos conectada. Después de eso, el stock real vive en la base de datos y baja solo cuando se aprueba un pago — cambiar el número en `products.json` ya no tiene efecto una vez sembrado (para "reponer" una pieza manualmente, hay que actualizarlo directamente en la base de datos).
 - **Costo de envío**: variable `SHIPPING_COST` en `.env` (en pesos, sin puntos).
 
 ## Ya probado (sin necesitar llaves reales)
