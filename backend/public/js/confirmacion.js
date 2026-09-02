@@ -60,6 +60,10 @@ async function initConfirmacion() {
       if (!res.ok) throw new Error(order.error || "Pedido no encontrado");
     }
     renderOrder(order);
+    // El carrito se vacía aquí (y no antes de mandar al cliente a pagar) para
+    // que si abandona el pago de Wompi y no vuelve, no pierda lo que tenía
+    // en el carrito.
+    clearCart();
   } catch (err) {
     root.innerHTML = `<p class="empty-state">${err.message}</p>`;
   }

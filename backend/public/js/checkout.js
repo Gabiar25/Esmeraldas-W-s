@@ -317,7 +317,6 @@ async function initCheckout() {
       }
 
       if (data.payment.method === "cod") {
-        clearCart();
         window.location.href = `/pedido-confirmado.html?order=${data.order.id}`;
         return;
       }
@@ -330,37 +329,11 @@ async function initCheckout() {
         return;
       }
 
-      const p = data.payment;
-      const checkout = new window.WidgetCheckout({
-        currency: p.currency,
-        amountInCents: p.amountInCents,
-        reference: p.reference,
-        publicKey: p.publicKey,
-        signature: { integrity: p.signature },
-        redirectUrl: p.redirectUrl,
-        customerData: p.customerData,
-      });
-
-      // En algunos navegadores móviles (ej. el navegador integrado de
-      // WhatsApp) el widget de Wompi se posiciona relativo a la parte
-      // superior del documento, no del área visible. Si el usuario venía
-      // desplazado hacia abajo, el widget "aparece arriba" fuera de vista.
-      // Subimos la página antes de abrirlo, sin animación (el sitio tiene
-      // scroll suave activado, y una animación aquí choca con el widget
-      // abriéndose a mitad de camino y se siente "trabado").
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      requestAnimationFrame(() => {
-        checkout.open((result) => {
-          const transaction = result?.transaction;
-          clearCart();
-          const idParam = transaction?.id ? `&id=${encodeURIComponent(transaction.id)}` : "";
-          window.location.href = `/pedido-confirmado.html?order=${data.order.id}${idParam}`;
-        });
-      });
-
-      payBtn.disabled = false;
-      payBtn.textContent = currentPayBtnLabel();
+      // Checkout Web de Wompi: pagina completa alojada por Wompi (no un
+      // widget emergente encima de la nuestra), asi que no hay forma de
+      // que quede scroll trabado ni de que se vea mal en un navegador
+      // movil raro. Wompi nos devuelve solo a "redirectUrl" cuando termina.
+      window.location.href = data.payment.checkoutUrl;
     } catch (err) {
       console.error(err);
       qs("#formMsg").textContent = "Ocurrió un error de conexión. Intenta de nuevo.";

@@ -121,10 +121,19 @@ router.post("/", async (req, res) => {
     }
 
     const amountInCents = total * 100;
-    const signature = wompi.buildIntegritySignature({
-      reference: order.reference,
+    const checkoutUrl = wompi.buildCheckoutUrl({
       amountInCents,
+      reference: order.reference,
       currency: order.currency,
+      redirectUrl: `${process.env.SITE_URL || ""}/pedido-confirmado.html?order=${order.id}`,
+      customerData: {
+        email: customer.email,
+        phoneNumber: customer.phone,
+        phoneNumberPrefix: "+57",
+        fullName: customer.name,
+        legalId: customer.docNumber,
+        legalIdType: customer.docType,
+      },
     });
 
     res.status(201).json({
@@ -132,20 +141,7 @@ router.post("/", async (req, res) => {
       payment: {
         available: true,
         method: "card",
-        publicKey: process.env.WOMPI_PUBLIC_KEY,
-        currency: order.currency,
-        amountInCents,
-        reference: order.reference,
-        signature,
-        redirectUrl: `${process.env.SITE_URL || ""}/pedido-confirmado.html?order=${order.id}`,
-        customerData: {
-          email: customer.email,
-          phoneNumber: customer.phone,
-          phoneNumberPrefix: "+57",
-          fullName: customer.name,
-          legalId: customer.docNumber,
-          legalIdType: customer.docType,
-        },
+        checkoutUrl,
       },
     });
   } catch (err) {
