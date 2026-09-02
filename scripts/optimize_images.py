@@ -13,11 +13,11 @@ DEST_ROOT = os.path.join(ROOT, "backend", "public", "assets", "images")
 # slug -> lista de archivos fuente en el orden deseado (portada primero)
 PRODUCTS = {
     "collar-1": ("Collar #1", ["imginicio.png", "DSC00832.JPEG", "DSC00836.JPEG", "DSC00837.JPEG", "DSC00840.JPEG"]),
-    "collar-2": ("Collar #2", ["DSC00860.JPEG", "DSC00863.JPEG", "DSC00864.JPEG", "DSC00866.JPEG"]),
-    "collar-3": ("Collar #3", ["DSC00898.JPEG", "DSC00899.JPEG", "DSC00901.JPEG", "DSC00905.JPEG"]),
-    "collar-4": ("Collar #4", ["DSC00869.JPEG", "DSC00872.JPEG", "DSC00874.JPEG", "DSC00876.JPEG"]),
-    "collar-5": ("Collar #5", ["DSC00787.JPEG", "DSC00797.JPEG", "DSC00813.JPEG"]),
-    "collar-6": ("Collar #6", ["DSC00909.JPEG", "DSC00911.JPEG", "DSC00914.JPEG", "DSC00919.JPEG"]),
+    "collar-2": ("Collar #2", ["imginicio.png", "DSC00860.JPEG", "DSC00863.JPEG", "DSC00864.JPEG", "DSC00866.JPEG"]),
+    "collar-3": ("Collar #3", ["imginicio.png", "DSC00899.JPEG", "DSC00901.JPEG", "DSC00905.JPEG"]),
+    "collar-4": ("Collar #4", ["imginicio.png", "DSC00869.JPEG", "DSC00874.JPEG", "DSC00876.JPEG"]),
+    "collar-5": ("Collar #5", ["imginicio.png", "DSC00787.JPEG", "DSC00797.JPEG", "DSC00813.JPEG"]),
+    "collar-6": ("Collar #6", ["imginicio.png", "DSC00911.JPEG", "DSC00914.JPEG", "DSC00919.JPEG"]),
     "collar-7": ("Collar #7", ["DSC00882.JPEG", "DSC00884.JPEG", "DSC00888.JPEG", "DSC00891.JPEG"]),
     "collar-8": ("Collar #8", ["DSC00848.JPEG", "DSC00854.JPEG", "DSC00858.JPEG", "DSC00859.JPEG"]),
     "collar-9": ("Collar #9", ["DSC00920.JPEG", "DSC00924.JPEG", "DSC00926.JPEG", "DSC00928.JPEG"]),
