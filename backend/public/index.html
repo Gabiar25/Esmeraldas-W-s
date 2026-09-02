@@ -210,7 +210,7 @@
 
   function renderProductCard(p) {
     const soldOut = p.stock < 1;
-    const catLabel = { collares: "Collar", aretes: "Aretes", sets: "Set" }[p.category] || "";
+    const catLabel = { collares: "Dije + Cadena", aretes: "Aretes", sets: "Set" }[p.category] || "";
     return `
     <article class="product-card">
       <div class="product-card__media">
