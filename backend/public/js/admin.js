@@ -138,6 +138,7 @@ function renderOrders() {
           <td>${o.customer.name}<br><a class="admin-wa" href="${waLink}" target="_blank" rel="noopener">${o.customer.phone}</a></td>
           <td class="admin-items">${itemsText}</td>
           <td>${o.paymentMethod === "cod" ? "Contra entrega" : "Tarjeta"}</td>
+          <td>${o.deliveryMethod === "pickup" ? "Retiro en oficina" : "Domicilio"}</td>
           <td><span class="admin-status ${wompiStatusClass(o.status)}">${WOMPI_STATUS_LABELS[o.status] || o.status}</span></td>
           <td>
             <select class="admin-fulfill-select ${fulfillClass(fulfillment)}" data-action="fulfillment">
@@ -163,6 +164,7 @@ function renderOrders() {
             <th>Cliente</th>
             <th>Piezas</th>
             <th>Método</th>
+            <th>Entrega</th>
             <th>Pago</th>
             <th>Gestión</th>
             <th>Nota</th>
@@ -226,6 +228,7 @@ function exportCsv() {
     "Departamento",
     "Piezas",
     "Método de pago",
+    "Entrega",
     "Estado de pago",
     "Gestión",
     "Nota",
@@ -248,6 +251,7 @@ function exportCsv() {
         o.customer.department,
         o.items.map((i) => `${i.name} x${i.qty}`).join(" / "),
         o.paymentMethod === "cod" ? "Contra entrega" : "Tarjeta",
+        o.deliveryMethod === "pickup" ? "Retiro en oficina" : "Domicilio",
         WOMPI_STATUS_LABELS[o.status] || o.status,
         FULFILL_LABELS[o.fulfillmentStatus || "PENDING"],
         o.notes || "",

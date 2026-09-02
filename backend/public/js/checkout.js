@@ -91,12 +91,25 @@ function currentShippingCost() {
   return dept && shippingByDepartment[dept] != null ? shippingByDepartment[dept] : null;
 }
 
+function getDeliveryMethod() {
+  const input = qs('input[name="deliveryMethod"]:checked');
+  return input && input.value === "pickup" ? "pickup" : "shipping";
+}
+
+// El retiro en oficina siempre es gratis, sin importar el departamento del
+// cliente (recoge la pieza en persona); el envío a domicilio depende del
+// departamento elegido.
+function effectiveShippingCost() {
+  return getDeliveryMethod() === "pickup" ? 0 : currentShippingCost();
+}
+
 function updateShippingUI() {
-  const cost = currentShippingCost();
+  const deptCost = currentShippingCost();
   const methodEl = qs("#shippingMethodCost");
   if (methodEl) {
-    methodEl.textContent = cost == null ? "Según tu departamento" : cost > 0 ? formatPrice(cost) : "Gratis";
+    methodEl.textContent = deptCost == null ? "Según tu departamento" : deptCost > 0 ? formatPrice(deptCost) : "Gratis";
   }
+  const cost = effectiveShippingCost();
   const shipEl = qs("#summaryShipping");
   const totalEl = qs("#summaryTotal");
   const subtotalEl = qs("#summarySubtotal");
@@ -173,6 +186,9 @@ function readForm() {
   const paymentInput = qs('input[name="paymentMethod"]:checked');
   const paymentMethod = paymentInput && paymentInput.value === "cod" ? "cod" : "card";
 
+  const deliveryInput = qs('input[name="deliveryMethod"]:checked');
+  const deliveryMethod = deliveryInput && deliveryInput.value === "pickup" ? "pickup" : "shipping";
+
   return {
     customer: {
       name: `${val("firstName")} ${val("lastName")}`.trim(),
@@ -186,6 +202,7 @@ function readForm() {
       smsOptIn: qs("#smsOptIn")?.checked || false,
     },
     paymentMethod,
+    deliveryMethod,
   };
 }
 
@@ -258,18 +275,19 @@ function currentPayBtnLabel() {
   return paymentInput && paymentInput.value === "cod" ? "Confirmar pedido" : "Pagar ahora";
 }
 
-// Contra entrega solo se ofrece en Bogotá: fuera de ahí no hay forma
+// Contra entrega solo se ofrece si el cliente recibe en persona (retiro en
+// oficina) o si el envío es dentro de Bogotá: fuera de ahí no hay forma
 // confiable de asegurar que el cliente reciba y pague de verdad.
 const COD_DEPARTMENT = "Bogotá D.C.";
 const COD_HINT_AVAILABLE = "Pagas en efectivo o transferencia cuando recibas tu pedido. Te contactamos por WhatsApp para coordinar.";
-const COD_HINT_UNAVAILABLE = "Disponible solo para pedidos dentro de Bogotá D.C. Para otros lugares, paga en línea con tarjeta, PSE, Nequi u otro medio.";
+const COD_HINT_UNAVAILABLE = "Disponible solo para pedidos dentro de Bogotá D.C., o con retiro en oficina. Para otros lugares, paga en línea con tarjeta, PSE, Nequi u otro medio.";
 
 function updateCodAvailability() {
   const codRadio = qs("#codRadio");
   const codHint = qs("#codHint");
   if (!codRadio) return;
 
-  const available = qs("#department")?.value === COD_DEPARTMENT;
+  const available = getDeliveryMethod() === "pickup" || qs("#department")?.value === COD_DEPARTMENT;
   codRadio.disabled = !available;
   codHint.textContent = available ? COD_HINT_AVAILABLE : COD_HINT_UNAVAILABLE;
 
@@ -302,6 +320,13 @@ async function initCheckout() {
     setFieldError("city", "");
   });
 
+  qsa('input[name="deliveryMethod"]').forEach((input) => {
+    input.addEventListener("change", () => {
+      updateShippingUI();
+      updateCodAvailability();
+    });
+  });
+
   const payBtn = qs("#payBtn");
   qsa('input[name="paymentMethod"]').forEach((input) => {
     input.addEventListener("change", () => {
@@ -316,7 +341,7 @@ async function initCheckout() {
     const detailed = await getCartDetailed();
     if (detailed.length === 0) return;
 
-    const { customer, paymentMethod } = readForm();
+    const { customer, paymentMethod, deliveryMethod } = readForm();
     if (!validateForm(customer)) return;
 
     persistSavedInfo();
@@ -330,7 +355,7 @@ async function initCheckout() {
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ customer, items, paymentMethod }),
+        body: JSON.stringify({ customer, items, paymentMethod, deliveryMethod }),
       });
       const data = await res.json();
 

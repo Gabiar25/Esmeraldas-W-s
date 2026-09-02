@@ -52,6 +52,9 @@ async function init() {
   // independiente de "status" que es el estado de la transaccion de Wompi.
   await query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS fulfillment_status TEXT NOT NULL DEFAULT 'PENDING'`);
   await query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS notes TEXT NOT NULL DEFAULT ''`);
+
+  // "shipping" (envio a domicilio) o "pickup" (retiro en la oficina de Bogota).
+  await query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS delivery_method TEXT NOT NULL DEFAULT 'shipping'`);
 }
 
 module.exports = { query, init, isConfigured };

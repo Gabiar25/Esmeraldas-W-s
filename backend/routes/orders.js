@@ -7,6 +7,8 @@ const notify = require("../services/notify");
 
 const router = express.Router();
 
+const PICKUP_ADDRESS = "Cra. 6 # 12C-44, La Candelaria, Bogotá D.C.";
+
 const REQUIRED_CUSTOMER_FIELDS = [
   "name",
   "email",
@@ -32,6 +34,8 @@ function publicOrder(order) {
     id: order.id,
     status: order.status,
     paymentMethod: order.paymentMethod,
+    deliveryMethod: order.deliveryMethod,
+    pickupAddress: order.deliveryMethod === "pickup" ? PICKUP_ADDRESS : null,
     items: order.items,
     subtotal: order.subtotal,
     shipping: order.shipping,
@@ -48,18 +52,20 @@ function publicOrder(order) {
 // o confirma directamente el pedido si es contra entrega.
 router.post("/", async (req, res) => {
   try {
-    const { customer, items, paymentMethod } = req.body || {};
+    const { customer, items, paymentMethod, deliveryMethod } = req.body || {};
     const method = paymentMethod === "cod" ? "cod" : "card";
+    const delivery = deliveryMethod === "pickup" ? "pickup" : "shipping";
 
     const customerError = validateCustomer(customer);
     if (customerError) return res.status(400).json({ error: customerError });
 
-    // Contra entrega solo se ofrece en Bogotá: fuera de ahi no hay forma
-    // confiable de asegurar que el cliente reciba y pague de verdad.
+    // Contra entrega solo se ofrece si el cliente recibe en persona (retiro
+    // en oficina) o si el envio es dentro de Bogotá: fuera de ahi no hay
+    // forma confiable de asegurar que el cliente reciba y pague de verdad.
     // Se valida aqui tambien (no solo en el frontend) porque el navegador
     // no es de fiar.
-    if (method === "cod" && customer.department !== "Bogotá D.C.") {
-      return res.status(400).json({ error: "El pago contra entrega solo está disponible para pedidos en Bogotá D.C." });
+    if (method === "cod" && delivery !== "pickup" && customer.department !== "Bogotá D.C.") {
+      return res.status(400).json({ error: "El pago contra entrega solo está disponible para pedidos en Bogotá D.C. o con retiro en oficina." });
     }
 
     if (!Array.isArray(items) || items.length === 0) {
@@ -85,7 +91,7 @@ router.post("/", async (req, res) => {
     }
 
     const subtotal = orderItems.reduce((sum, it) => sum + it.price * it.qty, 0);
-    const shippingCost = shipping.getShippingCost(customer.department);
+    const shippingCost = delivery === "pickup" ? 0 : shipping.getShippingCost(customer.department);
     const total = subtotal + shippingCost;
 
     const id = `WS-${Date.now()}-${crypto.randomBytes(3).toString("hex").toUpperCase()}`;
@@ -102,6 +108,7 @@ router.post("/", async (req, res) => {
       currency: "COP",
       status: "PENDING",
       paymentMethod: method,
+      deliveryMethod: delivery,
       wompiTransactionId: null,
       createdAt: now,
       updatedAt: now,

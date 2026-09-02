@@ -17,11 +17,16 @@ const COD_INFO = {
 
 function renderOrder(order) {
   const info = order.paymentMethod === "cod" ? COD_INFO : STATUS_INFO[order.status] || STATUS_INFO.PENDING;
+  const pickupNote =
+    order.deliveryMethod === "pickup"
+      ? `<p><strong>Retiro en oficina:</strong> ${order.pickupAddress}. Estará lista para recoger 1 día hábil después de la compra y la verificación del pago.</p>`
+      : "";
   const root = qs("#confirmRoot");
   root.innerHTML = `
     <span class="status-pill ${info.cls}">${info.label}</span>
     <h1>Pedido ${order.id}</h1>
     <p>${info.msg}</p>
+    ${pickupNote}
     <div style="text-align:left; margin-top:1.5rem; border-top:1px solid var(--color-line); padding-top:1rem;">
       ${order.items
         .map(

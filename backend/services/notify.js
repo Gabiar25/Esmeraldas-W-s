@@ -14,6 +14,7 @@ function money(value) {
 
 function buildEmailHtml(order) {
   const methodLabel = order.paymentMethod === "cod" ? "Contra entrega" : "Tarjeta (pago aprobado)";
+  const deliveryLabel = order.deliveryMethod === "pickup" ? "Retiro en oficina (Bogotá)" : "Envío a domicilio";
   const itemsHtml = order.items
     .map((item) => `<li>${item.name} × ${item.qty} — ${money(item.price * item.qty)}</li>`)
     .join("");
@@ -21,6 +22,7 @@ function buildEmailHtml(order) {
   return `
     <h2>Nuevo pedido ${order.id}</h2>
     <p><strong>Método de pago:</strong> ${methodLabel}</p>
+    <p><strong>Entrega:</strong> ${deliveryLabel}</p>
     <p>
       <strong>Cliente:</strong> ${order.customer.name}<br>
       <strong>Teléfono:</strong> ${order.customer.phone}<br>

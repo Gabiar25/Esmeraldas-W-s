@@ -193,11 +193,26 @@
         </div>
 
         <div class="form-section reveal" style="--d:.12s">
-          <h2>Método de envío</h2>
-          <div class="shipping-method">
-            <span>Envío a toda Colombia</span>
-            <span id="shippingMethodCost">Según tu departamento</span>
-          </div>
+          <h2>Método de entrega</h2>
+
+          <label class="payment-option">
+            <input type="radio" name="deliveryMethod" value="shipping" checked>
+            <span class="payment-option__radio"></span>
+            <span class="payment-option__row">
+              <span class="payment-option__label">Envío a domicilio</span>
+              <span id="shippingMethodCost">Según tu departamento</span>
+            </span>
+          </label>
+
+          <label class="payment-option">
+            <input type="radio" name="deliveryMethod" value="pickup" id="pickupRadio">
+            <span class="payment-option__radio"></span>
+            <span class="payment-option__row">
+              <span class="payment-option__label">Retiro en oficina</span>
+              <span>Gratis</span>
+            </span>
+            <span class="payment-option__hint">Cra. 6 # 12C-44, La Candelaria, Bogotá D.C. Disponible para recoger 1 día hábil después de la compra y la verificación del pago.</span>
+          </label>
         </div>
 
         <div class="form-section reveal" style="--d:.18s">
