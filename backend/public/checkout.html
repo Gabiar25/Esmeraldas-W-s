@@ -115,13 +115,6 @@
           </div>
           <div class="form-row form-row--3">
             <div class="field field--select">
-              <label for="city">Ciudad</label>
-              <select id="city" name="city" autocomplete="address-level2" required disabled>
-                <option value="">Elige un departamento primero</option>
-              </select>
-              <div class="field-error" data-error-for="city"></div>
-            </div>
-            <div class="field field--select">
               <label for="department">Departamento</label>
               <select id="department" name="department" autocomplete="address-level1" required>
                 <option value="">Selecciona…</option>
@@ -160,6 +153,13 @@
                 <option value="Vichada">Vichada</option>
               </select>
               <div class="field-error" data-error-for="department"></div>
+            </div>
+            <div class="field field--select">
+              <label for="city">Ciudad</label>
+              <select id="city" name="city" autocomplete="address-level2" required disabled>
+                <option value="">Elige un departamento primero</option>
+              </select>
+              <div class="field-error" data-error-for="city"></div>
             </div>
             <div class="field">
               <input type="text" id="postalCode" name="postalCode" autocomplete="postal-code" placeholder=" ">
