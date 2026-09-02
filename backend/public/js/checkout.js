@@ -2,18 +2,38 @@
 // creacion del pedido en el backend y apertura del widget de pago de Wompi
 // (o confirmacion directa si el metodo elegido es contra entrega).
 
-let shippingCost = 0;
+let shippingByDepartment = {};
 
-async function loadShippingCost() {
+async function loadShippingZones() {
   try {
-    const res = await fetch("/api/config");
+    const res = await fetch("/api/shipping-zones");
     const data = await res.json();
-    shippingCost = Number(data.shippingCost || 0);
+    shippingByDepartment = {};
+    (data.departments || []).forEach((d) => { shippingByDepartment[d.name] = d.cost; });
   } catch {
-    shippingCost = 0;
+    shippingByDepartment = {};
   }
-  const costEl = qs("#shippingMethodCost");
-  if (costEl) costEl.textContent = shippingCost > 0 ? formatPrice(shippingCost) : "Gratis";
+}
+
+function currentShippingCost() {
+  const dept = qs("#department")?.value;
+  return dept && shippingByDepartment[dept] != null ? shippingByDepartment[dept] : null;
+}
+
+function updateShippingUI() {
+  const cost = currentShippingCost();
+  const methodEl = qs("#shippingMethodCost");
+  if (methodEl) {
+    methodEl.textContent = cost == null ? "Según tu departamento" : cost > 0 ? formatPrice(cost) : "Gratis";
+  }
+  const shipEl = qs("#summaryShipping");
+  const totalEl = qs("#summaryTotal");
+  const subtotalEl = qs("#summarySubtotal");
+  if (shipEl && totalEl && subtotalEl) {
+    const subtotal = Number(subtotalEl.dataset.value || 0);
+    shipEl.textContent = cost == null ? "Selecciona tu departamento" : cost > 0 ? formatPrice(cost) : "Gratis";
+    totalEl.textContent = formatPrice(subtotal + (cost || 0));
+  }
 }
 
 async function renderSummary() {
@@ -42,8 +62,8 @@ async function renderSummary() {
 
   const subtotal = detailed.reduce((sum, { product, qty }) => sum + product.price * qty, 0);
   qs("#summarySubtotal").textContent = formatPrice(subtotal);
-  qs("#summaryShipping").textContent = shippingCost > 0 ? formatPrice(shippingCost) : "Gratis";
-  qs("#summaryTotal").textContent = formatPrice(subtotal + shippingCost);
+  qs("#summarySubtotal").dataset.value = String(subtotal);
+  updateShippingUI();
 
   return detailed;
 }
@@ -104,8 +124,13 @@ function currentPayBtnLabel() {
 }
 
 async function initCheckout() {
-  await loadShippingCost();
+  await loadShippingZones();
   await renderSummary();
+
+  qs("#department")?.addEventListener("change", () => {
+    updateShippingUI();
+    setFieldError("department", "");
+  });
 
   const payBtn = qs("#payBtn");
   qsa('input[name="paymentMethod"]').forEach((input) => {

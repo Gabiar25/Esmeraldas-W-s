@@ -77,7 +77,7 @@ Mientras Wompi no esté configurado, el cliente puede llenar el formulario y su 
 - **Correo de contacto**: `contacto@joyeriaws.com` en los footers.
 - **Precios y descripciones**: edita `backend/data/products.json` — es un archivo de texto simple, cada producto tiene `price`, `description`, etc. Los precios que se usaron salieron de la foto "Precios de cada producto.jpeg" asumiendo que el orden de las carpetas (Collar #1, #2…) coincide con el orden de la lista de precios; revísalos y ajústalos si hace falta.
 - **Stock**: el campo `stock` de `products.json` solo se usa para "sembrar" el valor inicial la primera vez que arranca el servidor con la base de datos conectada. Después de eso, el stock real vive en la base de datos y baja solo cuando se aprueba un pago — cambiar el número en `products.json` ya no tiene efecto una vez sembrado (para "reponer" una pieza manualmente, hay que actualizarlo directamente en la base de datos).
-- **Costo de envío**: variable `SHIPPING_COST` en `.env` (en pesos, sin puntos).
+- **Costo de envío**: se calcula por zona según el departamento del cliente, editando `backend/services/shipping.js` (departamentos y precio de cada zona).
 
 ## Ya probado (sin necesitar llaves reales)
 

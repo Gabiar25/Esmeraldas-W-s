@@ -2,6 +2,7 @@ const express = require("express");
 const crypto = require("crypto");
 const store = require("../services/store");
 const wompi = require("../services/wompi");
+const shipping = require("../services/shipping");
 
 const router = express.Router();
 
@@ -75,8 +76,8 @@ router.post("/", async (req, res) => {
     }
 
     const subtotal = orderItems.reduce((sum, it) => sum + it.price * it.qty, 0);
-    const shipping = Number(process.env.SHIPPING_COST || 0);
-    const total = subtotal + shipping;
+    const shippingCost = shipping.getShippingCost(customer.department);
+    const total = subtotal + shippingCost;
 
     const id = `WS-${Date.now()}-${crypto.randomBytes(3).toString("hex").toUpperCase()}`;
     const now = new Date().toISOString();
@@ -87,7 +88,7 @@ router.post("/", async (req, res) => {
       customer,
       items: orderItems,
       subtotal,
-      shipping,
+      shipping: shippingCost,
       total,
       currency: "COP",
       status: "PENDING",

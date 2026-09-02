@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limit");
 const wompi = require("./services/wompi");
 const db = require("./services/db");
 const store = require("./services/store");
+const shipping = require("./services/shipping");
 
 const productsRouter = require("./routes/products");
 const ordersRouter = require("./routes/orders");
@@ -42,10 +43,11 @@ app.use("/api/orders", orderLimiter, ordersRouter);
 app.use("/api/webhooks", webhooksRouter);
 
 app.get("/api/config", (req, res) => {
-  res.json({
-    paymentsAvailable: wompi.isConfigured(),
-    shippingCost: Number(process.env.SHIPPING_COST || 0),
-  });
+  res.json({ paymentsAvailable: wompi.isConfigured() });
+});
+
+app.get("/api/shipping-zones", (req, res) => {
+  res.json({ departments: shipping.getAllDepartments() });
 });
 
 app.use(express.static(path.join(__dirname, "public")));
