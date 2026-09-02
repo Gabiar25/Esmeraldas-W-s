@@ -78,13 +78,23 @@ async function renderCartDrawer() {
   if (!itemsEl) return;
 
   const detailed = await getCartDetailed();
+  const countEl = qs("#cartDrawerCount");
 
   if (detailed.length === 0) {
-    itemsEl.innerHTML = `<p class="cart-empty">Tu carrito esta vacio.<br><a class="btn btn-outline" href="/catalogo.html" style="margin-top:1rem;display:inline-flex;">Ver catalogo</a></p>`;
+    if (countEl) countEl.textContent = "";
+    itemsEl.innerHTML = `
+      <div class="cart-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <p>Tu carrito está vacío</p>
+        <span>Explora la colección y encuentra tu próxima pieza favorita.</span>
+        <a class="btn btn-outline" href="/catalogo.html">Ver catálogo</a>
+      </div>`;
     if (footerEl) footerEl.hidden = true;
     return;
   }
 
+  const totalQty = detailed.reduce((sum, { qty }) => sum + qty, 0);
+  if (countEl) countEl.textContent = `(${totalQty})`;
   if (footerEl) footerEl.hidden = false;
 
   itemsEl.innerHTML = detailed
@@ -93,20 +103,26 @@ async function renderCartDrawer() {
       const atMax = qty >= product.stock;
       return `
       <div class="cart-line" data-id="${product.id}">
-        <img src="${productImage(product, 1)}" alt="${product.name}" loading="lazy">
-        <div>
-          <div class="cart-line__name">${product.name}</div>
-          <div class="cart-line__price">${formatPrice(product.price)}</div>
-          ${soldOut ? '<div class="field-error">Ya no disponible</div>' : ""}
-          <button class="cart-line__remove" data-action="remove" data-id="${product.id}">Eliminar</button>
+        <div class="cart-line__img">
+          <img src="${productImage(product, 1)}" alt="${product.name}" loading="lazy">
         </div>
-        <div class="cart-line__qty">
-          <div class="qty-control">
-            <button data-action="dec" data-id="${product.id}" aria-label="Restar">&minus;</button>
-            <input type="text" readonly value="${qty}" aria-label="Cantidad">
-            <button data-action="inc" data-id="${product.id}" aria-label="Sumar" ${atMax ? "disabled" : ""}>&plus;</button>
+        <div class="cart-line__body">
+          <div class="cart-line__top">
+            <h3 class="cart-line__name">${product.name}</h3>
+            <button class="cart-line__remove" data-action="remove" data-id="${product.id}" aria-label="Eliminar ${product.name}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
           </div>
-          <span class="cart-line__price">${formatPrice(product.price * qty)}</span>
+          <p class="cart-line__unit">${formatPrice(product.price)} c/u</p>
+          ${soldOut ? '<p class="cart-line__warning">Ya no disponible</p>' : ""}
+          <div class="cart-line__bottom">
+            <div class="qty-control qty-control--sm">
+              <button data-action="dec" data-id="${product.id}" aria-label="Restar">&minus;</button>
+              <input type="text" readonly value="${qty}" aria-label="Cantidad">
+              <button data-action="inc" data-id="${product.id}" aria-label="Sumar" ${atMax ? "disabled" : ""}>&plus;</button>
+            </div>
+            <span class="cart-line__total">${formatPrice(product.price * qty)}</span>
+          </div>
         </div>
       </div>`;
     })
