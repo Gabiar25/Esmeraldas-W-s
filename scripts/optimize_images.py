@@ -21,7 +21,7 @@ PRODUCTS = {
     "collar-7": ("Collar #7", ["imginicio.png", "DSC00882.JPEG", "DSC00884.JPEG", "DSC00888.JPEG", "DSC00891.JPEG"]),
     "collar-8": ("Collar #8", ["imginicio.jpeg", "DSC00848.JPEG", "DSC00854.JPEG", "DSC00858.JPEG", "DSC00859.JPEG"]),
     "collar-9": ("Collar #9", ["imginicio.png", "DSC00920.JPEG", "DSC00924.JPEG", "DSC00926.JPEG", "DSC00928.JPEG"]),
-    "collar-10": ("Collar #10", ["imginicio.png", "DSC01032.JPEG", "DSC01035.JPEG", "DSC01039.JPEG", "DSC01040.JPEG"]),
+    "collar-10": ("Collar #10", ["imginicio.jpeg", "DSC01032.JPEG", "DSC01035.JPEG", "DSC01039.JPEG", "DSC01040.JPEG"]),
     "collar-11": ("Collar #11", ["imginicio.jpeg", "DSC01050.JPEG", "DSC01054.JPEG", "DSC01056.JPEG", "DSC01060.JPEG"]),
     "aretes-talla-5": ("Aretes Talla 5", ["imginicio.jpeg", "DSC00788.JPEG", "DSC00794.JPEG", "DSC00810.JPEG"]),
     "set-1": ("Set #1", ["imginico.jpeg", "DSC00977.JPEG", "DSC00982.JPEG", "DSC00987.JPEG", "DSC00992.JPEG", "DSC00974.JPEG", "DSC00985.JPEG", "DSC00991.JPEG"]),
