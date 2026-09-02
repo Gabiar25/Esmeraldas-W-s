@@ -1745,16 +1745,36 @@ h1, h2, h3, h4 {
   margin-top: 4rem;
 }
 
+/* flex (no grid de columnas fijas) para que quepan bien tanto las 4
+   columnas de siempre como métodos de pago + mapa, todo en una sola
+   fila, sin importar si una página tiene 4 o 6 columnas de footer. */
 .footer-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   padding-block: 3rem;
 }
 
+.footer-grid > div {
+  flex: 1 1 130px;
+  min-width: 130px;
+}
+
+.footer-grid > div:first-child {
+  flex: 1.8 1 220px;
+}
+
+.footer-grid .footer-map {
+  flex: 2 1 260px;
+}
+
 @media (max-width: 780px) {
-  .footer-grid {
-    grid-template-columns: 1fr 1fr;
+  .footer-grid > div {
+    flex: 1 1 45%;
+  }
+  .footer-grid > div:first-child,
+  .footer-grid .footer-map {
+    flex: 1 1 100%;
   }
 }
 
@@ -1795,25 +1815,6 @@ h1, h2, h3, h4 {
 }
 
 /* ---------- Metodos de pago + mapa en el footer ---------- */
-.footer-extra {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-  gap: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-block: 2rem;
-}
-
-.footer-extra__label {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #fff;
-  margin-bottom: 0.85rem;
-}
-
 .footer-payments .payment-badges {
   display: flex;
   flex-wrap: wrap;
@@ -1826,16 +1827,10 @@ h1, h2, h3, h4 {
   margin: 0.85rem 0 0;
 }
 
-.footer-map {
-  width: 100%;
-  max-width: 480px;
-  margin-left: auto;
-}
-
 .footer-map iframe {
   display: block;
   width: 100%;
-  height: 220px;
+  height: 200px;
   border: 0;
   border-radius: 8px;
 }
@@ -1844,16 +1839,6 @@ h1, h2, h3, h4 {
   font-size: 0.78rem;
   color: #948a78;
   margin: 0.6rem 0 0;
-}
-
-@media (max-width: 780px) {
-  .footer-extra {
-    grid-template-columns: 1fr;
-  }
-  .footer-map {
-    max-width: none;
-    margin-left: 0;
-  }
 }
 
 .whatsapp-float {
