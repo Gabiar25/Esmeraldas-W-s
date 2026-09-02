@@ -258,15 +258,41 @@ function currentPayBtnLabel() {
   return paymentInput && paymentInput.value === "cod" ? "Confirmar pedido" : "Pagar ahora";
 }
 
+// Contra entrega solo se ofrece en Bogotá: fuera de ahí no hay forma
+// confiable de asegurar que el cliente reciba y pague de verdad.
+const COD_DEPARTMENT = "Bogotá D.C.";
+const COD_HINT_AVAILABLE = "Pagas en efectivo o transferencia cuando recibas tu pedido. Te contactamos por WhatsApp para coordinar.";
+const COD_HINT_UNAVAILABLE = "Disponible solo para pedidos dentro de Bogotá D.C. Para otros lugares, paga en línea con tarjeta, PSE, Nequi u otro medio.";
+
+function updateCodAvailability() {
+  const codRadio = qs("#codRadio");
+  const codHint = qs("#codHint");
+  if (!codRadio) return;
+
+  const available = qs("#department")?.value === COD_DEPARTMENT;
+  codRadio.disabled = !available;
+  codHint.textContent = available ? COD_HINT_AVAILABLE : COD_HINT_UNAVAILABLE;
+
+  if (!available && codRadio.checked) {
+    codRadio.checked = false;
+    qs('input[name="paymentMethod"][value="card"]').checked = true;
+    const payBtn = qs("#payBtn");
+    if (payBtn) payBtn.textContent = currentPayBtnLabel();
+  }
+}
+
 async function initCheckout() {
   restoreSavedInfo();
   await loadShippingZones();
   await renderSummary();
   updateShippingUI();
 
+  updateCodAvailability();
+
   qs("#department")?.addEventListener("change", (e) => {
     populateCities(e.target.value);
     updateShippingUI();
+    updateCodAvailability();
     setFieldError("department", "");
     setFieldError("city", "");
   });

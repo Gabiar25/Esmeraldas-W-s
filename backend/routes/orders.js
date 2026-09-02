@@ -54,6 +54,14 @@ router.post("/", async (req, res) => {
     const customerError = validateCustomer(customer);
     if (customerError) return res.status(400).json({ error: customerError });
 
+    // Contra entrega solo se ofrece en Bogotá: fuera de ahi no hay forma
+    // confiable de asegurar que el cliente reciba y pague de verdad.
+    // Se valida aqui tambien (no solo en el frontend) porque el navegador
+    // no es de fiar.
+    if (method === "cod" && customer.department !== "Bogotá D.C.") {
+      return res.status(400).json({ error: "El pago contra entrega solo está disponible para pedidos en Bogotá D.C." });
+    }
+
     if (!Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: "El carrito esta vacio" });
     }
