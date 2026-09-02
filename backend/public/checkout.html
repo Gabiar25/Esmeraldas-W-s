@@ -70,34 +70,34 @@
   <div class="checkout-grid">
     <div>
       <form id="checkoutForm" novalidate>
-        <div class="form-section">
+        <div class="form-section reveal" style="--d:0s">
           <h2>Contacto</h2>
           <div class="form-row">
             <div class="field">
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder=" " required>
               <label for="firstName">Nombre</label>
-              <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
               <div class="field-error" data-error-for="firstName"></div>
             </div>
             <div class="field">
+              <input type="text" id="lastName" name="lastName" autocomplete="family-name" placeholder=" " required>
               <label for="lastName">Apellidos</label>
-              <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
               <div class="field-error" data-error-for="lastName"></div>
             </div>
           </div>
           <div class="form-row">
             <div class="field">
+              <input type="email" id="email" name="email" autocomplete="email" placeholder=" " required>
               <label for="email">Correo electrónico</label>
-              <input type="email" id="email" name="email" autocomplete="email" required>
               <div class="field-error" data-error-for="email"></div>
             </div>
             <div class="field">
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder=" " required>
               <label for="phone">Teléfono (WhatsApp)</label>
-              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="3001234567" required>
               <div class="field-error" data-error-for="phone"></div>
             </div>
           </div>
           <div class="form-row">
-            <div class="field">
+            <div class="field field--select">
               <label for="docType">Tipo de documento</label>
               <select id="docType" name="docType" required>
                 <option value="CC">Cédula de ciudadanía</option>
@@ -108,43 +108,43 @@
               </select>
             </div>
             <div class="field">
+              <input type="text" id="docNumber" name="docNumber" placeholder=" " required>
               <label for="docNumber">Número de documento</label>
-              <input type="text" id="docNumber" name="docNumber" required>
               <div class="field-error" data-error-for="docNumber"></div>
             </div>
           </div>
         </div>
 
-        <div class="form-section">
+        <div class="form-section reveal" style="--d:.06s">
           <h2>Dirección de envío</h2>
           <div class="field">
+            <input type="text" id="address" name="address" autocomplete="street-address" placeholder=" " required>
             <label for="address">Dirección</label>
-            <input type="text" id="address" name="address" autocomplete="street-address" required>
             <div class="field-error" data-error-for="address"></div>
           </div>
           <div class="field">
+            <input type="text" id="address2" name="address2" autocomplete="address-line2" placeholder=" ">
             <label for="address2">Casa, apartamento, etc. (opcional)</label>
-            <input type="text" id="address2" name="address2" autocomplete="address-line2">
           </div>
           <div class="form-row form-row--3">
             <div class="field">
+              <input type="text" id="city" name="city" autocomplete="address-level2" placeholder=" " required>
               <label for="city">Ciudad</label>
-              <input type="text" id="city" name="city" autocomplete="address-level2" required>
               <div class="field-error" data-error-for="city"></div>
             </div>
             <div class="field">
+              <input type="text" id="department" name="department" autocomplete="address-level1" placeholder=" " required>
               <label for="department">Departamento</label>
-              <input type="text" id="department" name="department" autocomplete="address-level1" required>
               <div class="field-error" data-error-for="department"></div>
             </div>
             <div class="field">
+              <input type="text" id="postalCode" name="postalCode" autocomplete="postal-code" placeholder=" ">
               <label for="postalCode">Código postal (opcional)</label>
-              <input type="text" id="postalCode" name="postalCode" autocomplete="postal-code">
             </div>
           </div>
         </div>
 
-        <div class="form-section">
+        <div class="form-section reveal" style="--d:.12s">
           <h2>Método de envío</h2>
           <div class="shipping-method">
             <span>Envío estándar a toda Colombia</span>
@@ -152,7 +152,7 @@
           </div>
         </div>
 
-        <div class="form-section">
+        <div class="form-section reveal" style="--d:.18s">
           <h2>Pago</h2>
           <p class="payment-security-note">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
@@ -161,6 +161,7 @@
 
           <label class="payment-option">
             <input type="radio" name="paymentMethod" value="card" checked>
+            <span class="payment-option__radio"></span>
             <span class="payment-option__row">
               <span class="payment-option__label">Tarjeta de crédito y débito</span>
               <span class="payment-badges">
@@ -174,6 +175,7 @@
 
           <label class="payment-option">
             <input type="radio" name="paymentMethod" value="card_alt">
+            <span class="payment-option__radio"></span>
             <span class="payment-option__row">
               <span class="payment-option__label">PSE, Nequi, Bancolombia y más</span>
             </span>
@@ -182,6 +184,7 @@
 
           <label class="payment-option">
             <input type="radio" name="paymentMethod" value="cod">
+            <span class="payment-option__radio"></span>
             <span class="payment-option__row">
               <span class="payment-option__label">Pago contra entrega</span>
             </span>
