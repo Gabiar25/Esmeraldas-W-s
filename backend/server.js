@@ -42,7 +42,10 @@ app.use("/api/orders", orderLimiter, ordersRouter);
 app.use("/api/webhooks", webhooksRouter);
 
 app.get("/api/config", (req, res) => {
-  res.json({ paymentsAvailable: wompi.isConfigured() });
+  res.json({
+    paymentsAvailable: wompi.isConfigured(),
+    shippingCost: Number(process.env.SHIPPING_COST || 0),
+  });
 });
 
 app.use(express.static(path.join(__dirname, "public")));

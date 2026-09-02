@@ -9,8 +9,14 @@ const STATUS_INFO = {
   VOIDED: { label: "Pago anulado", cls: "status-declined", msg: "Este pago fue anulado." },
 };
 
+const COD_INFO = {
+  label: "Pedido confirmado",
+  cls: "status-pending",
+  msg: "Tu pedido quedó registrado para pago contra entrega. Te contactaremos por WhatsApp para coordinar la entrega y el pago.",
+};
+
 function renderOrder(order) {
-  const info = STATUS_INFO[order.status] || STATUS_INFO.PENDING;
+  const info = order.paymentMethod === "cod" ? COD_INFO : STATUS_INFO[order.status] || STATUS_INFO.PENDING;
   const root = qs("#confirmRoot");
   root.innerHTML = `
     <span class="status-pill ${info.cls}">${info.label}</span>

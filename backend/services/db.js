@@ -44,6 +44,9 @@ async function init() {
       updated_at TIMESTAMPTZ NOT NULL
     )
   `);
+
+  // Migracion: agrega la columna si la tabla ya existia de antes.
+  await query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_method TEXT NOT NULL DEFAULT 'card'`);
 }
 
 module.exports = { query, init, isConfigured };

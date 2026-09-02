@@ -29,6 +29,7 @@ function publicOrder(order) {
   return {
     id: order.id,
     status: order.status,
+    paymentMethod: order.paymentMethod,
     items: order.items,
     subtotal: order.subtotal,
     shipping: order.shipping,
@@ -40,11 +41,13 @@ function publicOrder(order) {
 }
 
 // Crea el pedido en estado PENDIENTE, recalcula precios en el servidor
-// (nunca se confia en el precio que manda el navegador) y si Wompi esta
-// configurado devuelve todo lo necesario para abrir el widget de pago.
+// (nunca se confia en el precio que manda el navegador). Segun el metodo
+// de pago elegido, devuelve lo necesario para abrir el widget de Wompi,
+// o confirma directamente el pedido si es contra entrega.
 router.post("/", async (req, res) => {
   try {
-    const { customer, items } = req.body || {};
+    const { customer, items, paymentMethod } = req.body || {};
+    const method = paymentMethod === "cod" ? "cod" : "card";
 
     const customerError = validateCustomer(customer);
     if (customerError) return res.status(400).json({ error: customerError });
@@ -88,6 +91,7 @@ router.post("/", async (req, res) => {
       total,
       currency: "COP",
       status: "PENDING",
+      paymentMethod: method,
       wompiTransactionId: null,
       createdAt: now,
       updatedAt: now,
@@ -95,10 +99,21 @@ router.post("/", async (req, res) => {
 
     await store.saveOrder(order);
 
+    // Contra entrega: el pedido queda confirmado de una vez (se paga al
+    // recibir), asi que la pieza se reserva/descuenta del stock ya mismo
+    // para que no se le pueda vender a otro cliente mientras se entrega.
+    if (method === "cod") {
+      await store.decrementStockForOrder(order);
+      return res.status(201).json({
+        order: publicOrder(order),
+        payment: { available: false, method: "cod" },
+      });
+    }
+
     if (!wompi.isConfigured()) {
       return res.status(201).json({
         order: publicOrder(order),
-        payment: { available: false, reason: "La pasarela de pagos aun no esta configurada." },
+        payment: { available: false, method: "wompi_unconfigured", reason: "La pasarela de pagos aun no esta configurada." },
       });
     }
 
@@ -113,6 +128,7 @@ router.post("/", async (req, res) => {
       order: publicOrder(order),
       payment: {
         available: true,
+        method: "card",
         publicKey: process.env.WOMPI_PUBLIC_KEY,
         currency: order.currency,
         amountInCents,

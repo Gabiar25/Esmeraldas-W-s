@@ -50,6 +50,7 @@ function rowToOrder(row) {
     total: row.total,
     currency: row.currency,
     status: row.status,
+    paymentMethod: row.payment_method,
     wompiTransactionId: row.wompi_transaction_id,
     createdAt: row.created_at.toISOString(),
     updatedAt: row.updated_at.toISOString(),
@@ -73,8 +74,8 @@ async function getOrderByReference(reference) {
 
 async function saveOrder(order) {
   await db.query(
-    `INSERT INTO orders (id, reference, customer, items, subtotal, shipping, total, currency, status, wompi_transaction_id, created_at, updated_at)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+    `INSERT INTO orders (id, reference, customer, items, subtotal, shipping, total, currency, status, payment_method, wompi_transaction_id, created_at, updated_at)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
      ON CONFLICT (id) DO UPDATE SET
        status = EXCLUDED.status,
        wompi_transaction_id = EXCLUDED.wompi_transaction_id,
@@ -89,6 +90,7 @@ async function saveOrder(order) {
       order.total,
       order.currency,
       order.status,
+      order.paymentMethod || "card",
       order.wompiTransactionId,
       order.createdAt,
       order.updatedAt,

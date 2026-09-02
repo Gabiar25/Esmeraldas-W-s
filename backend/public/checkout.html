@@ -71,11 +71,18 @@
     <div>
       <form id="checkoutForm" novalidate>
         <div class="form-section">
-          <h2>Datos de contacto</h2>
-          <div class="field">
-            <label for="name">Nombre completo</label>
-            <input type="text" id="name" name="name" autocomplete="name" required>
-            <div class="field-error" data-error-for="name"></div>
+          <h2>Contacto</h2>
+          <div class="form-row">
+            <div class="field">
+              <label for="firstName">Nombre</label>
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+              <div class="field-error" data-error-for="firstName"></div>
+            </div>
+            <div class="field">
+              <label for="lastName">Apellidos</label>
+              <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+              <div class="field-error" data-error-for="lastName"></div>
+            </div>
           </div>
           <div class="form-row">
             <div class="field">
@@ -115,7 +122,11 @@
             <input type="text" id="address" name="address" autocomplete="street-address" required>
             <div class="field-error" data-error-for="address"></div>
           </div>
-          <div class="form-row">
+          <div class="field">
+            <label for="address2">Casa, apartamento, etc. (opcional)</label>
+            <input type="text" id="address2" name="address2" autocomplete="address-line2">
+          </div>
+          <div class="form-row form-row--3">
             <div class="field">
               <label for="city">Ciudad</label>
               <input type="text" id="city" name="city" autocomplete="address-level2" required>
@@ -126,6 +137,18 @@
               <input type="text" id="department" name="department" autocomplete="address-level1" required>
               <div class="field-error" data-error-for="department"></div>
             </div>
+            <div class="field">
+              <label for="postalCode">Código postal (opcional)</label>
+              <input type="text" id="postalCode" name="postalCode" autocomplete="postal-code">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Método de envío</h2>
+          <div class="shipping-method">
+            <span>Envío estándar a toda Colombia</span>
+            <span id="shippingMethodCost">Calculando…</span>
           </div>
         </div>
 
@@ -136,30 +159,34 @@
             Todas las transacciones son seguras y están encriptadas.
           </p>
 
-          <div class="payment-method-card">
-            <div class="payment-method-card__header">
-              <span class="payment-method-card__radio"></span>
-              <span class="payment-method-card__label">Tarjeta de crédito y débito</span>
-              <div class="payment-method-card__badges">
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="card" checked>
+            <span class="payment-option__row">
+              <span class="payment-option__label">Tarjeta de crédito y débito</span>
+              <span class="payment-badges">
                 <span class="card-badge card-badge--visa">VISA</span>
                 <span class="card-badge card-badge--mc"><em></em><em></em></span>
                 <span class="card-badge card-badge--amex">AMEX</span>
-              </div>
-            </div>
-            <div class="payment-method-card__body">
-              <p>Al pagar se abre la ventana segura de Wompi para ingresar los datos de tu tarjeta. Nosotros nunca vemos ni guardamos ese número.</p>
-            </div>
-          </div>
+              </span>
+            </span>
+            <span class="payment-option__hint">Se abre la ventana segura de Wompi para ingresar los datos de tu tarjeta. Nosotros nunca vemos ni guardamos ese número.</span>
+          </label>
 
-          <div class="payment-alt-methods">
-            <p class="payment-alt-methods__label">También disponible dentro de la misma ventana de pago:</p>
-            <div class="payment-alt-methods__pills">
-              <span class="pill">PSE</span>
-              <span class="pill">Nequi</span>
-              <span class="pill">Bancolombia a un Clic</span>
-              <span class="pill">Botón Bancolombia</span>
-            </div>
-          </div>
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="card_alt">
+            <span class="payment-option__row">
+              <span class="payment-option__label">PSE, Nequi, Bancolombia y más</span>
+            </span>
+            <span class="payment-option__hint">Se abre la misma ventana segura de Wompi — ahí eliges tu banco o billetera para pagar.</span>
+          </label>
+
+          <label class="payment-option">
+            <input type="radio" name="paymentMethod" value="cod">
+            <span class="payment-option__row">
+              <span class="payment-option__label">Pago contra entrega</span>
+            </span>
+            <span class="payment-option__hint">Pagas en efectivo o transferencia cuando recibas tu pedido. Te contactamos por WhatsApp para coordinar.</span>
+          </label>
         </div>
 
         <button type="submit" class="btn btn-block" id="payBtn">Pagar ahora</button>

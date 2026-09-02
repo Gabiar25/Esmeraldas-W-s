@@ -1,7 +1,20 @@
 // Logica de checkout: resumen del pedido, validacion del formulario,
-// creacion del pedido en el backend y apertura del widget de pago de Wompi.
+// creacion del pedido en el backend y apertura del widget de pago de Wompi
+// (o confirmacion directa si el metodo elegido es contra entrega).
 
-const FIELD_IDS = ["name", "email", "phone", "docType", "docNumber", "address", "city", "department"];
+let shippingCost = 0;
+
+async function loadShippingCost() {
+  try {
+    const res = await fetch("/api/config");
+    const data = await res.json();
+    shippingCost = Number(data.shippingCost || 0);
+  } catch {
+    shippingCost = 0;
+  }
+  const costEl = qs("#shippingMethodCost");
+  if (costEl) costEl.textContent = shippingCost > 0 ? formatPrice(shippingCost) : "Gratis";
+}
 
 async function renderSummary() {
   const detailed = await getCartDetailed();
@@ -29,8 +42,8 @@ async function renderSummary() {
 
   const subtotal = detailed.reduce((sum, { product, qty }) => sum + product.price * qty, 0);
   qs("#summarySubtotal").textContent = formatPrice(subtotal);
-  qs("#summaryShipping").textContent = "Se calcula al confirmar";
-  qs("#summaryTotal").textContent = formatPrice(subtotal);
+  qs("#summaryShipping").textContent = shippingCost > 0 ? formatPrice(shippingCost) : "Gratis";
+  qs("#summaryTotal").textContent = formatPrice(subtotal + shippingCost);
 
   return detailed;
 }
@@ -47,23 +60,35 @@ function setFieldError(field, message) {
 }
 
 function readForm() {
-  const data = {};
-  FIELD_IDS.forEach((id) => (data[id === "name" ? "name" : id] = qs(`#${id}`).value.trim()));
+  const val = (id) => qs(`#${id}`).value.trim();
+  const address2 = val("address2");
+  const postalCode = val("postalCode");
+  let address = val("address");
+  if (address2) address += `, ${address2}`;
+  if (postalCode) address += ` (CP: ${postalCode})`;
+
+  const paymentInput = qs('input[name="paymentMethod"]:checked');
+  const paymentMethod = paymentInput && paymentInput.value === "cod" ? "cod" : "card";
+
   return {
-    name: data.name,
-    email: data.email,
-    phone: data.phone,
-    docType: data.docType,
-    docNumber: data.docNumber,
-    address: data.address,
-    city: data.city,
-    department: data.department,
+    customer: {
+      name: `${val("firstName")} ${val("lastName")}`.trim(),
+      email: val("email"),
+      phone: val("phone"),
+      docType: val("docType"),
+      docNumber: val("docNumber"),
+      address,
+      city: val("city"),
+      department: val("department"),
+    },
+    paymentMethod,
   };
 }
 
 function validateForm(customer) {
   let ok = true;
-  if (!customer.name) { setFieldError("name", "Ingresa tu nombre completo"); ok = false; }
+  if (!qs("#firstName").value.trim()) { setFieldError("firstName", "Ingresa tu nombre"); ok = false; }
+  if (!qs("#lastName").value.trim()) { setFieldError("lastName", "Ingresa tus apellidos"); ok = false; }
   if (!/^\S+@\S+\.\S+$/.test(customer.email)) { setFieldError("email", "Correo inválido"); ok = false; }
   if (!/^\d{7,15}$/.test(customer.phone.replace(/\s|-/g, ""))) { setFieldError("phone", "Teléfono inválido"); ok = false; }
   if (!customer.docNumber) { setFieldError("docNumber", "Ingresa tu número de documento"); ok = false; }
@@ -73,8 +98,21 @@ function validateForm(customer) {
   return ok;
 }
 
+function currentPayBtnLabel() {
+  const paymentInput = qs('input[name="paymentMethod"]:checked');
+  return paymentInput && paymentInput.value === "cod" ? "Confirmar pedido" : "Pagar ahora";
+}
+
 async function initCheckout() {
+  await loadShippingCost();
   await renderSummary();
+
+  const payBtn = qs("#payBtn");
+  qsa('input[name="paymentMethod"]').forEach((input) => {
+    input.addEventListener("change", () => {
+      payBtn.textContent = currentPayBtnLabel();
+    });
+  });
 
   qs("#checkoutForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -83,10 +121,9 @@ async function initCheckout() {
     const detailed = await getCartDetailed();
     if (detailed.length === 0) return;
 
-    const customer = readForm();
+    const { customer, paymentMethod } = readForm();
     if (!validateForm(customer)) return;
 
-    const payBtn = qs("#payBtn");
     payBtn.disabled = true;
     payBtn.textContent = "Procesando…";
 
@@ -96,7 +133,7 @@ async function initCheckout() {
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ customer, items }),
+        body: JSON.stringify({ customer, items, paymentMethod }),
       });
       const data = await res.json();
 
@@ -104,7 +141,13 @@ async function initCheckout() {
         qs("#formMsg").textContent = data.error || "No se pudo crear el pedido";
         qs("#formMsg").className = "form-msg error";
         payBtn.disabled = false;
-        payBtn.textContent = "Pagar ahora";
+        payBtn.textContent = currentPayBtnLabel();
+        return;
+      }
+
+      if (data.payment.method === "cod") {
+        clearCart();
+        window.location.href = `/pedido-confirmado.html?order=${data.order.id}`;
         return;
       }
 
@@ -112,7 +155,7 @@ async function initCheckout() {
         qs("#formMsg").innerHTML = `Tu pedido <strong>${data.order.id}</strong> quedó registrado. Los pagos en línea aún no están activados: escríbenos por <a href="https://wa.me/573006911778?text=${encodeURIComponent("Hola, quiero completar mi pedido " + data.order.id)}" target="_blank" rel="noopener">WhatsApp</a> para coordinar el pago.`;
         qs("#formMsg").className = "form-msg";
         payBtn.disabled = false;
-        payBtn.textContent = "Pagar ahora";
+        payBtn.textContent = currentPayBtnLabel();
         return;
       }
 
@@ -135,13 +178,13 @@ async function initCheckout() {
       });
 
       payBtn.disabled = false;
-      payBtn.textContent = "Pagar ahora";
+      payBtn.textContent = currentPayBtnLabel();
     } catch (err) {
       console.error(err);
       qs("#formMsg").textContent = "Ocurrió un error de conexión. Intenta de nuevo.";
       qs("#formMsg").className = "form-msg error";
       payBtn.disabled = false;
-      payBtn.textContent = "Pagar ahora";
+      payBtn.textContent = currentPayBtnLabel();
     }
   });
 }
