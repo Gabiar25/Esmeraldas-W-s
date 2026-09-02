@@ -8,10 +8,15 @@ body {
 
 /* ---------- Login ---------- */
 .admin-login {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   max-width: 340px;
-  margin: 5rem auto;
+  margin-inline: auto;
   text-align: center;
-  padding-inline: 1.25rem;
+  padding: 1.25rem;
 }
 
 .admin-login__logo {
