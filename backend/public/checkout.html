@@ -90,9 +90,13 @@
               <label for="email">Correo electrónico</label>
               <div class="field-error" data-error-for="email"></div>
             </div>
-            <div class="field">
+            <div class="field field--phone">
               <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder=" " required>
               <label for="phone">Teléfono (WhatsApp)</label>
+              <span class="field__flag" title="Colombia (+57)">
+                <svg viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="1" fill="#FCD116"/><rect y="1" width="3" height="0.5" fill="#003893"/><rect y="1.5" width="3" height="0.5" fill="#CE1126"/></svg>
+                +57
+              </span>
               <div class="field-error" data-error-for="phone"></div>
             </div>
           </div>
@@ -177,6 +181,15 @@
               <label for="postalCode">Código postal (opcional)</label>
             </div>
           </div>
+
+          <label class="field-checkbox">
+            <input type="checkbox" id="saveInfo">
+            <span>Guardar mi información y completar más rápido la próxima vez</span>
+          </label>
+          <label class="field-checkbox">
+            <input type="checkbox" id="smsOptIn">
+            <span>Enviarme novedades y ofertas por SMS</span>
+          </label>
         </div>
 
         <div class="form-section reveal" style="--d:.12s">

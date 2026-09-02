@@ -100,9 +100,53 @@ function readForm() {
       address,
       city: val("city"),
       department: val("department"),
+      smsOptIn: qs("#smsOptIn")?.checked || false,
     },
     paymentMethod,
   };
+}
+
+// "Guardar mi informacion": si esta marcado, recuerda los campos en este
+// navegador para la proxima visita (nunca se manda al servidor).
+const SAVED_INFO_KEY = "esmeraldas_ws_checkout_info";
+const SAVED_INFO_FIELDS = [
+  "firstName", "lastName", "email", "phone", "docType", "docNumber",
+  "address", "address2", "city", "department", "postalCode",
+];
+
+function restoreSavedInfo() {
+  try {
+    const raw = localStorage.getItem(SAVED_INFO_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    SAVED_INFO_FIELDS.forEach((id) => {
+      const el = qs(`#${id}`);
+      if (el && data[id]) el.value = data[id];
+    });
+    const saveInfoBox = qs("#saveInfo");
+    if (saveInfoBox) saveInfoBox.checked = true;
+  } catch {
+    /* localStorage no disponible; simplemente no se restaura nada */
+  }
+}
+
+function persistSavedInfo() {
+  const saveInfoBox = qs("#saveInfo");
+  if (!saveInfoBox) return;
+  try {
+    if (!saveInfoBox.checked) {
+      localStorage.removeItem(SAVED_INFO_KEY);
+      return;
+    }
+    const data = {};
+    SAVED_INFO_FIELDS.forEach((id) => {
+      const el = qs(`#${id}`);
+      if (el) data[id] = el.value;
+    });
+    localStorage.setItem(SAVED_INFO_KEY, JSON.stringify(data));
+  } catch {
+    /* si el navegador bloquea localStorage, simplemente no se guarda */
+  }
 }
 
 function validateForm(customer) {
@@ -124,8 +168,10 @@ function currentPayBtnLabel() {
 }
 
 async function initCheckout() {
+  restoreSavedInfo();
   await loadShippingZones();
   await renderSummary();
+  updateShippingUI();
 
   qs("#department")?.addEventListener("change", () => {
     updateShippingUI();
@@ -148,6 +194,8 @@ async function initCheckout() {
 
     const { customer, paymentMethod } = readForm();
     if (!validateForm(customer)) return;
+
+    persistSavedInfo();
 
     payBtn.disabled = true;
     payBtn.textContent = "Procesando…";

@@ -1224,11 +1224,55 @@ h1, h2, h3, h4 {
   padding-top: 0.7rem;
 }
 
+.field--phone input {
+  padding-right: 4.6rem;
+}
+
+.field__flag {
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  color: var(--color-ink-soft);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.field__flag svg {
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
 .field-error {
   color: var(--color-danger);
   font-size: 0.75rem;
   margin-top: 0.3rem;
   min-height: 1em;
+}
+
+.field-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  margin-bottom: 0.6rem;
+}
+
+.field-checkbox input {
+  margin-top: 0.2rem;
+  accent-color: var(--color-accent-dark);
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
 .order-summary {
