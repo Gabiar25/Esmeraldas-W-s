@@ -1,7 +1,7 @@
 // Logica de la pagina de catalogo: filtros por categoria, orden y grid.
 
 const CAT_LABELS = { collares: "Collares", aretes: "Aretes", sets: "Sets" };
-const CAT_CARD_LABEL = { collares: "Dije + Cadena", aretes: "Aretes", sets: "Set" };
+const CAT_CARD_LABEL = { collares: "Dije + Cadena", aretes: "Aretes", sets: "Cadena + Dije + Aretes" };
 
 function renderProductCard(p) {
   const soldOut = p.stock < 1;
