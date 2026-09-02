@@ -372,15 +372,11 @@ h1, h2, h3, h4 {
   justify-content: center;
   text-align: center;
   color: #fff;
-  background: linear-gradient(160deg, #2b2620, #4a3f30 60%, #6b5738);
+  background-image: linear-gradient(160deg, rgba(30, 26, 20, 0.78), rgba(43, 38, 32, 0.5) 55%, rgba(20, 18, 15, 0.75)),
+    url("/assets/hero/hero-inicio.jpg");
+  background-size: cover;
+  background-position: center 30%;
   overflow: hidden;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.08), transparent 55%);
 }
 
 .hero__content {
