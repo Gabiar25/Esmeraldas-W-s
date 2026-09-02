@@ -3,6 +3,7 @@ const crypto = require("crypto");
 const store = require("../services/store");
 const wompi = require("../services/wompi");
 const shipping = require("../services/shipping");
+const notify = require("../services/notify");
 
 const router = express.Router();
 
@@ -105,6 +106,7 @@ router.post("/", async (req, res) => {
     // para que no se le pueda vender a otro cliente mientras se entrega.
     if (method === "cod") {
       await store.decrementStockForOrder(order);
+      notify.notifyNewOrder(order);
       return res.status(201).json({
         order: publicOrder(order),
         payment: { available: false, method: "cod" },
@@ -188,6 +190,7 @@ router.post("/:id/confirm", async (req, res) => {
 
     if (!wasApproved && transaction.status === "APPROVED") {
       await store.decrementStockForOrder(order);
+      notify.notifyNewOrder(order);
     }
 
     res.json(publicOrder(order));

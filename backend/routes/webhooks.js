@@ -1,6 +1,7 @@
 const express = require("express");
 const store = require("../services/store");
 const wompi = require("../services/wompi");
+const notify = require("../services/notify");
 
 const router = express.Router();
 
@@ -33,6 +34,7 @@ router.post("/wompi", async (req, res) => {
 
     if (!wasApproved && transaction.status === "APPROVED") {
       await store.decrementStockForOrder(order);
+      notify.notifyNewOrder(order);
     }
 
     res.status(200).json({ received: true });

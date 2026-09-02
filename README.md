@@ -71,6 +71,18 @@ El sitio funciona completo sin esto (catálogo, carrito, formulario), pero el bo
 
 Mientras Wompi no esté configurado, el cliente puede llenar el formulario y su pedido queda guardado en la base de datos igual; el sitio le muestra un mensaje para completar el pago por WhatsApp.
 
+## Cómo enterarte de un pedido nuevo
+
+Hay dos formas, y se pueden usar las dos a la vez:
+
+1. **Panel de pedidos**: entra a `https://tu-dominio.com/admin.html` y pon la clave que hayas puesto en `ADMIN_PASSWORD` (en `backend/.env` para local, o en las variables de entorno de Render para el sitio en vivo). Ahí ves todos los pedidos con los datos del cliente, y un link directo para escribirle por WhatsApp.
+2. **Correo automático**: cada vez que se confirma un pedido (contra entrega, o pago con tarjeta ya aprobado) te llega un correo. Para activarlo:
+   1. Crea una cuenta gratis en [resend.com](https://resend.com) y saca una API key.
+   2. En `backend/.env` (o en Render), completa `RESEND_API_KEY` y `OWNER_EMAIL` (tu correo).
+   3. `NOTIFY_FROM_EMAIL` puede quedar como está (usa el dominio de pruebas de Resend); si más adelante quieres que el correo llegue "desde" tu propio dominio, hay que verificarlo en Resend primero.
+
+Mientras `RESEND_API_KEY`/`OWNER_EMAIL` no estén configurados, el sitio funciona igual, simplemente no manda el correo.
+
 ## Cosas que debes personalizar
 
 - **Número de WhatsApp**: busca `573006911778` en los archivos de `backend/public/*.html` y `checkout.js` y cámbialo por tu número real (con indicativo, sin `+` ni espacios).

@@ -11,6 +11,7 @@ const shipping = require("./services/shipping");
 const productsRouter = require("./routes/products");
 const ordersRouter = require("./routes/orders");
 const webhooksRouter = require("./routes/webhooks");
+const adminRouter = require("./routes/admin");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,11 +37,22 @@ const apiLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+// Mas estricto que apiLimiter: protege la clave del panel de pedidos de
+// intentos por fuerza bruta.
+const adminLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Demasiados intentos. Intenta de nuevo en unos minutos." },
+});
+
 app.use(express.json());
 
 app.use("/api/products", apiLimiter, productsRouter);
 app.use("/api/orders", orderLimiter, ordersRouter);
 app.use("/api/webhooks", webhooksRouter);
+app.use("/api/admin", adminLimiter, adminRouter);
 
 app.get("/api/config", (req, res) => {
   res.json({ paymentsAvailable: wompi.isConfigured() });
