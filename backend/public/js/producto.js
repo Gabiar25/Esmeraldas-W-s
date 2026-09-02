@@ -85,14 +85,46 @@ async function initProducto() {
         <button class="btn btn-block" id="addToCartBtn">Agregar al carrito</button>
       `
       }
-      <ul class="product-info__meta">
-        <li>Plata ley 925 — esmeralda 100% natural, traída de las minas de Muzo</li>
-        <li>Incluye certificado de joyería</li>
-        <li>Envío asegurado a toda Colombia</li>
-        <li>Pieza única: al agotarse, podemos elaborar una similar bajo pedido (cotización aparte)</li>
-      </ul>
+      <div class="product-tabs">
+        <div class="product-tabs__nav">
+          <button type="button" class="product-tabs__btn active" data-tab="desc">Descripción</button>
+          <button type="button" class="product-tabs__btn" data-tab="care">Cuidados</button>
+          <button type="button" class="product-tabs__btn" data-tab="shipping">Envío</button>
+        </div>
+        <div class="product-tabs__panel active" data-panel="desc">
+          <ul>
+            <li>Plata ley 925 — esmeralda 100% natural, traída de las minas de Muzo</li>
+            <li>Incluye certificado de joyería</li>
+            <li>Pieza única: al agotarse, podemos elaborar una similar bajo pedido (cotización aparte)</li>
+          </ul>
+        </div>
+        <div class="product-tabs__panel" data-panel="care">
+          <h3>Cuidados de la joya</h3>
+          <ul>
+            <li>No expongas tu joya a lociones, cremas, cosméticos o perfumes ya que estas pueden ocasionar un cambio de color en la joya.</li>
+            <li>Guarda tus joyas por separado, en lo posible, en la bolsita de tela entregada por nosotros.</li>
+            <li>No hagas ejercicio con tu joya (el sudor genera desgaste).</li>
+            <li>Evita llevarla a la piscina o playa.</li>
+            <li>Límpiala utilizando un paño suave de tela, para mantener su color y brillo por más tiempo.</li>
+            <li>Evita caídas y golpes.</li>
+          </ul>
+        </div>
+        <div class="product-tabs__panel" data-panel="shipping">
+          <p>Enviamos a toda Colombia. Una vez confirmado el pago, empacamos tu pieza con cuidado y coordinamos el envío contigo por WhatsApp o correo electrónico con el número de guía.</p>
+          <p>El costo de envío se calcula según tu departamento al momento de pagar. Pago contra entrega disponible solo en Bogotá D.C.</p>
+        </div>
+      </div>
     </div>
   </div>`;
+
+  qsa(".product-tabs__btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      qsa(".product-tabs__btn").forEach((b) => b.classList.toggle("active", b === btn));
+      qsa(".product-tabs__panel").forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.panel === btn.dataset.tab);
+      });
+    });
+  });
 
   const track = qs("#galleryMain");
   const slides = qsa(".gallery__slide", track);

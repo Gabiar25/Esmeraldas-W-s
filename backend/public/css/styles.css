@@ -927,16 +927,72 @@ h1, h2, h3, h4 {
   font-size: 0.95rem;
 }
 
-.product-info__meta {
+/* ---------- Pestañas de producto (Descripción / Cuidados / Envío) ---------- */
+.product-tabs {
   margin-top: 2rem;
-  border-top: 1px solid var(--color-line);
+}
+
+.product-tabs__nav {
+  display: flex;
+  gap: 1.75rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.product-tabs__btn {
+  background: none;
+  border: none;
+  padding: 0.75rem 0.1rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.product-tabs__btn:hover {
+  color: var(--color-ink);
+}
+
+.product-tabs__btn.active {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-accent-dark);
+  font-weight: 500;
+}
+
+.product-tabs__panel {
+  display: none;
   padding-top: 1.25rem;
   font-size: 0.85rem;
   color: var(--color-ink-soft);
 }
 
-.product-info__meta li {
-  margin-bottom: 0.4rem;
+.product-tabs__panel.active {
+  display: block;
+}
+
+.product-tabs__panel h3 {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink);
+  margin-bottom: 0.85rem;
+}
+
+.product-tabs__panel p {
+  margin-bottom: 0.75rem;
+}
+
+.product-tabs__panel ul {
+  padding-left: 1.1rem;
+  margin: 0;
+}
+
+.product-tabs__panel li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
 }
 
 .soldout-cta {
