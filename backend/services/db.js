@@ -47,6 +47,11 @@ async function init() {
 
   // Migracion: agrega la columna si la tabla ya existia de antes.
   await query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_method TEXT NOT NULL DEFAULT 'card'`);
+
+  // fulfillment_status es la gestion propia del dueño (entregado/cancelado),
+  // independiente de "status" que es el estado de la transaccion de Wompi.
+  await query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS fulfillment_status TEXT NOT NULL DEFAULT 'PENDING'`);
+  await query(`ALTER TABLE orders ADD COLUMN IF NOT EXISTS notes TEXT NOT NULL DEFAULT ''`);
 }
 
 module.exports = { query, init, isConfigured };

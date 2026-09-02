@@ -35,4 +35,33 @@ router.get("/orders", requireAdmin, async (req, res) => {
   }
 });
 
+const FULFILLMENT_STATUSES = ["PENDING", "FULFILLED", "CANCELLED"];
+
+// Estado de gestion propio del dueño (entregado/cancelado + nota), separado
+// del "status" que refleja el estado de la transaccion de Wompi.
+router.patch("/orders/:id", requireAdmin, async (req, res) => {
+  try {
+    const order = await store.getOrder(req.params.id);
+    if (!order) return res.status(404).json({ error: "Pedido no encontrado" });
+
+    const { fulfillmentStatus, notes } = req.body || {};
+    if (fulfillmentStatus !== undefined) {
+      if (!FULFILLMENT_STATUSES.includes(fulfillmentStatus)) {
+        return res.status(400).json({ error: "Estado invalido" });
+      }
+      order.fulfillmentStatus = fulfillmentStatus;
+    }
+    if (notes !== undefined) {
+      order.notes = String(notes).slice(0, 2000);
+    }
+    order.updatedAt = new Date().toISOString();
+
+    await store.saveOrder(order);
+    res.json(order);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "No se pudo actualizar el pedido" });
+  }
+});
+
 module.exports = router;

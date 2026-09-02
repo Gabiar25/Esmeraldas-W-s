@@ -1,0 +1,240 @@
+/* ========================================================================
+   Panel de pedidos — solo para el dueño de la tienda
+   ======================================================================== */
+
+body {
+  background: var(--color-bg);
+}
+
+/* ---------- Login ---------- */
+.admin-login {
+  max-width: 340px;
+  margin: 5rem auto;
+  text-align: center;
+  padding-inline: 1.25rem;
+}
+
+.admin-login__logo {
+  height: 64px;
+  margin-bottom: 1.5rem;
+}
+
+.admin-login h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.admin-login p {
+  color: var(--color-ink-soft);
+  margin-bottom: 1.25rem;
+}
+
+.admin-login input {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  background: var(--color-surface);
+}
+
+/* ---------- Header ---------- */
+.admin-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.admin-header__logo {
+  height: 32px;
+}
+
+.admin-header__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--color-ink-soft);
+  flex: 1;
+}
+
+.admin-link-btn {
+  background: none;
+  border: none;
+  color: var(--color-ink-soft);
+  font-size: 0.82rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.admin-link-btn:hover {
+  color: var(--color-ink);
+}
+
+.admin-main {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding: 1.75rem 1.5rem 4rem;
+}
+
+/* ---------- Tarjetas de resumen ---------- */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.admin-stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+}
+
+.admin-stat-card__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-soft);
+  margin-bottom: 0.4rem;
+}
+
+.admin-stat-card__value {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--color-ink);
+}
+
+/* ---------- Barra de herramientas ---------- */
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-toolbar input,
+.admin-toolbar select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  background: var(--color-surface);
+}
+
+.admin-toolbar input[type="search"] {
+  flex: 1;
+  min-width: 200px;
+}
+
+.admin-toolbar .btn {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.78rem;
+}
+
+/* ---------- Tabla ---------- */
+.admin-table-wrap {
+  overflow-x: auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+}
+
+table.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+}
+
+table.admin-table th,
+table.admin-table td {
+  text-align: left;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid var(--color-line);
+  vertical-align: top;
+}
+
+table.admin-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+table.admin-table tbody tr:hover {
+  background: rgba(156, 122, 69, 0.04);
+}
+
+table.admin-table th {
+  color: var(--color-ink-soft);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.admin-order-id {
+  font-family: monospace;
+  font-size: 0.76rem;
+  color: var(--color-ink-soft);
+}
+
+.admin-items {
+  max-width: 220px;
+  white-space: normal;
+}
+
+.admin-address {
+  max-width: 220px;
+  white-space: normal;
+  color: var(--color-ink-soft);
+}
+
+.admin-wa {
+  color: var(--color-success);
+  font-size: 0.8rem;
+}
+
+.admin-status {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.admin-status--pending { background: #f0ead9; color: #7a5f35; }
+.admin-status--approved { background: #e2ede2; color: #3f6b46; }
+.admin-status--declined { background: #f3ddd8; color: #b3402f; }
+
+.admin-fulfill-select {
+  padding: 0.3rem 0.4rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-line);
+  font-family: inherit;
+  font-size: 0.78rem;
+  background: var(--color-surface);
+}
+
+.admin-fulfill-select.is-fulfilled { border-color: var(--color-success); color: var(--color-success); }
+.admin-fulfill-select.is-cancelled { border-color: var(--color-danger); color: var(--color-danger); }
+
+.admin-note-input {
+  width: 160px;
+  padding: 0.3rem 0.4rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-line);
+  font-family: inherit;
+  font-size: 0.78rem;
+  background: var(--color-surface);
+}
+
+.admin-empty {
+  text-align: center;
+  color: var(--color-ink-soft);
+  padding: 3.5rem 1rem;
+}
