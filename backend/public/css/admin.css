@@ -19,6 +19,13 @@ body {
   padding: 1.25rem;
 }
 
+/* El display:flex de arriba tiene la misma especificidad que la regla
+   [hidden]{display:none} del navegador, y al empatar gana la del autor
+   (esta), así que sin esto la pantalla de acceso no se ocultaba nunca. */
+.admin-login[hidden] {
+  display: none;
+}
+
 .admin-login__logo {
   height: 64px;
   margin-bottom: 1.5rem;
