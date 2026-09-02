@@ -5,32 +5,24 @@
 
 const ZONES = [
   {
-    id: "metropolitana",
-    label: "Zona Metropolitana",
-    cost: 20000,
+    id: "bogota-cundinamarca",
+    label: "Bogotá y Cundinamarca",
+    cost: 15000,
     departments: ["Bogotá D.C.", "Cundinamarca"],
   },
   {
-    id: "especial",
-    label: "Zona Especial",
-    cost: 50000,
-    departments: [
-      "Amazonas",
-      "Arauca",
-      "Chocó",
-      "Guainía",
-      "La Guajira",
-      "San Andrés y Providencia",
-      "Vaupés",
-      "Vichada",
-    ],
+    id: "insular-amazonia",
+    label: "Amazonas y San Andrés, Providencia y Santa Catalina",
+    cost: 35000,
+    departments: ["Amazonas", "San Andrés y Providencia"],
   },
   {
-    id: "estandar",
-    label: "Zona Nacional Estándar",
-    cost: 35000,
+    id: "nacional",
+    label: "Resto del país",
+    cost: 20000,
     departments: [
       "Antioquia",
+      "Arauca",
       "Atlántico",
       "Bolívar",
       "Boyacá",
@@ -39,9 +31,12 @@ const ZONES = [
       "Casanare",
       "Cauca",
       "Cesar",
+      "Chocó",
       "Córdoba",
+      "Guainía",
       "Guaviare",
       "Huila",
+      "La Guajira",
       "Magdalena",
       "Meta",
       "Nariño",
@@ -53,6 +48,8 @@ const ZONES = [
       "Sucre",
       "Tolima",
       "Valle del Cauca",
+      "Vaupés",
+      "Vichada",
     ],
   },
 ];
@@ -64,7 +61,7 @@ for (const zone of ZONES) {
   }
 }
 
-const DEFAULT_ZONE = ZONES.find((z) => z.id === "estandar");
+const DEFAULT_ZONE = ZONES.find((z) => z.id === "nacional");
 
 function getZoneForDepartment(department) {
   return DEPARTMENT_TO_ZONE.get(department) || DEFAULT_ZONE;

@@ -72,6 +72,21 @@
       <form id="checkoutForm" novalidate>
         <div class="form-section reveal" style="--d:0s">
           <h2>Contacto</h2>
+          <div class="field">
+            <input type="email" id="email" name="email" autocomplete="email" placeholder=" " required>
+            <label for="email">Correo electrónico</label>
+            <div class="field-error" data-error-for="email"></div>
+          </div>
+        </div>
+
+        <div class="form-section reveal" style="--d:.06s">
+          <h2>Entrega</h2>
+          <div class="field field--select">
+            <label for="country">País / Región</label>
+            <select id="country" disabled>
+              <option value="Colombia">Colombia</option>
+            </select>
+          </div>
           <div class="form-row">
             <div class="field">
               <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder=" " required>
@@ -84,43 +99,11 @@
               <div class="field-error" data-error-for="lastName"></div>
             </div>
           </div>
-          <div class="form-row">
-            <div class="field">
-              <input type="email" id="email" name="email" autocomplete="email" placeholder=" " required>
-              <label for="email">Correo electrónico</label>
-              <div class="field-error" data-error-for="email"></div>
-            </div>
-            <div class="field field--phone">
-              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder=" " required>
-              <label for="phone">Teléfono (WhatsApp)</label>
-              <span class="field__flag" title="Colombia (+57)">
-                <svg viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="1" fill="#FCD116"/><rect y="1" width="3" height="0.5" fill="#003893"/><rect y="1.5" width="3" height="0.5" fill="#CE1126"/></svg>
-                +57
-              </span>
-              <div class="field-error" data-error-for="phone"></div>
-            </div>
+          <div class="field">
+            <input type="text" id="docNumber" name="docNumber" placeholder=" " required>
+            <label for="docNumber">Cédula o Nit</label>
+            <div class="field-error" data-error-for="docNumber"></div>
           </div>
-          <div class="form-row">
-            <div class="field field--select">
-              <label for="docType">Tipo de documento</label>
-              <select id="docType" name="docType" required>
-                <option value="CC">Cédula de ciudadanía</option>
-                <option value="CE">Cédula de extranjería</option>
-                <option value="TI">Tarjeta de identidad</option>
-                <option value="PP">Pasaporte</option>
-                <option value="NIT">NIT</option>
-              </select>
-            </div>
-            <div class="field">
-              <input type="text" id="docNumber" name="docNumber" placeholder=" " required>
-              <label for="docNumber">Número de documento</label>
-              <div class="field-error" data-error-for="docNumber"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-section reveal" style="--d:.06s">
-          <h2>Dirección de envío</h2>
           <div class="field">
             <input type="text" id="address" name="address" autocomplete="street-address" placeholder=" " required>
             <label for="address">Dirección</label>
@@ -131,9 +114,11 @@
             <label for="address2">Casa, apartamento, etc. (opcional)</label>
           </div>
           <div class="form-row form-row--3">
-            <div class="field">
-              <input type="text" id="city" name="city" autocomplete="address-level2" placeholder=" " required>
+            <div class="field field--select">
               <label for="city">Ciudad</label>
+              <select id="city" name="city" autocomplete="address-level2" required disabled>
+                <option value="">Elige un departamento primero</option>
+              </select>
               <div class="field-error" data-error-for="city"></div>
             </div>
             <div class="field field--select">
@@ -180,6 +165,19 @@
               <input type="text" id="postalCode" name="postalCode" autocomplete="postal-code" placeholder=" ">
               <label for="postalCode">Código postal (opcional)</label>
             </div>
+          </div>
+          <div class="field" id="cityOtherField" hidden>
+            <input type="text" id="cityOther" name="cityOther" placeholder=" ">
+            <label for="cityOther">Escribe tu ciudad o municipio</label>
+          </div>
+          <div class="field field--phone">
+            <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder=" " required>
+            <label for="phone">Teléfono (WhatsApp)</label>
+            <span class="field__flag" title="Colombia (+57)">
+              <svg viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="1" fill="#FCD116"/><rect y="1" width="3" height="0.5" fill="#003893"/><rect y="1.5" width="3" height="0.5" fill="#CE1126"/></svg>
+              +57
+            </span>
+            <div class="field-error" data-error-for="phone"></div>
           </div>
 
           <label class="field-checkbox">

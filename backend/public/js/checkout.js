@@ -2,6 +2,77 @@
 // creacion del pedido en el backend y apertura del widget de pago de Wompi
 // (o confirmacion directa si el metodo elegido es contra entrega).
 
+// Ciudades principales por departamento para el selector de "Ciudad"
+// (no es exhaustivo con los 1000+ municipios de Colombia, pero cubre las
+// ciudades mas comunes de cada departamento). El precio de envio sigue
+// calculandose por DEPARTAMENTO, no por ciudad especifica.
+const CITIES_BY_DEPARTMENT = {
+  "Amazonas": ["Leticia", "Puerto Nariño"],
+  "Antioquia": ["Medellín", "Bello", "Itagüí", "Envigado", "Rionegro", "Apartadó", "Turbo", "Caucasia", "Sabaneta", "La Estrella", "Copacabana", "Girardota"],
+  "Arauca": ["Arauca", "Saravena", "Tame", "Arauquita"],
+  "Atlántico": ["Barranquilla", "Soledad", "Malambo", "Sabanalarga", "Puerto Colombia", "Galapa"],
+  "Bogotá D.C.": ["Bogotá"],
+  "Bolívar": ["Cartagena", "Magangué", "Turbaco", "Arjona", "El Carmen de Bolívar"],
+  "Boyacá": ["Tunja", "Duitama", "Sogamoso", "Chiquinquirá", "Paipa"],
+  "Caldas": ["Manizales", "La Dorada", "Chinchiná", "Villamaría", "Riosucio"],
+  "Caquetá": ["Florencia", "San Vicente del Caguán"],
+  "Casanare": ["Yopal", "Aguazul", "Villanueva"],
+  "Cauca": ["Popayán", "Santander de Quilichao", "Puerto Tejada"],
+  "Cesar": ["Valledupar", "Aguachica", "Codazzi"],
+  "Chocó": ["Quibdó", "Istmina"],
+  "Córdoba": ["Montería", "Cereté", "Lorica", "Sahagún"],
+  "Cundinamarca": ["Soacha", "Chía", "Zipaquirá", "Facatativá", "Fusagasugá", "Girardot", "Mosquera", "Madrid", "Funza"],
+  "Guainía": ["Inírida"],
+  "Guaviare": ["San José del Guaviare"],
+  "Huila": ["Neiva", "Pitalito", "Garzón"],
+  "La Guajira": ["Riohacha", "Maicao", "Uribia"],
+  "Magdalena": ["Santa Marta", "Ciénaga", "Fundación"],
+  "Meta": ["Villavicencio", "Acacías", "Granada"],
+  "Nariño": ["Pasto", "Ipiales", "Tumaco"],
+  "Norte de Santander": ["Cúcuta", "Ocaña", "Pamplona", "Villa del Rosario"],
+  "Putumayo": ["Mocoa", "Puerto Asís"],
+  "Quindío": ["Armenia", "Calarcá", "Montenegro"],
+  "Risaralda": ["Pereira", "Dosquebradas", "Santa Rosa de Cabal"],
+  "San Andrés y Providencia": ["San Andrés", "Providencia"],
+  "Santander": ["Bucaramanga", "Floridablanca", "Girón", "Piedecuesta", "Barrancabermeja"],
+  "Sucre": ["Sincelejo", "Corozal"],
+  "Tolima": ["Ibagué", "Espinal", "Melgar"],
+  "Valle del Cauca": ["Cali", "Palmira", "Buenaventura", "Tuluá", "Cartago", "Buga", "Yumbo", "Jamundí"],
+  "Vaupés": ["Mitú"],
+  "Vichada": ["Puerto Carreño"],
+};
+const OTHER_CITY_VALUE = "__otra__";
+
+function populateCities(department, selected) {
+  const citySelect = qs("#city");
+  if (!citySelect) return;
+  const cities = CITIES_BY_DEPARTMENT[department] || [];
+
+  if (!department || cities.length === 0) {
+    citySelect.innerHTML = '<option value="">Elige un departamento primero</option>';
+    citySelect.disabled = true;
+    return;
+  }
+
+  citySelect.disabled = false;
+  citySelect.innerHTML =
+    '<option value="">Selecciona…</option>' +
+    cities.map((c) => `<option value="${c}">${c}</option>`).join("") +
+    `<option value="${OTHER_CITY_VALUE}">Otro municipio…</option>`;
+
+  if (selected && (cities.includes(selected) || selected === OTHER_CITY_VALUE)) {
+    citySelect.value = selected;
+  }
+  toggleCityOther();
+}
+
+function toggleCityOther() {
+  const citySelect = qs("#city");
+  const otherField = qs("#cityOtherField");
+  if (!citySelect || !otherField) return;
+  otherField.hidden = citySelect.value !== OTHER_CITY_VALUE;
+}
+
 let shippingByDepartment = {};
 
 async function loadShippingZones() {
@@ -79,6 +150,13 @@ function setFieldError(field, message) {
   if (el) el.textContent = message;
 }
 
+// No mostramos un selector de "tipo de documento" (para verse mas simple,
+// como "Cedula o Nit"); inferimos si es NIT por el guion del digito de
+// verificacion (ej: 900123456-7), si no, se asume cedula de ciudadania.
+function inferDocType(docNumber) {
+  return /-/.test(docNumber) ? "NIT" : "CC";
+}
+
 function readForm() {
   const val = (id) => qs(`#${id}`).value.trim();
   const address2 = val("address2");
@@ -86,6 +164,11 @@ function readForm() {
   let address = val("address");
   if (address2) address += `, ${address2}`;
   if (postalCode) address += ` (CP: ${postalCode})`;
+
+  const citySelect = qs("#city");
+  const city = citySelect?.value === OTHER_CITY_VALUE ? val("cityOther") : citySelect?.value || "";
+
+  const docNumber = val("docNumber");
 
   const paymentInput = qs('input[name="paymentMethod"]:checked');
   const paymentMethod = paymentInput && paymentInput.value === "cod" ? "cod" : "card";
@@ -95,10 +178,10 @@ function readForm() {
       name: `${val("firstName")} ${val("lastName")}`.trim(),
       email: val("email"),
       phone: val("phone"),
-      docType: val("docType"),
-      docNumber: val("docNumber"),
+      docType: inferDocType(docNumber),
+      docNumber,
       address,
-      city: val("city"),
+      city,
       department: val("department"),
       smsOptIn: qs("#smsOptIn")?.checked || false,
     },
@@ -110,8 +193,8 @@ function readForm() {
 // navegador para la proxima visita (nunca se manda al servidor).
 const SAVED_INFO_KEY = "esmeraldas_ws_checkout_info";
 const SAVED_INFO_FIELDS = [
-  "firstName", "lastName", "email", "phone", "docType", "docNumber",
-  "address", "address2", "city", "department", "postalCode",
+  "firstName", "lastName", "email", "phone", "docNumber",
+  "address", "address2", "department", "postalCode",
 ];
 
 function restoreSavedInfo() {
@@ -123,6 +206,12 @@ function restoreSavedInfo() {
       const el = qs(`#${id}`);
       if (el && data[id]) el.value = data[id];
     });
+    if (data.department) {
+      populateCities(data.department, data.city);
+      if (data.city === OTHER_CITY_VALUE && data.cityOther) {
+        qs("#cityOther").value = data.cityOther;
+      }
+    }
     const saveInfoBox = qs("#saveInfo");
     if (saveInfoBox) saveInfoBox.checked = true;
   } catch {
@@ -143,6 +232,8 @@ function persistSavedInfo() {
       const el = qs(`#${id}`);
       if (el) data[id] = el.value;
     });
+    data.city = qs("#city")?.value || "";
+    data.cityOther = qs("#cityOther")?.value || "";
     localStorage.setItem(SAVED_INFO_KEY, JSON.stringify(data));
   } catch {
     /* si el navegador bloquea localStorage, simplemente no se guarda */
@@ -157,8 +248,8 @@ function validateForm(customer) {
   if (!/^\d{7,15}$/.test(customer.phone.replace(/\s|-/g, ""))) { setFieldError("phone", "Teléfono inválido"); ok = false; }
   if (!customer.docNumber) { setFieldError("docNumber", "Ingresa tu número de documento"); ok = false; }
   if (!customer.address) { setFieldError("address", "Ingresa tu dirección"); ok = false; }
-  if (!customer.city) { setFieldError("city", "Ingresa tu ciudad"); ok = false; }
   if (!customer.department) { setFieldError("department", "Ingresa tu departamento"); ok = false; }
+  if (!customer.city) { setFieldError("city", "Selecciona o escribe tu ciudad"); ok = false; }
   return ok;
 }
 
@@ -173,9 +264,16 @@ async function initCheckout() {
   await renderSummary();
   updateShippingUI();
 
-  qs("#department")?.addEventListener("change", () => {
+  qs("#department")?.addEventListener("change", (e) => {
+    populateCities(e.target.value);
     updateShippingUI();
     setFieldError("department", "");
+    setFieldError("city", "");
+  });
+
+  qs("#city")?.addEventListener("change", () => {
+    toggleCityOther();
+    setFieldError("city", "");
   });
 
   const payBtn = qs("#payBtn");
