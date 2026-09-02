@@ -609,29 +609,13 @@ h1, h2, h3, h4 {
 }
 
 .quick-add {
-  position: absolute;
-  left: 0.6rem;
-  right: 0.6rem;
-  bottom: 0.6rem;
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  margin-top: 0.7rem;
 }
 
-/* En pantallas con mouse/trackpad de verdad, el boton se revela solo al
-   pasar por encima. En tactil no existe un hover real: el navegador lo
-   simula al tocar y puede quedar "pegado" mostrando el boton en una tarjeta
-   al azar, asi que ahi lo dejamos siempre visible en vez de depender de :hover. */
-@media (hover: hover) and (pointer: fine) {
-  .quick-add {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-
-  .product-card:hover .quick-add {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.quick-add .btn {
+  padding: 0.55rem 1rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
 }
 
 .product-card__info {
