@@ -16,11 +16,10 @@ QUALITY = 80
 
 # slug -> carpeta origen de imginicio.png
 TARGETS = {
-    "collar-2": "Collar #2",
-    "collar-3": "Collar #3",
-    "collar-4": "Collar #4",
-    "collar-5": "Collar #5",
-    "collar-6": "Collar #6",
+    "collar-7": "Collar #7",
+    "collar-8": "Collar #8",
+    "collar-9": "Collar #9",
+    "collar-10": "Collar #10",
 }
 
 
