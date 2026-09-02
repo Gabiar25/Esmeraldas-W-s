@@ -255,7 +255,7 @@ h1, h2, h3, h4 {
   justify-self: start;
   background: none;
   border: none;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 4px;
   padding: 0.4rem;
@@ -302,6 +302,9 @@ h1, h2, h3, h4 {
   }
   .main-nav {
     display: none;
+  }
+  .nav-toggle {
+    display: flex;
   }
 }
 
