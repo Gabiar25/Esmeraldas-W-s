@@ -13,8 +13,8 @@
   --color-danger: #b3402f;
   --color-success: #3f6b46;
 
-  --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-body: "Jost", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Lato", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Work Sans", "Helvetica Neue", Arial, sans-serif;
 
   --maxw: 1280px;
   --gap: 1.5rem;
@@ -102,7 +102,7 @@ button {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.01em;
   margin: 0;
 }
@@ -531,10 +531,12 @@ h1, h2, h3, h4 {
 .section__header h2 {
   font-size: clamp(1.8rem, 3.5vw, 2.4rem);
   margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .section__header p {
-  color: var(--color-ink-soft);
+  color: var(--color-ink);
   margin-top: 0.75rem;
 }
 
@@ -892,7 +894,7 @@ h1, h2, h3, h4 {
 }
 
 .product-info__desc {
-  color: var(--color-ink-soft);
+  color: var(--color-ink);
   margin-bottom: 1.5rem;
 }
 
@@ -973,7 +975,7 @@ h1, h2, h3, h4 {
   display: none;
   padding-top: 1.25rem;
   font-size: 0.85rem;
-  color: var(--color-ink-soft);
+  color: var(--color-ink);
 }
 
 .product-tabs__panel.active {
@@ -1019,6 +1021,8 @@ h1, h2, h3, h4 {
 .related h2 {
   text-align: center;
   margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* ---------- Carrito lateral ---------- */
@@ -1128,7 +1132,7 @@ h1, h2, h3, h4 {
 .cart-line__name {
   font-family: var(--font-display);
   font-size: 1.02rem;
-  font-weight: 500;
+  font-weight: 600;
   margin: 0;
   line-height: 1.25;
 }
@@ -2014,5 +2018,5 @@ h1, h2, h3, h4 {
 .faq-item p {
   margin: 0;
   padding-bottom: 1.1rem;
-  color: var(--color-ink-soft);
+  color: var(--color-ink);
 }
