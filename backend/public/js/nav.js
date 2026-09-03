@@ -13,7 +13,25 @@ function closeNav() {
   qs(".nav-toggle")?.setAttribute("aria-expanded", "false");
 }
 
+// Marca como activo el link del menu que corresponde a la pagina/filtro
+// actual (compara path + query string), en vez de depender de la clase
+// "active" fija que venia escrita en el HTML de cada pagina.
+function highlightActiveNav() {
+  let path = window.location.pathname;
+  if (path === "/") path = "/index.html";
+  const current = path + window.location.search;
+  const links = qsa(".main-nav a, .nav-drawer__links a");
+  links.forEach((a) => a.classList.remove("active"));
+  let matched = links.find((a) => a.getAttribute("href") === current);
+  if (!matched && path === "/producto.html") {
+    matched = links.find((a) => a.getAttribute("href") === "/catalogo.html");
+  }
+  matched?.classList.add("active");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  highlightActiveNav();
+
   const toggle = qs(".nav-toggle");
   if (toggle) {
     toggle.addEventListener("click", openNav);
