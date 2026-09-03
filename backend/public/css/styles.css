@@ -688,6 +688,19 @@ h1, h2, h3, h4 {
   padding-bottom: 1.25rem;
 }
 
+/* En pantallas grandes el menu superior ya tiene estas mismas
+   categorias, asi que los chips de filtro sobran ahi; se quedan
+   solo para pantallas chicas (donde el menu esta detras del
+   hamburguesa). */
+@media (min-width: 1025px) {
+  #filterChips {
+    display: none;
+  }
+  .catalog-toolbar {
+    justify-content: flex-end;
+  }
+}
+
 .filter-group {
   display: flex;
   flex-wrap: wrap;
