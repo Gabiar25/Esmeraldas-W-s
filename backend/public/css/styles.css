@@ -158,14 +158,14 @@ h1, h2, h3, h4 {
 }
 
 .btn.btn-cart {
-  background: var(--color-success);
-  border-color: var(--color-success);
+  background: #2f5236;
+  border-color: #2f5236;
   color: #fff;
 }
 
 .btn.btn-cart:hover {
-  background: #2f5236;
-  border-color: #2f5236;
+  background: #23401f;
+  border-color: #23401f;
 }
 
 .btn-block {
