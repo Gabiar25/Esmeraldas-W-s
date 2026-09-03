@@ -160,13 +160,13 @@ h1, h2, h3, h4 {
 
 .btn.btn-cart {
   background: #2f5236;
-  border-color: #2f5236;
+  border-color: rgba(0, 0, 0, 0.25);
   color: #fff;
 }
 
 .btn.btn-cart:hover {
   background: #23401f;
-  border-color: #23401f;
+  border-color: rgba(0, 0, 0, 0.3);
 }
 
 .btn-block {
