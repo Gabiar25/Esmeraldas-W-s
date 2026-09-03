@@ -93,7 +93,11 @@ async function initProducto() {
             <span class="card-badge card-badge--nequi">Nequi</span>
           </div>
           <p class="product-purchase-note__secure">🔒 Compra 100% segura con Wompi, con cualquier medio de pago (tarjeta, PSE o Nequi).</p>
-          <p class="product-purchase-note__pickup">¿Prefieres recogerlo en persona? Está disponible el retiro en nuestra oficina en Bogotá.</p>
+          <div class="pickup-box">
+            <p>Recogida en <strong>Esmeraldas W&amp;S</strong></p>
+            <p>Oficina en Bogotá — lista 1 día hábil después de tu compra.</p>
+            <a href="/informacion.html">Ver información de envíos y retiro</a>
+          </div>
           <p class="product-purchase-note__more">Revisa el carrito para ver el costo de envío y más información.</p>
         </div>
       `

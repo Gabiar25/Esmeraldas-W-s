@@ -1042,14 +1042,40 @@ h1, h2, h3, h4 {
   margin-bottom: 0.6rem;
 }
 
-.product-purchase-note p {
+.product-purchase-note > p {
+  font-family: var(--font-body);
   font-size: 0.8rem;
   color: var(--color-ink-soft);
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.75rem;
 }
 
-.product-purchase-note p:last-child {
+.product-purchase-note > p:last-child {
   margin-bottom: 0;
+}
+
+.pickup-box {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.pickup-box p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-ink);
+  margin: 0 0 0.25rem;
+}
+
+.pickup-box p:last-of-type {
+  margin-bottom: 0.4rem;
+}
+
+.pickup-box a {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-accent-dark);
+  text-decoration: underline;
 }
 
 .qty-row {
