@@ -82,8 +82,8 @@ async function initProducto() {
             <button type="button" id="qtyInc" aria-label="Sumar">&plus;</button>
           </div>
         </div>
-        <button class="btn btn-block btn-cart" id="addToCartBtn">Agregar al carrito</button>
-        <button class="btn btn-outline btn-block" id="buyNowBtn">Comprar ahora</button>
+        <button class="btn btn-outline btn-block" id="addToCartBtn">Agregar al carrito</button>
+        <button class="btn btn-block btn-cart" id="buyNowBtn">Comprar ahora</button>
         <div class="product-purchase-note">
           <div class="payment-badges">
             <span class="card-badge card-badge--visa">VISA</span>
