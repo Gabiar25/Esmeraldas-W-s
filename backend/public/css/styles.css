@@ -728,8 +728,13 @@ h1, h2, h3, h4 {
 
 @media (max-width: 780px) {
   .category-grid {
+    grid-template-columns: repeat(2, 1fr);
     max-width: 560px;
     gap: 0.85rem;
+  }
+  .category-card:nth-child(3) {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
   }
   .category-card__overlay {
     padding: 0.75rem 0.6rem;
