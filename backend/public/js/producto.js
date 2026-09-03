@@ -46,14 +46,16 @@ async function initProducto() {
           )
           .join("")}
       </div>
-      <div id="galleryMain" class="gallery__main">
-        ${product.images
-          .map(
-            (img, i) => `<div class="gallery__slide" data-index="${i}">
-              <img src="${productImage(product, img, "full")}" alt="${product.name} vista ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}">
-            </div>`
-          )
-          .join("")}
+      <div class="gallery__main-frame">
+        <div id="galleryMain" class="gallery__main">
+          ${product.images
+            .map(
+              (img, i) => `<div class="gallery__slide" data-index="${i}">
+                <img src="${productImage(product, img, "full")}" alt="${product.name} vista ${i + 1}" loading="${i === 0 ? "eager" : "lazy"}">
+              </div>`
+            )
+            .join("")}
+        </div>
       </div>
     </div>
     <div class="gallery__dots">

@@ -1021,17 +1021,26 @@ h1, h2, h3, h4 {
   object-fit: cover;
 }
 
-.gallery__main {
+/* El recorte redondeado va en este contenedor fijo (sin scroll propio)
+   en vez de en .gallery__main -- iOS Safari no siempre recorta bien un
+   border-radius puesto directo en un elemento con overflow-x:auto. */
+.gallery__main-frame {
   flex: 1;
   min-width: 0;
   aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+}
+
+.gallery__main {
+  width: 100%;
+  height: 100%;
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   background: #efe9de;
-  border: 1px solid var(--color-line);
-  border-radius: 8px;
   scrollbar-width: none;
 }
 
