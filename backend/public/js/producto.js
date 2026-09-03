@@ -103,7 +103,7 @@ async function initProducto() {
         </div>
         <div class="product-tabs__panel active" data-panel="desc">
           <ul>
-            <li>Plata ley 925 — esmeralda 100% natural, traída de las minas de Muzo</li>
+            ${product.dimensions ? `<li>${product.dimensions}</li>` : ""}
             <li>Incluye certificado de joyería</li>
             <li>Pieza única: al agotarse, podemos elaborar una similar bajo pedido (cotización aparte)</li>
           </ul>
