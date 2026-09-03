@@ -941,7 +941,8 @@ h1, h2, h3, h4 {
 }
 
 .product-info h1 {
-  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  text-transform: uppercase;
 }
 
 .product-info__price {
