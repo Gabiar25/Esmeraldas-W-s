@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /checkout.html
+Disallow: /pedido-confirmado.html
+Disallow: /api/
+
+Sitemap: https://www.joyeriaws.com/sitemap.xml
