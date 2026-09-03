@@ -393,6 +393,7 @@ h1, h2, h3, h4 {
   background: rgba(20, 17, 12, 0.4);
   opacity: 0;
   pointer-events: none;
+  touch-action: none;
   transition: opacity 0.25s ease;
   z-index: 60;
 }
@@ -437,6 +438,7 @@ h1, h2, h3, h4 {
   flex-direction: column;
   padding: 0.5rem 1.25rem;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .nav-drawer__links a {
@@ -1279,6 +1281,7 @@ h1, h2, h3, h4 {
   backdrop-filter: blur(1px);
   opacity: 0;
   pointer-events: none;
+  touch-action: none;
   transition: opacity 0.25s ease;
   z-index: 60;
 }
@@ -1332,6 +1335,7 @@ h1, h2, h3, h4 {
 .cart-drawer__items {
   flex: 1;
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 0.5rem 1.5rem;
 }
 

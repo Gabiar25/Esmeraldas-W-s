@@ -155,14 +155,12 @@ async function renderCartDrawer() {
 function openCart() {
   qs(".cart-overlay")?.classList.add("is-open");
   qs(".cart-drawer")?.classList.add("is-open");
-  lockBodyScroll();
   renderCartDrawer();
 }
 
 function closeCart() {
   qs(".cart-overlay")?.classList.remove("is-open");
   qs(".cart-drawer")?.classList.remove("is-open");
-  unlockBodyScroll();
 }
 
 function initCartUI() {

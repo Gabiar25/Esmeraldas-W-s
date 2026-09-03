@@ -2,14 +2,12 @@
 function openNav() {
   qs(".nav-overlay")?.classList.add("is-open");
   qs(".nav-drawer")?.classList.add("is-open");
-  lockBodyScroll();
   qs(".nav-toggle")?.setAttribute("aria-expanded", "true");
 }
 
 function closeNav() {
   qs(".nav-overlay")?.classList.remove("is-open");
   qs(".nav-drawer")?.classList.remove("is-open");
-  unlockBodyScroll();
   qs(".nav-toggle")?.setAttribute("aria-expanded", "false");
 }
 
