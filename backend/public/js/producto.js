@@ -1,6 +1,6 @@
 // Logica de la pagina de detalle de producto.
 
-const CAT_LABELS_P = { collares: "Collares", aretes: "Aretes", sets: "Sets" };
+const CAT_LABELS_P = { collares: "Dije + Cadena", aretes: "Aretes", sets: "Cadena + Dije + Aretes" };
 
 function relatedCard(p) {
   const soldOut = p.stock < 1;
