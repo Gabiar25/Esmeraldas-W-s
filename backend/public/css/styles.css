@@ -201,6 +201,19 @@ h1, h2, h3, h4 {
   border-bottom: 1px solid var(--color-line);
 }
 
+/* Home: el header queda translucido y el video del hero se estira
+   detras (--header-h, medido por JS) para asomar por debajo; el
+   contenido del hero no se mueve, sigue centrado igual que siempre. */
+.has-hero .site-header {
+  background: linear-gradient(180deg,
+    rgba(250, 247, 242, 0.78) 0%,
+    rgba(250, 247, 242, 0.45) 65%,
+    rgba(250, 247, 242, 0) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: none;
+}
+
 .site-header__bar {
   position: relative;
   display: flex;
@@ -283,6 +296,10 @@ h1, h2, h3, h4 {
 
 .main-nav {
   border-top: 1px solid var(--color-line);
+}
+
+.has-hero .main-nav {
+  border-top-color: rgba(255, 255, 255, 0.15);
 }
 
 .main-nav ul {
@@ -478,6 +495,10 @@ h1, h2, h3, h4 {
   overflow: hidden;
 }
 
+.has-hero .hero {
+  overflow: visible;
+}
+
 .hero__video {
   position: absolute;
   inset: 0;
@@ -487,6 +508,11 @@ h1, h2, h3, h4 {
   z-index: 0;
 }
 
+.has-hero .hero__video {
+  top: calc(-1 * var(--header-h, 0px));
+  height: calc(100% + var(--header-h, 0px));
+}
+
 .hero::after {
   content: "";
   position: absolute;
@@ -494,6 +520,11 @@ h1, h2, h3, h4 {
   z-index: 0;
   background: linear-gradient(160deg, rgba(20, 17, 12, 0.55), rgba(20, 17, 12, 0.35) 60%, rgba(20, 17, 12, 0.55)),
     radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.08), transparent 55%);
+}
+
+.has-hero .hero::after {
+  top: calc(-1 * var(--header-h, 0px));
+  height: calc(100% + var(--header-h, 0px));
 }
 
 .hero__content {
