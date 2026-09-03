@@ -350,15 +350,18 @@ h1, h2, h3, h4 {
   left: 0;
 }
 
-@media (max-width: 780px) {
-  .brand-logo {
-    height: 36px;
-  }
+@media (max-width: 1024px) {
   .main-nav {
     display: none;
   }
   .nav-toggle {
     display: flex;
+  }
+}
+
+@media (max-width: 780px) {
+  .brand-logo {
+    height: 36px;
   }
 }
 
