@@ -199,20 +199,6 @@ h1, h2, h3, h4 {
   z-index: 40;
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-line);
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-/* En la home, el header flota sobre el video del hero y se desvanece
-   hacia abajo en vez de cortar en seco (el propio JS empuja el hero
-   hacia arriba para que quede debajo). */
-.has-hero .site-header {
-  background: linear-gradient(180deg,
-    rgba(250, 247, 242, 0.8) 0%,
-    rgba(250, 247, 242, 0.45) 65%,
-    rgba(250, 247, 242, 0) 100%);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-bottom: none;
 }
 
 .site-header__bar {
@@ -297,10 +283,6 @@ h1, h2, h3, h4 {
 
 .main-nav {
   border-top: 1px solid var(--color-line);
-}
-
-.has-hero .main-nav {
-  border-top-color: rgba(255, 255, 255, 0.15);
 }
 
 .main-nav ul {
