@@ -119,12 +119,14 @@
       </video>
       <div class="hero__content">
         <p class="eyebrow">Colección permanente</p>
-        <h1>Piezas únicas,<br>hechas a mano</h1>
-        <p>Joyería artesanal en plata ley 925 con esmeralda natural. Cada pieza es irrepetible: al agotarse, no vuelve a
-          fabricarse.</p>
+        <h1 aria-label="Piezas únicas, hechas a mano"><span class="hero-title__line" data-typewriter-line="1" data-text="Piezas únicas,"></span><br><span class="hero-title__line" data-typewriter-line="2" data-text="hechas a mano"></span></h1>
+        <p>Joyería artesanal en plata ley 925 con esmeralda natural.</p>
         <a href="/catalogo.html" class="btn">Ver colección</a>
       </div>
     </section>
+
+    <p class="intro-statement">Trabajamos con esmeraldas 100% naturales, cuidadosamente seleccionadas y sometidas a
+      tratamientos de embellecimiento que realzan sus características naturales y resaltan su belleza.</p>
 
     <section class="section">
       <div class="container">
@@ -308,7 +310,49 @@
       });
     }
 
+    function typewriterHero() {
+      const line1 = qs("[data-typewriter-line='1']");
+      const line2 = qs("[data-typewriter-line='2']");
+      if (!line1 || !line2) return;
+
+      const text1 = line1.dataset.text;
+      const text2 = line2.dataset.text;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        line1.textContent = text1;
+        line2.textContent = text2;
+        return;
+      }
+
+      const speed = 45;
+      line1.classList.add("is-typing");
+      let i = 0;
+      (function typeLine1() {
+        if (i < text1.length) {
+          line1.textContent += text1.charAt(i);
+          i++;
+          setTimeout(typeLine1, speed);
+        } else {
+          line1.classList.remove("is-typing");
+          setTimeout(() => {
+            line2.classList.add("is-typing");
+            let j = 0;
+            (function typeLine2() {
+              if (j < text2.length) {
+                line2.textContent += text2.charAt(j);
+                j++;
+                setTimeout(typeLine2, speed);
+              } else {
+                setTimeout(() => line2.classList.remove("is-typing"), 700);
+              }
+            })();
+          }, 150);
+        }
+      })();
+    }
+
     renderFeatured();
+    typewriterHero();
   </script>
 </body>
 
