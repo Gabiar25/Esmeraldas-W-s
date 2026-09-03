@@ -563,11 +563,11 @@ h1, h2, h3, h4 {
 .intro-statement {
   max-width: 680px;
   margin: 0 auto;
-  padding: 2.75rem 1.25rem 0.5rem;
+  padding: 4rem 1.25rem 0.5rem;
   text-align: center;
   font-family: var(--font-body);
   font-weight: 400;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   letter-spacing: 0.01em;
   line-height: 1.65;
   color: var(--color-ink);
