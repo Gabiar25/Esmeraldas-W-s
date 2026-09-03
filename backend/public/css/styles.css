@@ -161,6 +161,7 @@ h1, h2, h3, h4 {
 .btn.btn-cart {
   background: #2f5236;
   border-color: rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
   color: #fff;
 }
 
@@ -1118,6 +1119,10 @@ h1, h2, h3, h4 {
 
 .stock-note.in-stock { color: var(--color-success); }
 .stock-note.out-stock { color: var(--color-danger); }
+
+#addToCartBtn {
+  border-radius: 6px;
+}
 
 #buyNowBtn {
   margin-top: 0.75rem;
