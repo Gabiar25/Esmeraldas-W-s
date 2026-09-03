@@ -2031,6 +2031,12 @@ h1, h2, h3, h4 {
   .footer-grid .footer-map {
     flex: 1 1 100%;
   }
+  .footer-grid > div:first-child {
+    text-align: center;
+  }
+  .footer-grid > div:first-child .brand-logo {
+    margin-inline: auto;
+  }
 }
 
 .footer-grid h3 {
