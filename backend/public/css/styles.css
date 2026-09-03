@@ -218,14 +218,14 @@ h1, h2, h3, h4 {
   position: absolute;
   left: 0;
   right: 0;
-  top: calc(100% - 8px);
-  height: 42px;
+  top: calc(100% - 4px);
+  height: 18px;
   background: linear-gradient(180deg,
     rgba(250, 247, 242, 0.96) 0%,
-    rgba(250, 247, 242, 0.5) 45%,
+    rgba(250, 247, 242, 0.45) 50%,
     rgba(250, 247, 242, 0) 100%);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   pointer-events: none;
 }
 
