@@ -1,4 +1,5 @@
 require("dotenv").config();
+const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const helmet = require("helmet");
@@ -60,6 +61,71 @@ app.get("/api/config", (req, res) => {
 
 app.get("/api/shipping-zones", (req, res) => {
   res.json({ departments: shipping.getAllDepartments() });
+});
+
+const SITE_URL = "https://www.joyeriaws.com";
+const PRODUCTO_HTML_PATH = path.join(__dirname, "public", "producto.html");
+
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (ch) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]
+  ));
+}
+
+// producto.html es un archivo estatico que arma todo por JS -- sin esto,
+// las 17 fichas de producto compartian el mismo <title>/descripcion
+// generico hasta que el navegador corria el JS, lo que es malo para SEO
+// (contenido duplicado) y puede hacer que Google indexe la version
+// generica en vez de la del producto real. Esta ruta intercepta la
+// peticion antes que express.static y rellena los meta tags + JSON-LD
+// con los datos reales del producto pedido, directo en el HTML.
+app.get("/producto.html", async (req, res, next) => {
+  try {
+    const product = req.query.id ? await store.getProduct(req.query.id) : null;
+    let html = fs.readFileSync(PRODUCTO_HTML_PATH, "utf-8");
+
+    if (product) {
+      const title = escapeHtml(`${product.name} — Esmeraldas W&S`);
+      const description = escapeHtml(product.description);
+      const image = `${SITE_URL}/assets/images/${product.id}/1-full.jpg`;
+      const url = `${SITE_URL}/producto.html?id=${encodeURIComponent(product.id)}`;
+
+      html = html
+        .replace(/<title id="pageTitleTag">[^<]*<\/title>/, `<title id="pageTitleTag">${title}</title>`)
+        .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${description}">`)
+        .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${title}">`)
+        .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${description}">`)
+        .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${image}">`)
+        .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${url}">`)
+        .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${title}">`)
+        .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${description}">`)
+        .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${image}">`);
+
+      const schema = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        name: product.name,
+        image: product.images.map((img) => `${SITE_URL}/assets/images/${product.id}/${img}-full.jpg`),
+        description: product.description,
+        sku: product.id,
+        brand: { "@type": "Brand", name: "Esmeraldas W&S" },
+        offers: {
+          "@type": "Offer",
+          url,
+          priceCurrency: "COP",
+          price: product.price,
+          availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+          itemCondition: "https://schema.org/NewCondition",
+        },
+      };
+      html = html.replace("</head>", `<script type="application/ld+json">${JSON.stringify(schema)}</script>\n</head>`);
+    }
+
+    res.set("Content-Type", "text/html; charset=utf-8");
+    res.send(html);
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.use(express.static(path.join(__dirname, "public")));
