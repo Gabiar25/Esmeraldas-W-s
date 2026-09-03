@@ -206,11 +206,11 @@ h1, h2, h3, h4 {
    contenido del hero no se mueve, sigue centrado igual que siempre. */
 .has-hero .site-header {
   background: linear-gradient(180deg,
-    rgba(250, 247, 242, 0.78) 0%,
-    rgba(250, 247, 242, 0.45) 65%,
+    rgba(250, 247, 242, 0.4) 0%,
+    rgba(250, 247, 242, 0.2) 65%,
     rgba(250, 247, 242, 0) 100%);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   border-bottom: none;
 }
 
