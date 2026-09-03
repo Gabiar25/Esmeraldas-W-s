@@ -674,16 +674,21 @@ h1, h2, h3, h4 {
 
 .category-card__overlay {
   position: absolute;
-  left: 0.6rem;
-  right: 0.6rem;
-  bottom: 0.6rem;
-  border-radius: 12px;
-  padding: 0.75rem 0.8rem;
+  inset: auto 0 0 0;
+  padding: 1rem 0.9rem;
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  background: rgba(20, 18, 15, 0.9);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+.category-card__overlay::before {
+  content: "";
+  position: absolute;
+  inset: -1.4rem 0 0 0;
+  z-index: -1;
+  background: rgba(90, 88, 84, 0.82);
+  clip-path: polygon(0% 45%, 100% 20%, 100% 100%, 0% 100%);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.3));
 }
 
 .category-card__icon {
