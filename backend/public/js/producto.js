@@ -175,9 +175,11 @@ async function initProducto() {
 
   const all = await fetchProducts();
   const others = all.filter((p) => p.id !== product.id);
-  const sameCategory = others.filter((p) => p.category === product.category);
-  const rest = others.filter((p) => p.category !== product.category);
-  const related = [...sameCategory, ...rest].slice(0, 4);
+  for (let i = others.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [others[i], others[j]] = [others[j], others[i]];
+  }
+  const related = others.slice(0, 4);
   qs("#relatedGrid").innerHTML = related.map(relatedCard).join("") || '<p class="empty-state">Más piezas próximamente.</p>';
 }
 
