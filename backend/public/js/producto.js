@@ -19,6 +19,33 @@ function relatedCard(p) {
   </article>`;
 }
 
+// Datos estructurados (schema.org/Product) para que Google pueda mostrar
+// precio y disponibilidad directo en los resultados de busqueda.
+function injectProductSchema(product) {
+  document.getElementById("productSchema")?.remove();
+  const script = document.createElement("script");
+  script.type = "application/ld+json";
+  script.id = "productSchema";
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: product.name,
+    image: product.images.map((img) => `https://www.joyeriaws.com${productImage(product, img, "full")}`),
+    description: product.description,
+    sku: product.id,
+    brand: { "@type": "Brand", name: "Esmeraldas W&S" },
+    offers: {
+      "@type": "Offer",
+      url: `https://www.joyeriaws.com/producto.html?id=${product.id}`,
+      priceCurrency: "COP",
+      price: product.price,
+      availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
+    },
+  });
+  document.head.appendChild(script);
+}
+
 async function initProducto() {
   const id = getQueryParam("id");
   const root = qs("#productRoot");
@@ -31,6 +58,7 @@ async function initProducto() {
 
   document.title = `${product.name} — Esmeraldas W&S`;
   qs("#pageTitleTag").textContent = document.title;
+  injectProductSchema(product);
 
   const soldOut = product.stock < 1;
 
