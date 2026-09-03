@@ -83,6 +83,19 @@ async function initProducto() {
           </div>
         </div>
         <button class="btn btn-block btn-cart" id="addToCartBtn">Agregar al carrito</button>
+        <button class="btn btn-outline btn-block" id="buyNowBtn">Comprar ahora</button>
+        <div class="product-purchase-note">
+          <div class="payment-badges">
+            <span class="card-badge card-badge--visa">VISA</span>
+            <span class="card-badge card-badge--mc"><em></em><em></em></span>
+            <span class="card-badge card-badge--amex">AMEX</span>
+            <span class="card-badge card-badge--pse">PSE</span>
+            <span class="card-badge card-badge--nequi">Nequi</span>
+          </div>
+          <p class="product-purchase-note__secure">🔒 Compra 100% segura con Wompi, con cualquier medio de pago (tarjeta, PSE o Nequi).</p>
+          <p class="product-purchase-note__pickup">¿Prefieres recogerlo en persona? Está disponible el retiro en nuestra oficina en Bogotá.</p>
+          <p class="product-purchase-note__more">Revisa el carrito para ver el costo de envío y más información.</p>
+        </div>
       `
       }
       <div class="product-tabs">
@@ -170,6 +183,10 @@ async function initProducto() {
     qs("#addToCartBtn").addEventListener("click", () => {
       addToCart(product.id, qty);
       showToast("Agregado al carrito");
+    });
+    qs("#buyNowBtn").addEventListener("click", () => {
+      addToCart(product.id, qty);
+      window.location.href = "/checkout.html";
     });
   }
 

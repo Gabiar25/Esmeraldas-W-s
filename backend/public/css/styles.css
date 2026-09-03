@@ -1028,6 +1028,30 @@ h1, h2, h3, h4 {
 .stock-note.in-stock { color: var(--color-success); }
 .stock-note.out-stock { color: var(--color-danger); }
 
+#buyNowBtn {
+  margin-top: 0.75rem;
+}
+
+.product-purchase-note {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.product-purchase-note .payment-badges {
+  margin-bottom: 0.6rem;
+}
+
+.product-purchase-note p {
+  font-size: 0.8rem;
+  color: var(--color-ink-soft);
+  margin: 0 0 0.4rem;
+}
+
+.product-purchase-note p:last-child {
+  margin-bottom: 0;
+}
+
 .qty-row {
   display: flex;
   align-items: center;
