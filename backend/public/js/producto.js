@@ -85,14 +85,7 @@ async function initProducto() {
         <button class="btn btn-outline btn-block" id="addToCartBtn">Agregar al carrito</button>
         <button class="btn btn-block btn-cart" id="buyNowBtn">Comprar ahora</button>
         <div class="product-purchase-note">
-          <div class="payment-badges">
-            <span class="card-badge card-badge--visa">VISA</span>
-            <span class="card-badge card-badge--mc"><em></em><em></em></span>
-            <span class="card-badge card-badge--amex">AMEX</span>
-            <span class="card-badge card-badge--pse">PSE</span>
-            <span class="card-badge card-badge--nequi">Nequi</span>
-          </div>
-          <p class="product-purchase-note__secure">🔒 Compra 100% segura con Wompi, con cualquier medio de pago (tarjeta, PSE o Nequi).</p>
+          <p class="product-purchase-note__secure">Compra 100% segura con Wompi, con cualquier medio de pago (tarjeta, PSE o Nequi).</p>
           <div class="pickup-box">
             <p>Recogida en <strong>Esmeraldas W&amp;S</strong></p>
             <p>Oficina en Bogotá — lista 1 día hábil después de tu compra.</p>
