@@ -18,7 +18,7 @@ function renderProductCard(p) {
       <p class="product-card__cat">${CAT_CARD_LABEL[p.category] || ""}</p>
       <h3 class="product-card__name"><a class="product-card__link" href="/producto.html?id=${p.id}">${p.name}</a></h3>
       <p class="product-card__price">${formatPrice(p.price)}</p>
-      ${!soldOut ? `<div class="quick-add"><button class="btn btn-block" data-quick-add="${p.id}">Agregar al carrito</button></div>` : ""}
+      ${!soldOut ? `<div class="quick-add"><button class="btn btn-block btn-cart" data-quick-add="${p.id}">Agregar al carrito</button></div>` : ""}
     </div>
   </article>`;
 }
