@@ -2053,6 +2053,7 @@ h1, h2, h3, h4 {
   color: #b9b0a0;
   display: block;
   margin-bottom: 0.5rem;
+  overflow-wrap: break-word;
 }
 
 .footer-grid a:hover {
