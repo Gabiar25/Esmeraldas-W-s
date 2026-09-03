@@ -657,8 +657,8 @@ h1, h2, h3, h4 {
   aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--color-surface);
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(28, 26, 23, 0.16);
+  border-radius: 18px;
+  box-shadow: 0 16px 36px rgba(28, 26, 23, 0.28), 0 4px 10px rgba(28, 26, 23, 0.14);
 }
 
 .category-card img {
