@@ -686,8 +686,9 @@ h1, h2, h3, h4 {
   position: absolute;
   inset: -1.4rem 0 0 0;
   z-index: -1;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.55) 55%, transparent);
+  background: rgba(20, 18, 15, 0.88);
   clip-path: polygon(0% 45%, 100% 20%, 100% 100%, 0% 100%);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.4));
 }
 
 .category-card__icon {
