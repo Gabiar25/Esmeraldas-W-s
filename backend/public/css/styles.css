@@ -390,7 +390,7 @@ h1, h2, h3, h4 {
 .nav-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(28, 26, 23, 0.15);
+  background: rgba(250, 247, 242, 0.7);
   opacity: 0;
   pointer-events: none;
   touch-action: none;
@@ -1277,7 +1277,7 @@ h1, h2, h3, h4 {
 .cart-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(28, 26, 23, 0.15);
+  background: rgba(250, 247, 242, 0.7);
   opacity: 0;
   pointer-events: none;
   touch-action: none;
