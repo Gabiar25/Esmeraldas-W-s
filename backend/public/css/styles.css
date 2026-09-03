@@ -183,8 +183,8 @@ h1, h2, h3, h4 {
 
 /* ---------- Barra de anuncio ---------- */
 .announcement {
-  background: var(--color-ink);
-  color: var(--color-bg);
+  background: #dce6dc;
+  color: var(--color-ink);
   text-align: center;
   font-size: 0.72rem;
   letter-spacing: 0.1em;
