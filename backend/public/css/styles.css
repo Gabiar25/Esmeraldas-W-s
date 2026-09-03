@@ -188,6 +188,16 @@ h1, h2, h3, h4 {
   z-index: 40;
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-line);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* En la home, el header flota semitransparente sobre el video del hero
+   (el propio JS empuja el hero hacia arriba para que quede debajo). */
+.has-hero .site-header {
+  background: rgba(250, 247, 242, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 
 .site-header__bar {
