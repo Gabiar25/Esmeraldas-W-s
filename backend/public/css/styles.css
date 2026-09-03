@@ -205,7 +205,9 @@ h1, h2, h3, h4 {
    detras (--header-h, medido por JS) para asomar por debajo; el
    contenido del hero no se mueve, sigue centrado igual que siempre. */
 .has-hero .site-header {
-  background: rgba(250, 247, 242, 0.99);
+  background: rgba(250, 247, 242, 0.9);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   border-bottom: none;
 }
 
