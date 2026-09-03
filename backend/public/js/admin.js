@@ -126,16 +126,16 @@ function renderOrders() {
 
   const rows = filtered
     .map((o) => {
-      const itemsText = o.items.map((i) => `${i.name} ×${i.qty}`).join(", ");
+      const itemsText = o.items.map((i) => `${escapeHtml(i.name)} ×${i.qty}`).join(", ");
       const waLink = `https://wa.me/57${o.customer.phone.replace(/\D/g, "")}?text=${encodeURIComponent(
         `Hola ${o.customer.name}, te escribimos de Esmeraldas W&S por tu pedido ${o.id}.`
       )}`;
       const fulfillment = o.fulfillmentStatus || "PENDING";
       return `
-        <tr data-id="${o.id}">
+        <tr data-id="${escapeHtml(o.id)}">
           <td>${formatDate(o.createdAt)}</td>
-          <td class="admin-order-id">${o.id}</td>
-          <td>${o.customer.name}<br><a class="admin-wa" href="${waLink}" target="_blank" rel="noopener">${o.customer.phone}</a></td>
+          <td class="admin-order-id">${escapeHtml(o.id)}</td>
+          <td>${escapeHtml(o.customer.name)}<br><a class="admin-wa" href="${waLink}" target="_blank" rel="noopener">${escapeHtml(o.customer.phone)}</a></td>
           <td class="admin-items">${itemsText}</td>
           <td>${o.paymentMethod === "cod" ? "Contra entrega" : "Tarjeta"}</td>
           <td>${o.deliveryMethod === "pickup" ? "Retiro en oficina" : "Domicilio"}</td>
@@ -147,9 +147,9 @@ function renderOrders() {
                 .join("")}
             </select>
           </td>
-          <td><input class="admin-note-input" data-action="notes" value="${(o.notes || "").replace(/"/g, "&quot;")}" placeholder="Nota…"></td>
+          <td><input class="admin-note-input" data-action="notes" value="${escapeHtml(o.notes || "")}" placeholder="Nota…"></td>
           <td>${formatPrice(o.total)}</td>
-          <td class="admin-address">${o.customer.address}, ${o.customer.city}, ${o.customer.department}</td>
+          <td class="admin-address">${escapeHtml(o.customer.address)}, ${escapeHtml(o.customer.city)}, ${escapeHtml(o.customer.department)}</td>
         </tr>`;
     })
     .join("");
@@ -209,7 +209,12 @@ function renderOrders() {
 
 // ---------- Exportar CSV ----------
 function csvEscape(value) {
-  const str = String(value ?? "");
+  let str = String(value ?? "");
+  // Evita inyeccion de formulas: si Excel/Sheets abre el CSV y una celda
+  // empieza con estos caracteres, la interpreta como formula en vez de
+  // texto plano. Los datos del cliente (nombre, direccion) no son de
+  // fiar, asi que se neutraliza con un apostrofe adelante.
+  if (/^[=+\-@\t\r]/.test(str)) str = `'${str}`;
   if (/[",\n]/.test(str)) return `"${str.replace(/"/g, '""')}"`;
   return str;
 }

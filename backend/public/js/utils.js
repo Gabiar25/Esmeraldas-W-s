@@ -22,6 +22,16 @@ function getQueryParam(name) {
   return new URLSearchParams(window.location.search).get(name);
 }
 
+// Escapa texto antes de insertarlo en HTML armado a mano (innerHTML con
+// template strings) -- imprescindible para cualquier dato que venga de un
+// formulario (nombre, dirección, etc.), nunca confiar en que "no debería"
+// traer HTML.
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (ch) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]
+  ));
+}
+
 let productsCache = null;
 async function fetchProducts() {
   if (productsCache) return productsCache;
