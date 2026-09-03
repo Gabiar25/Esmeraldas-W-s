@@ -675,6 +675,7 @@ h1, h2, h3, h4 {
 .category-card__overlay {
   position: absolute;
   inset: auto 0 0 0;
+  z-index: 1;
   padding: 1rem 0.9rem;
   display: flex;
   align-items: center;
