@@ -79,7 +79,7 @@ function escapeHtml(value) {
 // generica en vez de la del producto real. Esta ruta intercepta la
 // peticion antes que express.static y rellena los meta tags + JSON-LD
 // con los datos reales del producto pedido, directo en el HTML.
-app.get("/producto.html", async (req, res, next) => {
+app.get("/producto.html", apiLimiter, async (req, res, next) => {
   try {
     const product = req.query.id ? await store.getProduct(req.query.id) : null;
     let html = fs.readFileSync(PRODUCTO_HTML_PATH, "utf-8");
