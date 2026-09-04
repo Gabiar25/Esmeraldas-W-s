@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title id="pageTitleTag">Producto — Esmeraldas W&S</title>
+<meta name="description" content="Joyería artesanal hecha a mano en Colombia. Piezas únicas en plata ley 925 con esmeralda natural.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Esmeraldas W&S">
+<meta property="og:title" content="Esmeraldas W&S — Joyería artesanal en plata 925 con esmeralda natural">
+<meta property="og:description" content="Joyería artesanal hecha a mano en Colombia. Piezas únicas en plata ley 925 con esmeralda natural.">
+<meta property="og:image" content="https://www.joyeriaws.com/assets/logo/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://www.joyeriaws.com/producto.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Esmeraldas W&S — Joyería artesanal en plata 925 con esmeralda natural">
+<meta name="twitter:description" content="Joyería artesanal hecha a mano en Colombia. Piezas únicas en plata ley 925 con esmeralda natural.">
+<meta name="twitter:image" content="https://www.joyeriaws.com/assets/logo/og-image.jpg">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div class="page-loader" id="pageLoader" aria-hidden="true">
+  <img src="/assets/logo/loader-icon.png" alt="" width="130">
+</div>
+<script>
+(function () {
+  var el = document.getElementById("pageLoader");
+  var alreadyShown = true;
+  try {
+    alreadyShown = sessionStorage.getItem("loaderShown") === "1";
+    sessionStorage.setItem("loaderShown", "1");
+  } catch (e) {
+    alreadyShown = false;
+  }
+  if (alreadyShown) {
+    if (el) el.remove();
+    return;
+  }
+  var shownAt = Date.now();
+  var MIN_MS = 500;
+  var MAX_MS = 4000;
+  function hideLoader() {
+    if (!el || el.dataset.hidden) return;
+    el.dataset.hidden = "1";
+    el.classList.add("is-hidden");
+    setTimeout(function () { el.remove(); }, 500);
+  }
+  function scheduleHide() {
+    setTimeout(hideLoader, Math.max(0, MIN_MS - (Date.now() - shownAt)));
+  }
+  if (document.readyState === "complete") scheduleHide();
+  else window.addEventListener("load", scheduleHide);
+  setTimeout(hideLoader, MAX_MS);
+})();
+</script>
+
+<div class="announcement">Envíos a toda Colombia · Piezas artesanales hechas a mano</div>
+
+<!--include:header-full-->
+
+<main class="container">
+  <div id="productRoot">
+    <p class="loading-state">Cargando pieza…</p>
+  </div>
+
+  <section class="related">
+    <h2>También te puede gustar</h2>
+    <div id="relatedGrid" class="product-grid"></div>
+  </section>
+</main>
+
+<!--include:footer-full-->
+
+<a class="whatsapp-float" href="https://wa.me/573006911778" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 32 32"><path fill="#fff" d="M16.001 3C9.107 3 3.5 8.607 3.5 15.5c0 2.42.678 4.686 1.855 6.617L3 29l7.064-2.311a12.44 12.44 0 0 0 5.937 1.51h.005c6.893 0 12.5-5.607 12.5-12.5S22.894 3 16.001 3Zm0 22.688h-.004a10.16 10.16 0 0 1-5.176-1.418l-.371-.22-3.847 1.258 1.28-3.75-.242-.385a10.14 10.14 0 0 1-1.559-5.423c0-5.607 4.563-10.17 10.174-10.17 2.717 0 5.27 1.06 7.19 2.982a10.1 10.1 0 0 1 2.981 7.192c0 5.607-4.563 10.17-10.174 10.17Zm5.578-7.62c-.306-.153-1.809-.892-2.089-.994-.28-.102-.484-.153-.688.153-.204.306-.79.994-.968 1.198-.178.204-.357.23-.663.077-.306-.153-1.292-.476-2.462-1.518-.91-.812-1.525-1.815-1.703-2.121-.178-.306-.019-.472.134-.624.138-.137.306-.357.459-.535.153-.178.204-.306.306-.51.102-.204.051-.383-.026-.535-.077-.153-.688-1.658-.943-2.27-.248-.596-.5-.516-.688-.526l-.586-.01c-.204 0-.535.077-.815.383-.28.306-1.068 1.043-1.068 2.545s1.093 2.953 1.245 3.157c.153.204 2.15 3.283 5.209 4.605.728.314 1.296.502 1.739.642.731.232 1.396.199 1.922.121.586-.087 1.809-.74 2.064-1.454.255-.714.255-1.326.178-1.454-.076-.128-.28-.204-.586-.357Z"/></svg>
+</a>
+
+<!--include:nav-drawer-->
+
+<!--include:cart-drawer-->
+
+<script src="/js/utils.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/producto.js"></script>
+</body>
+</html>

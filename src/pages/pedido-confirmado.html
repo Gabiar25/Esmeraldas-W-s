@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>Pedido — Esmeraldas W&S</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div class="page-loader" id="pageLoader" aria-hidden="true">
+  <img src="/assets/logo/loader-icon.png" alt="" width="130">
+</div>
+<script>
+(function () {
+  var el = document.getElementById("pageLoader");
+  var alreadyShown = true;
+  try {
+    alreadyShown = sessionStorage.getItem("loaderShown") === "1";
+    sessionStorage.setItem("loaderShown", "1");
+  } catch (e) {
+    alreadyShown = false;
+  }
+  if (alreadyShown) {
+    if (el) el.remove();
+    return;
+  }
+  var shownAt = Date.now();
+  var MIN_MS = 500;
+  var MAX_MS = 4000;
+  function hideLoader() {
+    if (!el || el.dataset.hidden) return;
+    el.dataset.hidden = "1";
+    el.classList.add("is-hidden");
+    setTimeout(function () { el.remove(); }, 500);
+  }
+  function scheduleHide() {
+    setTimeout(hideLoader, Math.max(0, MIN_MS - (Date.now() - shownAt)));
+  }
+  if (document.readyState === "complete") scheduleHide();
+  else window.addEventListener("load", scheduleHide);
+  setTimeout(hideLoader, MAX_MS);
+})();
+</script>
+
+<!--include:header-minimal-->
+
+<main class="container">
+  <div id="confirmRoot" class="confirm-box">
+    <p class="loading-state">Confirmando tu pedido…</p>
+  </div>
+</main>
+
+<!--include:footer-minimal-->
+
+<!--include:cart-drawer-->
+
+<script src="/js/utils.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/confirmacion.js"></script>
+</body>
+</html>
