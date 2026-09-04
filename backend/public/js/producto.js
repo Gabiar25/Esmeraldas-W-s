@@ -1,7 +1,5 @@
 // Logica de la pagina de detalle de producto.
 
-const CAT_LABELS_P = { collares: "Dije + Cadena", aretes: "Aretes", sets: "Cadena + Dije + Aretes" };
-
 function relatedCard(p) {
   const soldOut = p.stock < 1;
   return `
@@ -66,7 +64,7 @@ async function initProducto() {
       ${product.images.map((_, i) => `<button class="${i === 0 ? "active" : ""}" data-index="${i}" aria-label="Ir a la foto ${i + 1}"></button>`).join("")}
     </div>
     <div class="product-info">
-      <p class="eyebrow">${CAT_LABELS_P[product.category] || ""}</p>
+      <p class="eyebrow">${CATEGORY_CARD_LABELS[product.category] || ""}</p>
       <h1>${product.name}</h1>
       <p class="product-info__price">${formatPrice(product.price)}</p>
       <p class="product-info__desc">${product.description}</p>

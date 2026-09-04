@@ -1,5 +1,12 @@
 // Utilidades compartidas por todas las paginas.
 
+// Nombre simple de cada categoria (titulo de pagina, filtros) y la
+// etiqueta descriptiva que se muestra en tarjetas/fichas de producto.
+// Unico lugar donde viven -- antes estaban repetidas en catalogo.js,
+// producto.js e index.html, y se desincronizaban al cambiar una sola.
+const CATEGORY_NAMES = { collares: "Collares", aretes: "Aretes", sets: "Sets" };
+const CATEGORY_CARD_LABELS = { collares: "Dije + Cadena", aretes: "Aretes", sets: "Cadena + Dije + Aretes" };
+
 const COP = new Intl.NumberFormat("es-CO", {
   style: "currency",
   currency: "COP",

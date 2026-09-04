@@ -1,8 +1,5 @@
 // Logica de la pagina de catalogo: filtros por categoria, orden y grid.
 
-const CAT_LABELS = { collares: "Collares", aretes: "Aretes", sets: "Sets" };
-const CAT_CARD_LABEL = { collares: "Dije + Cadena", aretes: "Aretes", sets: "Cadena + Dije + Aretes" };
-
 function renderProductCard(p) {
   const soldOut = p.stock < 1;
   return `
@@ -15,7 +12,7 @@ function renderProductCard(p) {
       ${soldOut ? '<span class="badge badge-sold">Agotado</span>' : ""}
     </div>
     <div class="product-card__info">
-      <p class="product-card__cat">${CAT_CARD_LABEL[p.category] || ""}</p>
+      <p class="product-card__cat">${CATEGORY_CARD_LABELS[p.category] || ""}</p>
       <h3 class="product-card__name"><a class="product-card__link" href="/producto.html?id=${p.id}">${p.name}</a></h3>
       <p class="product-card__price">${formatPrice(p.price)}</p>
       ${!soldOut ? `<div class="quick-add"><button class="btn btn-block btn-cart" data-quick-add="${p.id}">Agregar al carrito</button></div>` : ""}
@@ -46,7 +43,7 @@ async function initCatalogo() {
     qsa(".filter-chip").forEach((chip) => {
       chip.classList.toggle("active", chip.dataset.cat === state.cat);
     });
-    qs("#pageTitle").textContent = state.cat ? CAT_LABELS[state.cat] || "Todas las piezas" : "Todas las piezas";
+    qs("#pageTitle").textContent = state.cat ? CATEGORY_NAMES[state.cat] || "Todas las piezas" : "Todas las piezas";
   }
 
   function render() {
