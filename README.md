@@ -8,7 +8,11 @@ Sitio de comercio electrónico para Esmeraldas W&S: catálogo de 17 piezas artes
 PAGINA WEB JOYERIA/
 ├── Joyeria-Willi/          Fotos originales (sin tocar, no se usan en el sitio)
 ├── scripts/
-│   └── optimize_images.py Script que generó las fotos optimizadas (ya se ejecutó)
+│   ├── optimize_images.py Script que generó las fotos optimizadas (ya se ejecutó)
+│   └── build.js            Genera backend/public/*.html a partir de src/ (ver mas abajo)
+├── src/                     Fuente de las paginas HTML (editar aca, NO en backend/public/*.html)
+│   ├── partials/            Header, footer, menu movil y carrito -- una sola vez cada uno
+│   └── pages/                Contenido propio de cada pagina, con <!--include:nombre--> donde va cada partial
 └── backend/                 La aplicación (backend + frontend)
     ├── server.js            Servidor Express
     ├── package.json
@@ -34,6 +38,20 @@ npm start
 ```
 
 Abre **http://localhost:3000** en el navegador.
+
+### Editar el HTML: header, footer, menú y carrito viven en `src/`
+
+`index.html`, `catalogo.html`, `producto.html`, etc. dentro de `backend/public/` **se generan solos** —
+no los edites directamente ahí, los pisa el siguiente build. El header, el footer, el menú móvil y el
+carrito lateral están una sola vez en `src/partials/` (antes estaban copiados y pegados en 6 archivos,
+lo que causaba bugs cuando un cambio se hacía en uno y se olvidaba replicar en los demás). El contenido
+propio de cada página vive en `src/pages/`, con un comentario `<!--include:nombre-->` donde va cada partial.
+
+Para editar:
+1. Cambiá el archivo correspondiente en `src/partials/` (compartido) o `src/pages/` (de una sola página).
+2. Corré `npm run build` desde `backend/` (o simplemente `npm start`, que lo corre solo antes de arrancar).
+
+`admin.html` y `404.html` quedan afuera de este sistema — son páginas independientes sin header/footer real.
 
 ## Base de datos (pedidos y stock)
 
