@@ -1,11 +1,9 @@
-// Genera backend/public/meta-catalog-feed.csv: el feed de productos que se
-// conecta en Meta Commerce Manager para el catalogo de anuncios (carrusel /
-// dinamicos) y para que el Pixel (ver server.js) pueda enriquecer eventos
-// como ViewContent con datos del catalogo.
-// Usa el stock real de la base de datos (igual que la API /api/products),
-// no solo el valor semilla de products.json, para que "availability"
-// refleje lo que el cliente ve en la pagina.
-// Correr de nuevo cada vez que cambien productos, precios, fotos o stock:
+// Genera una copia local de backend/public/meta-catalog-feed.csv.
+// Ya NO hace falta correrlo para que el feed funcione: server.js sirve
+// /meta-catalog-feed.csv al vuelo con el stock real de la base de datos en
+// cada pedido (ver backend/services/metaFeed.js). Este script queda solo
+// como utilidad para inspeccionar el CSV en local o subirlo a mano si
+// alguna vez hace falta el metodo de "subir archivo" en vez de URL.
 // Uso: node scripts/generate_meta_feed.js
 const fs = require("fs");
 const path = require("path");
@@ -29,41 +27,12 @@ if (fs.existsSync(envPath)) {
 }
 
 const store = require(path.join(ROOT, "backend", "services", "store"));
-const SITE = "https://www.joyeriaws.com";
-const BRAND = "Esmeraldas W&S";
-
-function csvField(value) {
-  const str = String(value ?? "");
-  if (/[",\n]/.test(str)) return `"${str.replace(/"/g, '""')}"`;
-  return str;
-}
+const { buildFeedCsv } = require(path.join(ROOT, "backend", "services", "metaFeed"));
 
 async function main() {
   const products = await store.getProducts();
-
-  const header = [
-    "id", "title", "description", "availability", "condition",
-    "price", "link", "image_link", "additional_image_link", "brand",
-  ];
-
-  const rows = products.map((p) => {
-    const images = p.images.map((img) => `${SITE}/assets/images/${p.id}/${img}-full.jpg`);
-    return [
-      p.id,
-      p.name,
-      p.description,
-      p.stock > 0 ? "in stock" : "out of stock",
-      "new",
-      `${p.price} COP`,
-      `${SITE}/producto.html?id=${p.id}`,
-      images[0],
-      images.slice(1).join(","),
-      BRAND,
-    ].map(csvField).join(",");
-  });
-
-  const csv = [header.join(","), ...rows].join("\n") + "\n";
-  const dest = path.join(ROOT, "backend", "public", "meta-catalog-feed.csv");
+  const csv = buildFeedCsv(products);
+  const dest = path.join(ROOT, "backend", "meta-catalog-feed.local.csv");
   fs.writeFileSync(dest, csv);
   console.log(`Listo: ${products.length} productos -> ${dest}`);
   process.exit(0);

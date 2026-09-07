@@ -11,3 +11,7 @@ backend/.env
 # Archivos temporales del sistema
 .DS_Store
 Thumbs.db
+
+# Copia local opcional del feed de Meta (el feed real se sirve al vuelo
+# desde server.js, ver scripts/generate_meta_feed.js)
+backend/meta-catalog-feed.local.csv

@@ -8,6 +8,7 @@ const wompi = require("./services/wompi");
 const db = require("./services/db");
 const store = require("./services/store");
 const shipping = require("./services/shipping");
+const { buildFeedCsv } = require("./services/metaFeed");
 
 const productsRouter = require("./routes/products");
 const ordersRouter = require("./routes/orders");
@@ -141,6 +142,22 @@ app.get("/producto.html", apiLimiter, async (req, res, next) => {
 
     res.set("Content-Type", "text/html; charset=utf-8");
     res.send(html);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Feed del catalogo para Meta Commerce Manager: se arma al vuelo en cada
+// pedido (no es un archivo estatico) para que "availability" siempre
+// refleje el stock real de la base de datos. Meta vuelve a pedir esta URL
+// solo (cada 30 min - 24h segun como se configure la actualizacion en
+// Commerce Manager), asi que no hace falta correr nada a mano ni programar
+// un cron aparte.
+app.get("/meta-catalog-feed.csv", apiLimiter, async (req, res, next) => {
+  try {
+    const products = await store.getProducts();
+    res.set("Content-Type", "text/csv; charset=utf-8");
+    res.send(buildFeedCsv(products));
   } catch (err) {
     next(err);
   }
