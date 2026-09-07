@@ -13,21 +13,21 @@ DEST_ROOT = os.path.join(ROOT, "backend", "public", "assets", "images")
 # slug -> lista de archivos fuente en el orden deseado (portada primero)
 PRODUCTS = {
     "collar-1": ("Collar #1", ["imginicio.jpeg", "DSC00832.JPEG", "DSC00836.JPEG", "DSC00837.JPEG", "DSC00840.JPEG"]),
-    "collar-2": ("Collar #2", ["imginicio.png", "DSC00860.JPEG", "DSC00863.JPEG", "DSC00864.JPEG", "DSC00866.JPEG"]),
-    "collar-3": ("Collar #3", ["imginicio.png", "DSC00899.JPEG", "DSC00901.JPEG", "DSC00905.JPEG"]),
+    "collar-2": ("Collar #2", ["imginicio.png", "DSC01442.JPG", "DSC00860.JPEG", "DSC00863.JPEG", "DSC00864.JPEG", "DSC00866.JPEG"]),
+    "collar-3": ("Collar #3", ["imginicio.png", "DSC01447.JPG", "DSC00899.JPEG", "DSC00901.JPEG", "DSC00905.JPEG"]),
     "collar-4": ("Collar #4", ["imginicio.png", "DSC00869.JPEG", "DSC00874.JPEG", "DSC00876.JPEG"]),
     "collar-5": ("Collar #5", ["imginicio.png", "DSC00787.JPEG", "DSC00797.JPEG", "DSC00813.JPEG"]),
     "collar-6": ("Collar #6", ["imginicio.png", "DSC00911.JPEG", "DSC00914.JPEG", "DSC00919.JPEG"]),
-    "collar-7": ("Collar #7", ["imginicio.png", "DSC00882.JPEG", "DSC00884.JPEG", "DSC00888.JPEG", "DSC00891.JPEG"]),
+    "collar-7": ("Collar #7", ["imginicio.png", "DSC01472.JPG", "DSC00882.JPEG", "DSC00884.JPEG", "DSC00888.JPEG", "DSC00891.JPEG"]),
     "collar-8": ("Collar #8", ["imginicio.jpeg", "DSC00848.JPEG", "DSC00854.JPEG", "DSC00858.JPEG", "DSC00859.JPEG"]),
     "collar-9": ("Collar #9", ["imginicio.png", "DSC00920.JPEG", "DSC00924.JPEG", "DSC00926.JPEG", "DSC00928.JPEG"]),
     "collar-10": ("Collar #10", ["imginicio.jpeg", "DSC01032.JPEG", "DSC01035.JPEG", "DSC01039.JPEG", "DSC01040.JPEG"]),
     "collar-11": ("Collar #11", ["imginicio.jpeg", "DSC01050.JPEG", "DSC01054.JPEG", "DSC01056.JPEG", "DSC01060.JPEG"]),
-    "aretes-talla-5": ("Aretes Talla 5", ["imginicio.jpeg", "DSC00788.JPEG", "DSC00794.JPEG", "DSC00810.JPEG"]),
+    "aretes-talla-5": ("Aretes Talla 5", ["imginicio.jpeg", "DSC01471.JPG", "DSC00788.JPEG", "DSC00794.JPEG", "DSC00810.JPEG"]),
     "set-1": ("Set #1", ["imginico.jpeg", "DSC00977.JPEG", "DSC00982.JPEG", "DSC00987.JPEG", "DSC00992.JPEG", "DSC00974.JPEG", "DSC00985.JPEG", "DSC00991.JPEG"]),
-    "set-2": ("Set #2", ["imginico.jpg", "DSC01000.JPEG", "DSC01005.JPEG", "DSC01009.JPEG", "DSC01001.JPEG", "DSC00995.JPEG", "DSC01004.JPEG", "DSC01011.JPEG"]),
+    "set-2": ("Set #2", ["imginico.jpg", "DSC01458.JPG", "DSC01461.JPG", "DSC01000.JPEG", "DSC01005.JPEG", "DSC01009.JPEG", "DSC01001.JPEG", "DSC00995.JPEG", "DSC01004.JPEG", "DSC01011.JPEG"]),
     "set-3": ("Set #3", ["imginicio.jpg", "DSC00936.JPEG", "DSC00941.JPEG", "DSC00948.JPEG", "DSC00949.JPEG", "DSC00937.JPEG", "DSC00944.JPEG", "DSC00947.JPEG"]),
-    "set-4": ("Set #4", ["imginicio.jpeg", "DSC01017.JPEG", "DSC01019.JPEG", "DSC01024.JPEG", "DSC01029.JPEG", "DSC01014.JPEG", "DSC01025.JPEG", "DSC01027.JPEG"]),
+    "set-4": ("Set #4", ["imginicio.jpeg", "DSC01535.JPG", "DSC01557.JPG", "DSC01017.JPEG", "DSC01019.JPEG", "DSC01024.JPEG", "DSC01029.JPEG", "DSC01014.JPEG", "DSC01025.JPEG", "DSC01027.JPEG"]),
     "set-5": ("Set #5", ["imginicio.jpg", "DSC00957.JPEG", "DSC00961.JPEG", "DSC00967.JPEG", "DSC00973.JPEG", "DSC00968.JPEG", "DSC00970.JPEG"]),
 }
 
