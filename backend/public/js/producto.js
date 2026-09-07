@@ -141,14 +141,35 @@ async function initProducto() {
   });
 
   const track = qs("#galleryMain");
+  const mainFrame = qs(".gallery__main-frame");
   const slides = qsa(".gallery__slide", track);
   const thumbButtons = qsa(".gallery__thumbs button");
   const dotButtons = qsa(".gallery__dots button");
 
+  // El marco toma la proporcion real de la foto que se esta viendo, en vez
+  // de forzar todo a un cuadrado -- asi ni se recorta (object-fit:cover)
+  // ni queda con bordes vacios (object-fit:contain en un cuadro que no le
+  // queda a la foto). Fotos cuadradas -> marco cuadrado; panoramicas ->
+  // marco panoramico, sin perder nada de la imagen en ningun caso.
+  function applyFrameRatio(index) {
+    const img = slides[index]?.querySelector("img");
+    if (!img || !mainFrame) return;
+    const setRatio = () => {
+      if (img.naturalWidth && img.naturalHeight) {
+        mainFrame.style.aspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`;
+      }
+    };
+    if (img.complete) setRatio();
+    else img.addEventListener("load", setRatio, { once: true });
+  }
+
   function setActiveSlide(index) {
     thumbButtons.forEach((b) => b.classList.toggle("active", Number(b.dataset.index) === index));
     dotButtons.forEach((b) => b.classList.toggle("active", Number(b.dataset.index) === index));
+    applyFrameRatio(index);
   }
+
+  applyFrameRatio(0);
 
   function goToSlide(index) {
     slides[index]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
