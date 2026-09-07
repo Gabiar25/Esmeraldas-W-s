@@ -1089,11 +1089,10 @@ h1, h2, h3, h4 {
 .gallery__main-frame {
   flex: 1;
   min-width: 0;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
   border: 1px solid var(--color-line);
   border-radius: 8px;
-  transition: aspect-ratio 0.25s ease;
 }
 
 .gallery__main {

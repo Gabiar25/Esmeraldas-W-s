@@ -141,35 +141,14 @@ async function initProducto() {
   });
 
   const track = qs("#galleryMain");
-  const mainFrame = qs(".gallery__main-frame");
   const slides = qsa(".gallery__slide", track);
   const thumbButtons = qsa(".gallery__thumbs button");
   const dotButtons = qsa(".gallery__dots button");
-
-  // El marco toma UNA sola proporcion fija para toda la galeria del
-  // producto (no una por foto individual -- eso hacia que el marco
-  // cambiara de forma feo al deslizar entre fotos, ya que dentro de un
-  // mismo producto la portada a veces tiene una proporcion distinta al
-  // resto del set). Se basa en la segunda foto si existe (el set
-  // "normal" del producto), o en la primera si es la unica que hay.
-  function applyGalleryRatio() {
-    const referenceImg = slides[1]?.querySelector("img") || slides[0]?.querySelector("img");
-    if (!referenceImg || !mainFrame) return;
-    const setRatio = () => {
-      if (referenceImg.naturalWidth && referenceImg.naturalHeight) {
-        mainFrame.style.aspectRatio = `${referenceImg.naturalWidth} / ${referenceImg.naturalHeight}`;
-      }
-    };
-    if (referenceImg.complete) setRatio();
-    else referenceImg.addEventListener("load", setRatio, { once: true });
-  }
 
   function setActiveSlide(index) {
     thumbButtons.forEach((b) => b.classList.toggle("active", Number(b.dataset.index) === index));
     dotButtons.forEach((b) => b.classList.toggle("active", Number(b.dataset.index) === index));
   }
-
-  applyGalleryRatio();
 
   function goToSlide(index) {
     slides[index]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
