@@ -146,30 +146,30 @@ async function initProducto() {
   const thumbButtons = qsa(".gallery__thumbs button");
   const dotButtons = qsa(".gallery__dots button");
 
-  // El marco toma la proporcion real de la foto que se esta viendo, en vez
-  // de forzar todo a un cuadrado -- asi ni se recorta (object-fit:cover)
-  // ni queda con bordes vacios (object-fit:contain en un cuadro que no le
-  // queda a la foto). Fotos cuadradas -> marco cuadrado; panoramicas ->
-  // marco panoramico, sin perder nada de la imagen en ningun caso.
-  function applyFrameRatio(index) {
-    const img = slides[index]?.querySelector("img");
-    if (!img || !mainFrame) return;
+  // El marco toma UNA sola proporcion fija para toda la galeria del
+  // producto (no una por foto individual -- eso hacia que el marco
+  // cambiara de forma feo al deslizar entre fotos, ya que dentro de un
+  // mismo producto la portada a veces tiene una proporcion distinta al
+  // resto del set). Se basa en la segunda foto si existe (el set
+  // "normal" del producto), o en la primera si es la unica que hay.
+  function applyGalleryRatio() {
+    const referenceImg = slides[1]?.querySelector("img") || slides[0]?.querySelector("img");
+    if (!referenceImg || !mainFrame) return;
     const setRatio = () => {
-      if (img.naturalWidth && img.naturalHeight) {
-        mainFrame.style.aspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`;
+      if (referenceImg.naturalWidth && referenceImg.naturalHeight) {
+        mainFrame.style.aspectRatio = `${referenceImg.naturalWidth} / ${referenceImg.naturalHeight}`;
       }
     };
-    if (img.complete) setRatio();
-    else img.addEventListener("load", setRatio, { once: true });
+    if (referenceImg.complete) setRatio();
+    else referenceImg.addEventListener("load", setRatio, { once: true });
   }
 
   function setActiveSlide(index) {
     thumbButtons.forEach((b) => b.classList.toggle("active", Number(b.dataset.index) === index));
     dotButtons.forEach((b) => b.classList.toggle("active", Number(b.dataset.index) === index));
-    applyFrameRatio(index);
   }
 
-  applyFrameRatio(0);
+  applyGalleryRatio();
 
   function goToSlide(index) {
     slides[index]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
