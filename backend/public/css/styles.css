@@ -1043,65 +1043,20 @@ h1, h2, h3, h4 {
 
 .gallery {
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 0.75rem;
   /* Sin esto, el grid de .product-detail estira .gallery a la altura de
-     .product-info; como .gallery__main tiene aspect-ratio:1/1, esa altura
-     "prestada" termina agrandando también su ancho — y como el ancho de
-     product-info depende de cuánto ancho le quede al lado, entra en un
-     ciclo: al cambiar de pestaña (más texto en Cuidados que en Descripción)
-     la imagen se veía más grande. align-self:start hace que la galería
-     tome su propio alto, sin depender del texto de al lado.
-     align-items:flex-start evita el mismo problema pero adentro de la
-     galeria: con muchas miniaturas (productos con 8-10 fotos), esa
-     columna es mas alta que el marco 3:2, y sin esto flex estiraba el
-     marco para igualar esa altura, dejando bordes vacios arriba/abajo. */
+     .product-info; al cambiar de pestaña (más texto en Cuidados que en
+     Descripción) la imagen se veía más grande. align-self:start hace
+     que la galería tome su propio alto, sin depender del texto de al
+     lado. */
   align-self: start;
-}
-
-.gallery__thumbs-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 76px;
-  flex-shrink: 0;
 }
 
 .gallery__thumbs {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 0.6rem;
-  overflow: hidden;
-  /* Sin esto, un producto con muchas fotos (8-10) hace una columna de
-     miniaturas larguísima que empuja el resto de la pagina hacia abajo.
-     Se corta en 4 y .gallery__thumbs-toggle destapa el resto. */
-  max-height: calc(76px * 4 + 0.6rem * 3);
-}
-
-.gallery__thumbs.is-expanded {
-  max-height: none;
-}
-
-.gallery__thumbs-toggle {
-  flex-shrink: 0;
-  width: 76px;
-  height: 28px;
-  border: 1px solid var(--color-line);
-  background: var(--color-surface);
-  color: var(--color-ink-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.gallery__thumbs-toggle svg {
-  width: 16px;
-  height: 16px;
-  transition: transform 0.2s ease;
-}
-
-.gallery__thumbs-toggle[aria-expanded="true"] svg {
-  transform: rotate(180deg);
 }
 
 .gallery__thumbs button {
@@ -1130,56 +1085,10 @@ h1, h2, h3, h4 {
    border-radius puesto directo en un elemento con overflow-x:auto. */
 .gallery__main-frame {
   position: relative;
-  flex: 1;
-  min-width: 0;
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border: 1px solid var(--color-line);
   border-radius: 8px;
-}
-
-/* Flechas para pasar de foto: ocultas en escritorio (ahi se usan las
-   miniaturas), visibles en movil/tablet como en el ejemplo de Fenomena,
-   ya que ahi no hay miniaturas y el swipe no siempre es obvio. */
-.gallery__nav {
-  display: none;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--color-ink);
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-  box-shadow: 0 2px 8px rgba(28, 26, 23, 0.2);
-}
-
-.gallery__nav svg {
-  width: 20px;
-  height: 20px;
-}
-
-.gallery__nav:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
-
-.gallery__nav--prev {
-  left: 0.6rem;
-}
-
-.gallery__nav--next {
-  right: 0.6rem;
-}
-
-@media (max-width: 900px) {
-  .gallery__nav {
-    display: flex;
-  }
 }
 
 .gallery__main {
@@ -1211,6 +1120,15 @@ h1, h2, h3, h4 {
   object-fit: contain;
 }
 
+/* La portada a veces viene en una proporcion distinta al resto del set
+   (4:3 en vez de 3:2) y con "contain" quedaba con bordes a los lados.
+   Como es la unica foto con ese problema en la mayoria de los
+   productos, se recorta un poco (como el resto del sitio) en vez de
+   dejarle espacio vacio. */
+.gallery__slide:first-child img {
+  object-fit: cover;
+}
+
 .gallery__dots {
   display: none;
   justify-content: center;
@@ -1232,7 +1150,7 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 900px) {
-  .gallery__thumbs-col {
+  .gallery__thumbs {
     display: none;
   }
   .gallery__dots {

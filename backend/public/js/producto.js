@@ -39,24 +39,6 @@ async function initProducto() {
   root.innerHTML = `
   <div class="product-detail">
     <div class="gallery">
-      <div class="gallery__thumbs-col">
-        <div class="gallery__thumbs" id="galleryThumbs">
-          ${product.images
-            .map(
-              (img, i) => `<button class="${i === 0 ? "active" : ""}" data-index="${i}" aria-label="Ver foto ${i + 1}">
-                <img src="${productImage(product, img)}" alt="${product.name} vista ${i + 1}">
-              </button>`
-            )
-            .join("")}
-        </div>
-        ${
-          product.images.length > 4
-            ? `<button type="button" class="gallery__thumbs-toggle" id="thumbsToggle" aria-expanded="false" aria-label="Ver más fotos">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" /></svg>
-              </button>`
-            : ""
-        }
-      </div>
       <div class="gallery__main-frame">
         <div id="galleryMain" class="gallery__main">
           ${product.images
@@ -67,16 +49,15 @@ async function initProducto() {
             )
             .join("")}
         </div>
-        ${
-          product.images.length > 1
-            ? `<button type="button" class="gallery__nav gallery__nav--prev" id="galleryPrev" aria-label="Foto anterior">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" /></svg>
-              </button>
-              <button type="button" class="gallery__nav gallery__nav--next" id="galleryNext" aria-label="Foto siguiente">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" /></svg>
-              </button>`
-            : ""
-        }
+      </div>
+      <div class="gallery__thumbs" id="galleryThumbs">
+        ${product.images
+          .map(
+            (img, i) => `<button class="${i === 0 ? "active" : ""}" data-index="${i}" aria-label="Ver foto ${i + 1}">
+              <img src="${productImage(product, img)}" alt="${product.name} vista ${i + 1}">
+            </button>`
+          )
+          .join("")}
       </div>
     </div>
     <div class="gallery__dots">
@@ -163,20 +144,10 @@ async function initProducto() {
   const slides = qsa(".gallery__slide", track);
   const thumbButtons = qsa(".gallery__thumbs button");
   const dotButtons = qsa(".gallery__dots button");
-  const prevBtn = qs("#galleryPrev");
-  const nextBtn = qs("#galleryNext");
-  let currentIndex = 0;
-
-  function updateNavButtons() {
-    if (prevBtn) prevBtn.disabled = currentIndex === 0;
-    if (nextBtn) nextBtn.disabled = currentIndex === slides.length - 1;
-  }
 
   function setActiveSlide(index) {
-    currentIndex = index;
     thumbButtons.forEach((b) => b.classList.toggle("active", Number(b.dataset.index) === index));
     dotButtons.forEach((b) => b.classList.toggle("active", Number(b.dataset.index) === index));
-    updateNavButtons();
   }
 
   function goToSlide(index) {
@@ -185,18 +156,6 @@ async function initProducto() {
 
   [...thumbButtons, ...dotButtons].forEach((btn) => {
     btn.addEventListener("click", () => goToSlide(Number(btn.dataset.index)));
-  });
-
-  prevBtn?.addEventListener("click", () => goToSlide(Math.max(0, currentIndex - 1)));
-  nextBtn?.addEventListener("click", () => goToSlide(Math.min(slides.length - 1, currentIndex + 1)));
-  updateNavButtons();
-
-  // En escritorio, con mas de 4 fotos, la columna de miniaturas se corta
-  // en 4 y este boton despliega el resto (en vez de una barra larga de
-  // miniaturas que empuja todo hacia abajo).
-  qs("#thumbsToggle")?.addEventListener("click", (e) => {
-    const expanded = qs("#galleryThumbs").classList.toggle("is-expanded");
-    e.currentTarget.setAttribute("aria-expanded", String(expanded));
   });
 
   if (slides.length > 1) {
