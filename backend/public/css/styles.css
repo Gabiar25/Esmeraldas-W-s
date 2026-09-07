@@ -1121,7 +1121,7 @@ h1, h2, h3, h4 {
 .gallery__slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .gallery__dots {
