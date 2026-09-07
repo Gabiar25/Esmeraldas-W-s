@@ -15,6 +15,37 @@ const COD_INFO = {
   msg: "Tu pedido quedó registrado para pago contra entrega. Te contactaremos por WhatsApp para coordinar la entrega y el pago.",
 };
 
+// Evento Purchase del Pixel de Meta. Se protege con sessionStorage porque
+// esta pagina se puede recargar (F5) despues de una compra ya confirmada
+// y no queremos contar la misma compra dos veces en Meta.
+const TRACKED_PURCHASES_KEY = "esmeraldas_ws_tracked_purchases";
+
+function trackPurchaseOnce(order) {
+  const confirmed = order.paymentMethod === "cod" || order.status === "APPROVED";
+  if (!window.fbq || !confirmed) return;
+  let tracked = [];
+  try {
+    tracked = JSON.parse(sessionStorage.getItem(TRACKED_PURCHASES_KEY) || "[]");
+  } catch {
+    tracked = [];
+  }
+  if (tracked.includes(order.id)) return;
+
+  fbq("track", "Purchase", {
+    content_ids: order.items.map((it) => it.productId),
+    content_type: "product",
+    value: order.total,
+    currency: "COP",
+    num_items: order.items.reduce((sum, it) => sum + it.qty, 0),
+  });
+
+  try {
+    sessionStorage.setItem(TRACKED_PURCHASES_KEY, JSON.stringify([...tracked, order.id]));
+  } catch {
+    /* si sessionStorage no esta disponible, el evento ya se mando; solo no queda el guardado anti-duplicado */
+  }
+}
+
 function renderOrder(order) {
   const info = order.paymentMethod === "cod" ? COD_INFO : STATUS_INFO[order.status] || STATUS_INFO.PENDING;
   const pickupNote =
@@ -65,6 +96,7 @@ async function initConfirmacion() {
       if (!res.ok) throw new Error(order.error || "Pedido no encontrado");
     }
     renderOrder(order);
+    trackPurchaseOnce(order);
     // El carrito se vacía aquí (y no antes de mandar al cliente a pagar) para
     // que si abandona el pago de Wompi y no vuelve, no pierda lo que tenía
     // en el carrito.

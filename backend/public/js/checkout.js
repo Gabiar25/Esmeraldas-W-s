@@ -299,11 +299,27 @@ function updateCodAvailability() {
   }
 }
 
+// Evento InitiateCheckout del Pixel de Meta: se dispara una sola vez al
+// entrar a la pagina de checkout, con los productos y el subtotal reales
+// del carrito (ya resueltos por getCartDetailed contra la API).
+function trackInitiateCheckout(detailed) {
+  if (!window.fbq || detailed.length === 0) return;
+  const subtotal = detailed.reduce((sum, { product, qty }) => sum + product.price * qty, 0);
+  fbq("track", "InitiateCheckout", {
+    content_ids: detailed.map(({ product }) => product.id),
+    content_type: "product",
+    value: subtotal,
+    currency: "COP",
+    num_items: detailed.reduce((sum, { qty }) => sum + qty, 0),
+  });
+}
+
 async function initCheckout() {
   restoreSavedInfo();
   await loadShippingZones();
-  await renderSummary();
+  const detailed = await renderSummary();
   updateShippingUI();
+  trackInitiateCheckout(detailed);
 
   updateCodAvailability();
 

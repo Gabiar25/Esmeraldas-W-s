@@ -24,6 +24,29 @@ function addToCart(productId, qty = 1) {
   if (line) line.qty += qty;
   else cart.push({ productId, qty });
   saveCart(cart);
+  trackAddToCart(productId, qty);
+}
+
+// Evento AddToCart del Pixel de Meta, centralizado aca porque los tres
+// puntos donde se agrega al carrito (ficha de producto, quick-add del
+// catalogo, quick-add del index) llaman todos a addToCart(). Se resuelve
+// el producto contra la cache de fetchProducts (ya cargada en esas
+// paginas), asi que normalmente no dispara una peticion nueva.
+async function trackAddToCart(productId, qty) {
+  if (!window.fbq) return;
+  try {
+    const product = await fetchProduct(productId);
+    if (!product) return;
+    fbq("track", "AddToCart", {
+      content_ids: [product.id],
+      content_type: "product",
+      content_name: product.name,
+      value: product.price * qty,
+      currency: "COP",
+    });
+  } catch {
+    /* si falla la resolucion del producto, simplemente no se manda el evento */
+  }
 }
 
 function setCartQty(productId, qty) {

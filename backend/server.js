@@ -118,7 +118,25 @@ app.get("/producto.html", apiLimiter, async (req, res, next) => {
           itemCondition: "https://schema.org/NewCondition",
         },
       };
-      html = html.replace("</head>", `<script type="application/ld+json">${JSON.stringify(schema)}</script>\n</head>`);
+      // ViewContent del Pixel de Meta: se manda server-side (no por JS del
+      // navegador) para que quede registrado desde el primer instante,
+      // usando siempre el producto real que se pidio -- content_id
+      // coincide con el id del feed del catalogo (ver
+      // scripts/generate_meta_feed.js), asi Meta puede enriquecer el
+      // evento y usarlo para retargeting/reportes por pieza.
+      const viewContentEvent = {
+        content_ids: [product.id],
+        content_type: "product",
+        content_name: product.name,
+        value: product.price,
+        currency: "COP",
+      };
+      const pixelScript = `<script>window.fbq && fbq('track','ViewContent',${JSON.stringify(viewContentEvent)});</script>`;
+
+      html = html.replace(
+        "</head>",
+        `<script type="application/ld+json">${JSON.stringify(schema)}</script>\n${pixelScript}\n</head>`
+      );
     }
 
     res.set("Content-Type", "text/html; charset=utf-8");
