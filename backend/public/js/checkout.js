@@ -389,7 +389,7 @@ async function initCheckout() {
       }
 
       if (!data.payment.available) {
-        qs("#formMsg").innerHTML = `Tu pedido <strong>${data.order.id}</strong> quedó registrado. Los pagos en línea aún no están activados: escríbenos por <a href="https://wa.me/573006911778?text=${encodeURIComponent("Hola, quiero completar mi pedido " + data.order.id)}" target="_blank" rel="noopener">WhatsApp</a> para coordinar el pago.`;
+        qs("#formMsg").innerHTML = `Tu pedido <strong>${data.order.id}</strong> quedó registrado. Los pagos en línea aún no están activados: escríbenos por <a href="https://wa.me/573208130979?text=${encodeURIComponent("Hola, quiero completar mi pedido " + data.order.id)}" target="_blank" rel="noopener">WhatsApp</a> para coordinar el pago.`;
         qs("#formMsg").className = "form-msg";
         payBtn.disabled = false;
         payBtn.textContent = currentPayBtnLabel();

@@ -76,7 +76,7 @@ async function initProducto() {
           ? `<button class="btn btn-block" disabled>Agotado</button>
         <div class="soldout-cta">
           <p>Esta pieza ya se vendió — al ser hecha a mano, no volvemos a fabricar una idéntica. Pero si te gustó este diseño, podemos elaborarte una similar bajo pedido y cotizarte el precio.</p>
-          <a class="btn btn-outline btn-block" href="https://wa.me/573006911778?text=${encodeURIComponent(`Hola, me gustaría cotizar una pieza similar a "${product.name}" que vi en la página`)}" target="_blank" rel="noopener">Cotizar pieza similar por WhatsApp</a>
+          <a class="btn btn-outline btn-block" href="https://wa.me/573208130979?text=${encodeURIComponent(`Hola, me gustaría cotizar una pieza similar a "${product.name}" que vi en la página`)}" target="_blank" rel="noopener">Cotizar pieza similar por WhatsApp</a>
         </div>`
           : `
         <div class="qty-row">
