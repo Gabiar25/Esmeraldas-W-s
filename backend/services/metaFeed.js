@@ -45,8 +45,21 @@ function interleaveByCategory(products) {
   return result;
 }
 
+// Piezas que se quieren destacar primero en el feed (pedido explicito del
+// dueño para las primeras posiciones del anuncio); el resto sigue en el
+// orden intercalado por categoria de interleaveByCategory.
+const FEATURED_FIRST = ["collar-2", "aretes-talla-5", "set-2", "set-4", "collar-3", "collar-7"];
+
+function orderForFeed(products) {
+  const byId = new Map(products.map((p) => [p.id, p]));
+  const featured = FEATURED_FIRST.map((id) => byId.get(id)).filter(Boolean);
+  const featuredIds = new Set(featured.map((p) => p.id));
+  const rest = interleaveByCategory(products.filter((p) => !featuredIds.has(p.id)));
+  return [...featured, ...rest];
+}
+
 function buildFeedCsv(products) {
-  const rows = interleaveByCategory(products).map((p) => {
+  const rows = orderForFeed(products).map((p) => {
     const images = p.images.map((img) => `${SITE_URL}/assets/images/${p.id}/${img}-full.jpg`);
     return [
       p.id,
