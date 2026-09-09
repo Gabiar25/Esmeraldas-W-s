@@ -67,7 +67,10 @@ function productImage(product, index, size = "card") {
 // cobra (product.price) nunca cambia, en ningun lado.
 function offerCompareAtPrice(product) {
   if (product.category !== "collares") return null;
-  return Math.round((product.price * 1.25) / 1000) * 1000;
+  // Redondea a la decena de mil mas cercana y termina en 9.900, para que
+  // el precio "antes" se vea con el mismo estilo que los precios reales
+  // del sitio (ej: 349.900, 369.900).
+  return Math.round((product.price * 1.25) / 10000) * 10000 - 100;
 }
 
 function priceBlockHtml(product) {
