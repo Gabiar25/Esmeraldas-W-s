@@ -979,6 +979,31 @@ h1, h2, h3, h4 {
   background: var(--color-danger);
 }
 
+.badge.badge-offer {
+  background: var(--color-accent-dark);
+}
+
+.price-was {
+  text-decoration: line-through;
+  color: var(--color-ink-soft);
+  font-weight: 400;
+  font-size: 0.85em;
+  margin-right: 0.45em;
+}
+
+.offer-tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.6rem;
+  padding: 0.15rem 0.5rem;
+  background: var(--color-accent-dark);
+  color: var(--color-bg);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 3px;
+}
+
 .quick-add {
   margin-top: 0.45rem;
 }

@@ -60,6 +60,26 @@ function productImage(product, index, size = "card") {
   return `/assets/images/${product.id}/${index}-${size}.jpg`;
 }
 
+// Gancho de "oferta" para la categoria collares: como las piezas son
+// unicas (no hay reposicion), no existe un precio "antes" real -- es solo
+// un precio de referencia tachado, mas alto, que se muestra junto al
+// precio de siempre para dar sensacion de descuento. El precio que se
+// cobra (product.price) nunca cambia, en ningun lado.
+function offerCompareAtPrice(product) {
+  if (product.category !== "collares") return null;
+  return Math.round((product.price * 1.25) / 1000) * 1000;
+}
+
+function priceBlockHtml(product) {
+  const compareAt = offerCompareAtPrice(product);
+  if (!compareAt) return formatPrice(product.price);
+  return `<span class="price-was">${formatPrice(compareAt)}</span>${formatPrice(product.price)}`;
+}
+
+function offerBadgeHtml(product) {
+  return offerCompareAtPrice(product) ? '<span class="badge badge-offer">¡Oferta!</span>' : "";
+}
+
 function showToast(message) {
   let toast = qs(".toast");
   if (!toast) {

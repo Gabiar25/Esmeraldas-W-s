@@ -9,12 +9,12 @@ function renderProductCard(p) {
         <img class="img-main" src="${productImage(p, 1)}" alt="${p.name}" loading="lazy">
         ${p.images.length > 1 ? `<img class="img-alt" src="${productImage(p, 2)}" alt="" loading="lazy">` : ""}
       </a>
-      ${soldOut ? '<span class="badge badge-sold">Agotado</span>' : ""}
+      ${soldOut ? '<span class="badge badge-sold">Agotado</span>' : offerBadgeHtml(p)}
     </div>
     <div class="product-card__info">
       <p class="product-card__cat">${CATEGORY_CARD_LABELS[p.category] || ""}</p>
       <h3 class="product-card__name"><a class="product-card__link" href="/producto.html?id=${p.id}">${p.name}</a></h3>
-      <p class="product-card__price">${formatPrice(p.price)}</p>
+      <p class="product-card__price">${priceBlockHtml(p)}</p>
       ${!soldOut ? `<div class="quick-add"><button class="btn btn-block btn-cart" data-quick-add="${p.id}">Agregar al carrito</button></div>` : ""}
     </div>
   </article>`;

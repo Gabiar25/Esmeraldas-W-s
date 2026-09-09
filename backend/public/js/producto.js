@@ -7,12 +7,12 @@ function relatedCard(p) {
     <a class="product-card__link" href="/producto.html?id=${p.id}">
       <div class="product-card__media">
         <img class="img-main" src="${productImage(p, 1)}" alt="${p.name}" loading="lazy">
-        ${soldOut ? '<span class="badge badge-sold">Agotado</span>' : ""}
+        ${soldOut ? '<span class="badge badge-sold">Agotado</span>' : offerBadgeHtml(p)}
       </div>
     </a>
     <div class="product-card__info">
       <h3 class="product-card__name"><a class="product-card__link" href="/producto.html?id=${p.id}">${p.name}</a></h3>
-      <p class="product-card__price">${formatPrice(p.price)}</p>
+      <p class="product-card__price">${priceBlockHtml(p)}</p>
     </div>
   </article>`;
 }
@@ -66,7 +66,7 @@ async function initProducto() {
     <div class="product-info">
       <p class="eyebrow">${CATEGORY_CARD_LABELS[product.category] || ""}</p>
       <h1>${product.name}</h1>
-      <p class="product-info__price">${formatPrice(product.price)}</p>
+      <p class="product-info__price">${priceBlockHtml(product)}${offerBadgeHtml(product) ? '<span class="offer-tag">¡Oferta!</span>' : ""}</p>
       <p class="product-info__desc">${product.description}</p>
       <p class="stock-note ${soldOut ? "out-stock" : "in-stock"}">
         ${soldOut ? "Esta pieza ya no está disponible" : "Pieza única disponible — 1 unidad en existencia"}
